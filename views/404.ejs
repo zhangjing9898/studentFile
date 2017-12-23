@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/404.css" />
+		<script src="../index.js"></script>
+	</head>
+
+	<body>
+    	<% include header.ejs%>
+		<div class="Error-content">
+			<div class="lost-task-area">
+				<p>找不到该任务</p>
+				<h2>You look lost</h2>
+				<button class="back-button">
+					<a href="http://127.0.0.1:3000/">回到首页</a>
+				</button>
+			</div>
+			<footer class="404-footer">
+				<p class="pull-right">
+					<a href="#top">回到顶部</a>
+				</p>
+				<p class="pull-left">&copy; 学生档案管理系统</p>
+			</footer>
+			<!--<div class="bg-video">-->
+				<video autoplay="autoplay" loop="loop" muted="muted">
+					<source src="video/404.mp4"></source>
+					<source src="http://wearespry.com/wp-content/themes/sprynew/library/video/404.ogv" type='video/ogg' />
+					<source src="http://wearespry.com/wp-content/themes/sprynew/library/video/404.webm" type="video/webm" />
+				</video>
+			<!--</div>-->
+		</div>
+
+	</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Register</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="css/index.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/form-elements.css" />
+	</head>
+	<body style="height: 875px;">
+    <% include header.ejs%>
+		<!-- Top content -->
+		<div class="top-content">
+			<div class="inner-bg">
+				<div class="container">
+					<div class="row login-title">
+						<div class="col-sm-8 col-sm-offset-2 text">
+							<h1><strong>学生档案管理系统    </strong>注册页面</h1>
+							<div class="description">
+								<p>
+									这是基于用户端的注册页面
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6 col-sm-offset-3 form-box">
+							<div class="form-top">
+								<div class="form-top-left">
+									<h3>注册</h3>
+									<p>请输入您的用户名和密码注册</p>
+								</div>
+								<div class="form-top-right">
+									<i class="fa fa-key"></i>
+								</div>
+							</div>
+							<div class="form-bottom">
+								<form role="form" action="" method="post" class="login-form">
+									<div class="form-group">
+										<label class="sr-only" for="form-username">用户名</label>
+										<input type="text" id="dengluming" name="form-username" placeholder="请输入用户名..." class="form-username form-control" id="form-username">
+									</div>
+									<div class="form-group">
+										<label class="sr-only"  for="form-password">密码</label>
+										<input type="password" id="mima" name="form-password" placeholder="请输入您的密码..." class="form-password form-control" id="form-password">
+									</div>
+									<button id="zhuce"  type="button" class="btn">注册</button>
+									<div class="alert alert-danger" role="alert" id="cuowukuang" style="display: none">
+										用户名被占用，请更换
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container summary">
+				<footer>
+					<p class="pull-right">
+						<a href="#top">回到顶部</a>
+					</p>
+					<p class="pull-left">&copy; 学生档案管理系统</p>
+				</footer>
+			</div>
+		</div>
+		<script type="text/javascript" src="/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript">
+            $("input").focus(function(){
+                $("#cuowukuang").fadeOut();
+            });
+            //用ajax提交表单
+            $("#zhuce").click(function(){
+                $.get("/doregist",{
+                    "dengluming" : $("#dengluming").val(),
+                    "mima" : $("#mima").val()
+                },function(result){
+                    if(result == "1"){
+                        alert("注册成功！将自动跳转到首页");
+                        window.location = "/";
+                    }else if(result == "-1"){
+                        //用户名被占用
+                        $("#cuowukuang").fadeIn();
+                        $("#cuowukuang").html("用户名被占用啊！");
+                    }else if(result == "-3"){
+                        $("#cuowukuang").fadeIn();
+                        $("#cuowukuang").html("注册失败！");
+                    }
+                })
+            });
+		</script>
+			
+	</body>
+
+</html>

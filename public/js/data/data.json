@@ -1,0 +1,80 @@
+
+[
+    {
+        "dataNum": "1",
+        "dataTitle": "Do作品文档",
+        "dataForm": "Word",
+        "upDate": "2017-5-23",
+        "endDate": "2018-1-1",
+        "downloadNum": "123",
+        "category": "教育",
+        "option": "下载",
+        "optionPath": "http://127.0.0.1:3000/download/Do.docx"
+    },
+    {
+        "dataNum": "2",
+        "dataTitle": "学生安全守则",
+        "dataForm": "Word",
+        "upDate": "2017-1-23",
+        "endDate": "2020-1-1",
+        "downloadNum": "33",
+        "category": "教育",
+        "option": "下载",
+        "optionPath": "http://127.0.0.1:3000/download/Student safety code.docx"
+    },
+    {
+        "dataNum": "3",
+        "dataTitle": "班级实训学生名单",
+        "dataForm": "Excel",
+        "upDate": "2017-9-23",
+        "endDate": "2027-12-28",
+        "downloadNum": "13",
+        "category": "班级",
+        "option": "下载",
+        "optionPath": "http://127.0.0.1:3000/download/studenttable.xlsx"
+    },
+    {
+        "dataNum": "4",
+        "dataTitle": "helloworld源码",
+        "dataForm": "Zip",
+        "upDate": "2016-10-1",
+        "endDate": "2017-12-28",
+        "downloadNum": "211",
+        "category": "源码",
+        "option": "下载",
+        "optionPath": "http://127.0.0.1:3000/download/helloworld.zip"
+    },
+    {
+        "dataNum": "5",
+        "dataTitle": "宋民国表情包",
+        "dataForm": "JPG",
+        "upDate": "2016-12-29",
+        "endDate": "2017-12-28",
+        "downloadNum": "12",
+        "category": "图片",
+        "option": "查看",
+        "optionPath": "http://127.0.0.1:3000/download/PIC1.JPG"
+    },
+    {
+        "dataNum": "6",
+        "dataTitle": "学生校外实习申请表",
+        "dataForm": "Word",
+        "upDate": "2017-10-9",
+        "endDate": "2019-1-2",
+        "downloadNum": "300",
+        "category": "文档",
+        "option": "下载",
+        "optionPath": "http://127.0.0.1:3000/download/学生校外实习申请表.doc"
+    },
+    {
+        "dataNum": "7",
+        "dataTitle": "第7章单元练习题",
+        "dataForm": "pdf",
+        "upDate": "2017-4-1",
+        "endDate": "2019-4-1",
+        "downloadNum": "3",
+        "category": "高数",
+        "option": "查看",
+        "optionPath": "http://127.0.0.1:3000/download/第7章 单元练习题.pdf"
+    }
+]

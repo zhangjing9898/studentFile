@@ -1,0 +1,30 @@
+#footer-container {
+    background-color: #000;
+    color: #fff;
+}
+#footer-container h3 {
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding-bottom: 0px;
+    color: #EEE;
+}
+#footer-container li a {
+    color: #fff;
+    line-break: strict;
+}
+#footer-container ul {
+    list-style: none;
+    padding-left: 0;
+}
+#footer-container .copyright {
+    padding-bottom: 1em;
+    text-align: center;
+}
+#footer-container-area{
+    margin: 0 auto;
+}
+#footer-container-area div{
+    width: 25%;
+    float: left;
+}

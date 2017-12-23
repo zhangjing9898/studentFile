@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/htmleaf-demo.css">
+    <link rel="stylesheet" href="css/manageStyle.css">
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js" ></script>
+    <script type="text/javascript" src="js/bootstrap.min.js" ></script>
+    <script src="/js/underscore-noflect.js"></script>
+</head>
+
+<body>
+<div id="wrapper">
+    <div class="overlay"></div>
+    <!-- Sidebar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+        <ul class="nav sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    <img src="img/userIcon.png" />
+                    <span>管理员：  <%= username %></span>
+                </a>
+            </li>
+            <!--<li>-->
+                <!--<a href="#"><i class="fa fa-fw fa-home"></i> 管理员信息</a>-->
+            <!--</li>-->
+            <li id="notion-message-btn">
+                <a href="#">
+                    <span>系统通知</span>
+                </a>
+            </li>
+            <li id="teacher-manager-btn">
+                <a href="#"><i class="fa fa-fw fa-file-o"></i>课程记录</a>
+            </li>
+            <li id="lesson-manage-btn">
+                <a href="#"><i class="fa fa-fw fa-cog"></i>课程添加</a>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-plus"></i>资料上传<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li class="dropdown-header"></li>
+                    <li>
+                        <a href="#">图片上传</a>
+                    </li>
+                    <li>
+                        <a href="#">Word文件上传</a>
+                    </li>
+                    <li>
+                        <a href="#">Excel文件上传</a>
+                    </li>
+                    <li>
+                        <a href="#">Powerpoint文件上传</a>
+                    </li>
+                    <li>
+                        <a href="#">压缩包上传</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div id="page-content-wrapper">
+        <button type="button" class="hamburger is-closed animated fadeInLeft" data-toggle="offcanvas">
+            <span class="hamb-top"></span>
+            <span class="hamb-middle"></span>
+            <span class="hamb-bottom"></span>
+        </button>
+        <div class="container">
+            <div id="lesson-manage" style="display: none;">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">教师名称</label>
+                        <input type="text" class="form-control" id="teacher_name" placeholder="Teacher Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">课程名称</label>
+                        <input type="text" class="form-control" id="lesson_name" placeholder="Lesson Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">课程简介</label>
+                        <input type="text" class="form-control" id="lesson_detail" placeholder="Lesson Detail">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">课程难度</label>
+                        <input type="text" class="form-control" id="lesson_level" placeholder="Lesson Level">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">课程学习人数</label>
+                        <input type="text" class="form-control" id="student_number" placeholder="Student Number">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">课程视频链接</label>
+                        <input type="text" class="form-control" id="lesson_url" placeholder="Lesson_url">
+                    </div>
+                    <!--<div class="form-group">-->
+                        <!--<label for="exampleInputFile">视频上传</label>-->
+                        <!--<input type="file">-->
+                        <!--<p class="help-block">所录制的视频在这里上传</p>-->
+                    <!--</div>-->
+                    <button type="submit" id="manageSubmitBtn" class="btn btn-primary">提交</button>
+                </form>
+
+            </div>
+            <div id="indexArea">
+                <div class="jumbotron">
+                    <h1>欢迎进入后台管理页面！</h1>
+                    <p>welcome to manager page</p>
+                    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+                </div>
+            </div>
+            <div id="resource-upload" style="display: none;">
+                <form  action="/upImg" method="post" enctype="multipart/form-data" >
+                    <div class="form-group">
+                        <label for="username">上传资料</label>
+                        <input type="file" class="form-control" id="touxiang" name="touxiang">
+                    </div>
+                    <button type="submit" class="btn btn-primary" >上传</button>
+                </form>
+                <h3>历史资料记录</h3>
+                <table class="table table-bordered" id="referenceArea">
+                    <tr>
+                        <th>账号</th>
+                        <th>编号</th>
+                        <th>标题</th>
+                        <th>格式</th>
+                        <th>上传时间</th>
+                        <th>截止日期</th>
+                        <th>下载数</th>
+                        <th>类别</th>
+                    </tr>
+                </table>
+            </div>
+            <div id="notion-message" style="display: none;">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">系统消息</label>
+                        <input type="text" class="form-control" id="notionContent" placeholder="Information">
+                    </div>
+                    <button type="submit"  class="btn btn-primary" id="notionSubmit">提交</button>
+                    <div class="alert alert-success" role="alert" id="cuowukuang" style="display: none">
+                        提交成功！
+                    </div>
+                </form>
+                <h3>系统消息记录</h3>
+                <table class="table table-bordered" id="informArea">
+                    <tr>
+                        <th>ID</th>
+                        <th>登录名</th>
+                        <th>消息内容</th>
+                    </tr>
+                </table>
+            </div>
+            <div id="teacher-manager" style="display: none;" >
+                <form>
+                    <h3>课程记录</h3>
+                    <table class="table table-bordered" id="lessonArea">
+                        <tr>
+                            <th>账号</th>
+                            <th>课程图片</th>
+                            <th>课程标题</th>
+                            <th>课程简介</th>
+                            <th>课程水平</th>
+                            <th>听课人数</th>
+                            <th>课程地址</th>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--前端模板-->
+<script type="text/template" id="informTemplate">
+    <tr>
+        <td>{{=_id}}</td>
+        <td>{{=dengluming}}</td>
+        <td>{{=content}}</td>
+    </tr>
+</script>
+<!--前端模板-->
+<script type="text/template" id="lessonTemplate">
+    <tr>
+        <!--<td>{{=_id}}</td>-->
+        <td>{{=dengluming}}</td>
+        <td>{{=lessonImg}}</td>
+        <td>{{=lessonTitle}}</td>
+        <td>{{=lessonDetail}}</td>
+        <td>{{=lessonLevel}}</td>
+        <td>{{=lessonPopulation}}</td>
+        <td>{{=lessonPath}}</td>
+    </tr>
+</script>
+<!--前端模板-->
+<script type="text/template" id="referenceTemplate">
+    <tr>
+        <td>{{=dengluming}}</td>
+        <td>{{=dataNum}}</td>
+        <td>{{=dataTitle}}</td>
+        <td>{{=dataForm}}</td>
+        <td>{{=upDate}}</td>
+        <td>{{=endDate}}</td>
+        <td>{{=downloadNum}}</td>
+        <td>{{=category}}</td>
+    </tr>
+</script>
+<script type="text/javascript">
+    var $informArea=$("#informArea");
+    //得到模板函数
+    var compiled=_.template($("#informTemplate").html());
+
+    //ajax服务，获取信息
+    $.ajax({
+        "url":"/showInform",
+        "type":"get",
+        "success":function (result) {
+            //result是一个数组
+//                console.log(Array.isArray(result));
+//				console.log(result);
+            iterator(0);
+            //迭代器
+            //这里防止ajax异步，必须使用迭代器
+            function iterator(i) {
+                if (i == result.length) {
+                    //在这里书写请求完毕之后做的事情
+                    return;  //不用继续迭代了
+                }
+                console.log(result[i]);
+                //组装模板
+                var htmlstring = compiled(result[i]);
+                //添加DOM
+                $("#informArea").append($(htmlstring));
+                iterator(i + 1);
+            }
+        }
+    })
+
+    //课程
+    var $lessonArea=$("#lessonArea");
+    //得到模板函数
+    var compiledL=_.template($("#lessonTemplate").html());
+
+
+    $.ajax({
+        "url":"/showLesson",
+        "type":"get",
+        "success":function (result) {
+            //result是一个数组
+//                console.log(Array.isArray(result));
+            console.log(result);
+            iterator(0);
+            //迭代器
+            //这里防止ajax异步，必须使用迭代器
+            function iterator(i) {
+                if (i == result.length) {
+                    //在这里书写请求完毕之后做的事情
+                    return;  //不用继续迭代了
+                }
+                console.log(result[i]);
+                //组装模板
+                var htmlstring = compiledL(result[i]);
+                //添加DOM
+                $("#lessonArea").append($(htmlstring));
+                iterator(i + 1);
+            }
+        }
+    })
+
+    //资料表格
+    var $referenceArea=$("#referenceArea");
+    //得到模板函数
+    var compiledR=_.template($("#referenceTemplate").html());
+
+
+    $.ajax({
+        "url":"/showRefresh",
+        "type":"get",
+        "success":function (result) {
+            //result是一个数组
+//                console.log(Array.isArray(result));
+            console.log(result);
+            iterator(0);
+            //迭代器
+            //这里防止ajax异步，必须使用迭代器
+            function iterator(i) {
+                if (i == result.length) {
+                    //在这里书写请求完毕之后做的事情
+                    return;  //不用继续迭代了
+                }
+                console.log(result[i]);
+                //组装模板
+                var htmlstring = compiledR(result[i]);
+                //添加DOM
+                $("#referenceArea").append($(htmlstring));
+                iterator(i + 1);
+            }
+        }
+    })
+    $(document).ready(function() {
+        var trigger = $('.hamburger'),
+            overlay = $('.overlay'),
+            isClosed = false;
+
+        trigger.click(function() {
+            hamburger_cross();
+        });
+        function hamburger_cross() {
+            if(isClosed == true) {
+                overlay.hide();
+                trigger.removeClass('is-open');
+                trigger.addClass('is-closed');
+                isClosed = false;
+            } else {
+                overlay.show();
+                trigger.removeClass('is-closed');
+                trigger.addClass('is-open');
+                isClosed = true;
+            }
+        }
+        $("#referenceBtn").click(function () {
+            alert($("#touxiang").val()) ;
+        })
+        $('[data-toggle="offcanvas"]').click(function() {
+            $('#wrapper').toggleClass('toggled');
+        });
+        $('#lesson-manage-btn').click(function(){
+            $("#lesson-manage").show();
+            $("#lesson-manage").siblings().hide();
+        });
+        $('.dropdown li').click(function(){
+            $('#resource-upload').show();
+            $("#resource-upload").siblings().hide();
+//            $("#sidebar-wrapper").hide();
+        });
+        $('#notion-message-btn').click(function(){
+            $("#notion-message").show();
+            $('#notion-message').siblings().hide();
+//            $("#sidebar-wrapper").hide();
+        });
+        $("#teacher-manager-btn").click(function () {
+            $("#teacher-manager").show();
+            $("#teacher-manager").siblings().hide();
+        })
+
+        //获取val
+        $("#manageSubmitBtn").click(function () {
+            console.log("提交！");
+            $.get("/updataLesson",{
+                "dengluming":$("#teacher_name").val(),
+                "lessonTitle":$("#lesson_name").val(),
+                "lessonDetail":$("#lesson_detail").val(),
+                "lessonLevel":$("#lesson_level").val(),
+                "lessonPopulation":$("#student_number").val(),
+                "lessonPath":$("#lesson_url").val()
+            },function (result) {
+                if(result=="1"){
+                    alert("提交成功！，将自动跳转到首页");
+//                    window.location = "/";
+                }else{
+                    alert("提交失败！，将自动跳转到首页");
+//                    window.location = "/";
+                }
+            })
+        });
+
+        //上传通知
+        $("#notionSubmit").click(function () {
+            console.log("提交通知");
+            $.get("/addNotion",{
+                "notionContent":$("#notionContent").val(),
+            },function (result) {
+                console.log(result);
+                if(result=="1"){
+                    $("#cuowukuang").fadeIn();
+//                    window.location = "/";
+                }else{
+                    $("#cuowukuang").fadeIn();
+                    $("#cuowukuang").html("提交失败");
+//                    window.location = "/";
+                }
+            })
+        });
+        //$(selector).get(url,data,success(response,status,xhr),dataType)
+        //jQuery.post(url,data,success(data, textStatus, jqXHR),dataType)
+
+    });
+</script>
+</body>
+
+</html>
