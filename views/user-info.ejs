@@ -24,14 +24,14 @@
 						<a href="/">主页</a>
 					</li>
 					<li className="active">
-						<a href="#">个人信息</a>
+						<a href="#">档案登记</a>
 					</li>
 				</ol>
 			</div>
 			<div class="message-detail-area">
 				<ul class="nav nav-tabs">
 					<li role="presentation" class="active">
-						<a href="#tab1" data-toggle="tab">个人信息
+						<a href="#tab1" data-toggle="tab">档案登记
 						</a>
 					</li>
 				</ul>
@@ -67,9 +67,27 @@
 		</div>
 		<script type="text/template" id="moban">
 			<div class="form-group">
+				<label for="input" class="col-sm-2 control-label">姓名</label>
+				<div class="col-sm-10">
+					<input id="teacherId" type="text" class="form-control"  value="{{=reallyName}}" placeholder="请输入您的真实姓名">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input" class="col-sm-2 control-label">性别</label>
+				<div class="col-sm-10">
+					<input id="sex" type="text" class="form-control"  value="{{=sex}}" placeholder="请输入您的性别">
+				</div>
+			</div>
+			<div class="form-group">
 				<label for="input" class="col-sm-2 control-label">学号</label>
 				<div class="col-sm-10">
-					<input id="teacherId" type="text" class="form-control"  value="{{=teacherId}}" placeholder="请输入您的教师工号">
+					<input id="teacherId" type="text" class="form-control"  value="{{=teacherId}}" placeholder="请输入您的学号">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="input" class="col-sm-2 control-label">身份证号</label>
+				<div class="col-sm-10">
+					<input id="teacherId" type="text" class="form-control"  value="{{=IDnumber}}" placeholder="请输入您的身份证号">
 				</div>
 			</div>
 			<div class="form-group">
@@ -88,12 +106,6 @@
 				<label for="input" class="col-sm-2 control-label">联系电话</label>
 				<div class="col-sm-10">
 					<input id="telNum" type="text" class="form-control"  value="{{=telNum}}" placeholder="请输入您的联系电话">
-				</div>
-			</div>
-			<div class="form-group">
-				<label for="input" class="col-sm-2 control-label">性别</label>
-				<div class="col-sm-10">
-					<input id="sex" type="text" class="form-control"  value="{{=sex}}" placeholder="请输入您的性别">
 				</div>
 			</div>
 			<div class="form-group">

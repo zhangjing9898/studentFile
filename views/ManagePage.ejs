@@ -34,31 +34,10 @@
                 </a>
             </li>
             <li id="teacher-manager-btn">
-                <a href="#"><i class="fa fa-fw fa-file-o"></i>课程记录</a>
+                <a href="#"><i class="fa fa-fw fa-file-o"></i>档案详情</a>
             </li>
             <li id="lesson-manage-btn">
-                <a href="#"><i class="fa fa-fw fa-cog"></i>课程添加</a>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-plus"></i>资料上传<span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li class="dropdown-header"></li>
-                    <li>
-                        <a href="#">图片上传</a>
-                    </li>
-                    <li>
-                        <a href="#">Word文件上传</a>
-                    </li>
-                    <li>
-                        <a href="#">Excel文件上传</a>
-                    </li>
-                    <li>
-                        <a href="#">Powerpoint文件上传</a>
-                    </li>
-                    <li>
-                        <a href="#">压缩包上传</a>
-                    </li>
-                </ul>
+                <a href="#"><i class="fa fa-fw fa-cog"></i>注册用户</a>
             </li>
         </ul>
     </nav>
@@ -70,39 +49,13 @@
         </button>
         <div class="container">
             <div id="lesson-manage" style="display: none;">
-                <form>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">教师名称</label>
-                        <input type="text" class="form-control" id="teacher_name" placeholder="Teacher Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">课程名称</label>
-                        <input type="text" class="form-control" id="lesson_name" placeholder="Lesson Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">课程简介</label>
-                        <input type="text" class="form-control" id="lesson_detail" placeholder="Lesson Detail">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">课程难度</label>
-                        <input type="text" class="form-control" id="lesson_level" placeholder="Lesson Level">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">课程学习人数</label>
-                        <input type="text" class="form-control" id="student_number" placeholder="Student Number">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">课程视频链接</label>
-                        <input type="text" class="form-control" id="lesson_url" placeholder="Lesson_url">
-                    </div>
-                    <!--<div class="form-group">-->
-                        <!--<label for="exampleInputFile">视频上传</label>-->
-                        <!--<input type="file">-->
-                        <!--<p class="help-block">所录制的视频在这里上传</p>-->
-                    <!--</div>-->
-                    <button type="submit" id="manageSubmitBtn" class="btn btn-primary">提交</button>
-                </form>
-
+                <h3>注册用户详情</h3>
+                <table class="table table-bordered" id="referenceArea">
+                    <tr>
+                        <th>序号</th>
+                        <th>账号名</th>
+                    </tr>
+                </table>
             </div>
             <div id="indexArea">
                 <div class="jumbotron">
@@ -110,28 +63,6 @@
                     <p>welcome to manager page</p>
                     <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
                 </div>
-            </div>
-            <div id="resource-upload" style="display: none;">
-                <form  action="/upImg" method="post" enctype="multipart/form-data" >
-                    <div class="form-group">
-                        <label for="username">上传资料</label>
-                        <input type="file" class="form-control" id="touxiang" name="touxiang">
-                    </div>
-                    <button type="submit" class="btn btn-primary" >上传</button>
-                </form>
-                <h3>历史资料记录</h3>
-                <table class="table table-bordered" id="referenceArea">
-                    <tr>
-                        <th>账号</th>
-                        <th>编号</th>
-                        <th>标题</th>
-                        <th>格式</th>
-                        <th>上传时间</th>
-                        <th>截止日期</th>
-                        <th>下载数</th>
-                        <th>类别</th>
-                    </tr>
-                </table>
             </div>
             <div id="notion-message" style="display: none;">
                 <form>
@@ -155,16 +86,20 @@
             </div>
             <div id="teacher-manager" style="display: none;" >
                 <form>
-                    <h3>课程记录</h3>
+                    <h3>档案详情</h3>
                     <table class="table table-bordered" id="lessonArea">
                         <tr>
                             <th>账号</th>
-                            <th>课程图片</th>
-                            <th>课程标题</th>
-                            <th>课程简介</th>
-                            <th>课程水平</th>
-                            <th>听课人数</th>
-                            <th>课程地址</th>
+                            <th>名字</th>
+                            <th>学号</th>
+                            <th>学校名称</th>
+                            <th>联系电话</th>
+                            <th>性别</th>
+                            <th>所在班级</th>
+                            <th>入学年份</th>
+                            <th>政治面貌</th>
+                            <th>家庭情况</th>
+                            <th>获奖情况</th>
                         </tr>
                     </table>
                 </form>
@@ -186,25 +121,23 @@
     <tr>
         <!--<td>{{=_id}}</td>-->
         <td>{{=dengluming}}</td>
-        <td>{{=lessonImg}}</td>
-        <td>{{=lessonTitle}}</td>
-        <td>{{=lessonDetail}}</td>
-        <td>{{=lessonLevel}}</td>
-        <td>{{=lessonPopulation}}</td>
-        <td>{{=lessonPath}}</td>
+        <td>{{=reallyName}}</td>
+        <td>{{=teacherId}}</td>
+        <td>{{=collegeName}}</td>
+        <td>{{=telNum}}</td>
+        <td>{{=sex}}</td>
+        <td>{{=lesson}}</td>
+        <td>{{=enterYear}}</td>
+        <td>{{=politicalStatus}}</td>
+        <td>{{=familyInfo}}</td>
+        <td>{{=awardInfo}}</td>
     </tr>
 </script>
 <!--前端模板-->
 <script type="text/template" id="referenceTemplate">
     <tr>
+        <td>{{=_id}}</td>
         <td>{{=dengluming}}</td>
-        <td>{{=dataNum}}</td>
-        <td>{{=dataTitle}}</td>
-        <td>{{=dataForm}}</td>
-        <td>{{=upDate}}</td>
-        <td>{{=endDate}}</td>
-        <td>{{=downloadNum}}</td>
-        <td>{{=category}}</td>
     </tr>
 </script>
 <script type="text/javascript">
@@ -290,7 +223,7 @@
                     //在这里书写请求完毕之后做的事情
                     return;  //不用继续迭代了
                 }
-                console.log(result[i]);
+                console.log("--------"+result[i]);
                 //组装模板
                 var htmlstring = compiledR(result[i]);
                 //添加DOM

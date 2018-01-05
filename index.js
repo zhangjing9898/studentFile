@@ -247,7 +247,7 @@ app.get("/showuserinfo",function (req,res,next) {
 //显示课程
 app.get("/showLesson",function (req,res,next) {
     var dengluming=req.session.username
-    db.find("lesson",{"dengluming":"123"},function (err,result) {
+    db.find("post",{"dengluming":"123"},function (err,result) {
         console.log(result);
         if(err || result.length == 0){
             res.json("");
@@ -342,7 +342,7 @@ app.get("/showInform",function (req,res,next) {
 
 //显示资料
 app.get("/showRefresh",function (req,res,next) {
-    db.find("reference",{"dengluming":"123"},function (err,result) {
+    db.find("users",{},function (err,result) {
         if(err || result.length == 0){
             res.json("");
             return;
