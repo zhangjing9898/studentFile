@@ -74,6 +74,7 @@
             //用ajax提交表单
             $("#zhuce").click(function(){
                 $.get("/doregist",{
+
                     "dengluming" : $("#dengluming").val(),
                     "mima" : $("#mima").val()
                 },function(result){

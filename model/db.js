@@ -106,3 +106,20 @@ exports.getAllCount = function (collectionName,callback) {
         });
     })
 }
+
+//自动递增函数
+function Ids(tablename, id) {
+    this.id = id;
+    this.tablename = tablename;
+}
+exports.auto_increment= Ids;
+Ids.getId = function (tablename, callback) {
+    db.open(function (err, db) {
+        db.collection('counters', function (err, collection) {
+            collection.findAndModify({"tablename":tablename}, [], {$inc:{'id':1}}, {new:true, upsert:true}, function (err, doc) {
+                db.close();
+                callback(doc.id);
+            });
+        });
+    });
+}

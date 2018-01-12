@@ -342,3 +342,53 @@ body a:hover {
 #indexArea .jumbotron {
   background-color: #cdc5d9;
 }
+.btn-success {
+  color: #fff;
+  background-color: #17a88b;
+  border-color: #17a88b;
+}
+.btn-success:hover {
+  color: #fff !important;
+  background-color: #149278 !important;
+  border-color: #149278 !important;
+}
+.btn-success .badge {
+  color: #17a88b;
+}
+.modal-content {
+  border-radius: 0;
+}
+.modal-header {
+  padding: 15px 20px;
+  border-bottom: none;
+}
+.modal-header .close {
+  outline: 0;
+}
+.modal-header .modal-title-login {
+  text-align: center;
+  font-size: 26px;
+  color: #000;
+}
+.modal-body {
+  padding: 20px;
+}
+.modal-body .form-horizontal .form-control-static {
+  color: black;
+}
+.form-group .control-label{
+  color: black;
+  font-weight: 500;
+  font-family: 微软雅黑;
+}
+.form-group .form-control {
+  box-shadow: none;
+  font-size: 14px;
+  border: 1px solid #e6e6e6;
+  padding-left: 12px !important;
+  border-radius: 100px !important;
+}
+.form-control.focus,
+.form-control:focus {
+  box-shadow: none;
+}

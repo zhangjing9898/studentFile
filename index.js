@@ -7,6 +7,7 @@ var path=require("path");
 var fs = require("fs");
 var md5=require("./model/md5");
 var sd = require("silly-datetime");
+var  ObjectId = require('mongodb').ObjectID;
 
 //使用session
 app.use(session({
@@ -19,6 +20,8 @@ app.set("view engine","ejs");
 
 app.use(express.static("./public"));
 app.use("/avatar",express.static("./avatar"));
+
+
 
 //显示首页
 app.get("/",function (req,res,next) {
@@ -76,6 +79,7 @@ app.get("/doregist",function(req,res,next){
 
         //现在可以证明，用户名没有被占用
         //把用户名和密码存入数据库
+
         db.insertOne("users",{
             "dengluming" : dengluming,
             "mima" : mima
@@ -236,7 +240,7 @@ app.get("/updata",function(req,res,next){
 app.get("/showuserinfo",function (req,res,next) {
     var dengluming=req.query.dengluming;
     db.find("post",{"dengluming":dengluming},function (err,result) {
-        console.log(result);
+        // console.log(result);
         if(err || result.length == 0){
             res.json("");
             return;
@@ -247,8 +251,8 @@ app.get("/showuserinfo",function (req,res,next) {
 //显示课程
 app.get("/showLesson",function (req,res,next) {
     var dengluming=req.session.username
-    db.find("post",{"dengluming":"123"},function (err,result) {
-        console.log(result);
+    db.find("post",{},function (err,result) {
+        // console.log(result);
         if(err || result.length == 0){
             res.json("");
             return;
@@ -256,6 +260,18 @@ app.get("/showLesson",function (req,res,next) {
         res.json(result);
     })
 });
+
+//显示修改资料
+app.get("/showModal",function (req,res,next) {
+    var modalId=req.query.modalId;
+    db.find("post",{"_id":ObjectId(modalId)},function (err,result) {
+        if(err||result.length == 0){
+            res.json("");
+            return;
+        }
+        res.json(result);
+    })
+})
 
 //增加课程
 app.get("/updataLesson",function(req,res,next){
@@ -412,7 +428,7 @@ app.post("/upImg",function (req, res, next) {
     var form = new formidable.IncomingForm();
     form.uploadDir = path.normalize(__dirname + "/public/download");
     form.parse(req, function (err, fields, files) {
-        console.log(files);
+        // console.log(files);
         var ttt = sd.format(new Date(), 'YYYY-MM-DD');
         var ran = parseInt(Math.random() * 89999 + 10000);
         var oldpath = files.touxiang.path;
@@ -470,6 +486,19 @@ app.get("/updataRef",function (req,res,next) {
     });
 })
 
+//管理页面删除用户
+app.get("/deleteUser",function (req,res) {
+    //接收其他参数
+    var deleteid=req.query.deleteid;
+    //插入数据到DB中
+    db.deleteMany("users",{"_id" : ObjectId(deleteid)},function(err,result){
+            if(err){
+                res.send("-1");
+                return;
+            }
+            res.send("1"); //删除成功
+        })
+});
 
 //退出
 app.get("/exit",function (req,res) {
