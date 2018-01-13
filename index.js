@@ -199,10 +199,15 @@ app.get("/updata",function(req,res,next){
     var dengluming=req.query.dengluming
     var teacherId = req.query.teacherId;
     var collegeName = req.query.collegeName;
+    var politicalStatus=req.query.politicalStatus;
     var telNum = req.query.telNum;
     var sex = req.query.sex;
     var lesson = req.query.lesson;
-
+    var enterYear=req.query.enterYear;
+    var familyInfo=req.query.familyInfo;
+    var awardInfo=req.query.awardInfo;
+    var reallyName=req.query.reallyName;
+    var IDnumber=req.query.IDnumber;
     db.find("post",{"dengluming":dengluming},function (err,result) {
         if (result.length != 0) {
             //用户填写过一次，更改它的值
@@ -210,9 +215,16 @@ app.get("/updata",function(req,res,next){
                 $set: {
                     "teacherId" : teacherId,
                     "collegeName":collegeName,
+                    "politicalStatus":politicalStatus,
+                    "enterYear":enterYear,
                     "telNum":telNum,
                     "sex":sex,
-                    "lesson":lesson}
+                    "lesson":lesson,
+                    "familyInfo":familyInfo,
+                    "awardInfo":awardInfo,
+                    "reallyName":reallyName,
+                    "IDnumber":IDnumber
+                }
             }, function (err, results) {
                 res.send("1");//修改成功
 
@@ -220,12 +232,17 @@ app.get("/updata",function(req,res,next){
             return;
         };
         db.insertOne("post",{
-            "dengluming": dengluming,
             "teacherId" : teacherId,
             "collegeName":collegeName,
+            "politicalStatus":politicalStatus,
+            "enterYear":enterYear,
             "telNum":telNum,
             "sex":sex,
-            "lesson":lesson
+            "lesson":lesson,
+            "familyInfo":familyInfo,
+            "awardInfo":awardInfo,
+            "reallyName":reallyName,
+            "IDnumber":IDnumber
         },function(err,result){
             if(err){
                 res.send("-1");
@@ -498,6 +515,176 @@ app.get("/deleteUser",function (req,res) {
             }
             res.send("1"); //删除成功
         })
+});
+
+//显示成绩资料
+app.get("/showGrade",function (req,res,next) {
+    db.find("grade",{},function (err,result) {
+        if(err||result.length == 0){
+            res.json("");
+            return;
+        }
+        res.json(result);
+    })
+})
+
+//显示成绩修改资料
+app.get("/showGradeModal",function (req,res,next) {
+    var gradeModalId=req.query.gardeModalId;
+    db.find("grade",{"_id":ObjectId(gradeModalId)},function (err,result) {
+        if(err||result.length == 0){
+            res.json("");
+            return;
+        }
+        res.json(result);
+    })
+})
+
+//显示所有处分资料
+app.get("/showPunish",function (req,res,next) {
+    db.find("punish",{},function (err,result) {
+        if(err||result.length==0){
+            res.json("");
+            return;
+        }
+        res.json(result);
+    })
+})
+
+//显示处分修改资料
+app.get("/showPunishModal",function (req,res,next) {
+    var punishModalId=req.query.punishModalId;
+    db.find("punish",{"_id":ObjectId(punishModalId)},function (err,result) {
+        if(err||result.length == 0){
+            res.json("");
+            return;
+        }
+        res.json(result);
+    })
+});
+
+//提交成绩修改
+app.get("/updataGrade",function(req,res,next){
+    var _id=req.query._id;
+    var studentName=req.query.studentName;
+    var tableDate = req.query.tableDate;
+    var teacherName = req.query.teacherName;
+    var teacherNum=req.query.teacherNum;
+    var studyTime = req.query.studyTime;
+    var lessonCategory = req.query.lessonCategory;
+    var allTime = req.query.allTime;
+    db.find("grade",{"_id":ObjectId(_id)},function (err,result) {
+        if (result.length != 0) {
+            //用户填写过一次，更改它的值
+            db.updateMany("grade",{"_id":ObjectId(_id)}, {
+                $set: {
+                    "studentName" : studentName,
+                    "tableDate":tableDate,
+                    "teacherName":teacherName,
+                    "teacherNum":teacherNum,
+                    "studyTime":studyTime,
+                    "lessonCategory":lessonCategory,
+                    "allTime":allTime
+                }
+            }, function (err, results) {
+                res.send("1");//修改成功
+
+            });
+            return;
+        };
+       res.send("-1"); //错误！
+    });
+});
+
+//提交处分修改
+app.get("/updataPunish",function(req,res,next){
+    var _id=req.query._id;
+    var studentName=req.query.studentName;
+    var studentNumber = req.query.studentNumber;
+    var punishDate = req.query.punishDate;
+    var punishDetail=req.query.punishDetail;
+    var punishResult = req.query.punishResult;
+    db.find("punish",{"_id":ObjectId(_id)},function (err,result) {
+        if (result.length != 0) {
+            //用户填写过一次，更改它的值
+            db.updateMany("punish",{"_id":ObjectId(_id)}, {
+                $set: {
+                    "studentName" : studentName,
+                    "studentNumber":studentNumber,
+                    "punishDate":punishDate,
+                    "punishDetail":punishDetail,
+                    "punishResult":punishResult
+                }
+            }, function (err, results) {
+                res.send("1");//修改成功
+
+            });
+            return;
+        };
+        res.send("-1"); //错误！
+    });
+});
+
+//删除成绩
+app.get("/deleteGrade",function (req,res) {
+    //接收其他参数
+    var deleteid=req.query.deleteid;
+    //插入数据到DB中
+    db.deleteMany("grade",{"_id" : ObjectId(deleteid)},function(err,result){
+        if(err){
+            res.send("-1");
+            return;
+        }
+        res.send("1"); //删除成功
+    })
+});
+
+//新增成绩
+app.get("/addGrade",function(req,res,next){
+    var studentName=req.query.studentName;
+    var tableDate = req.query.tableDate;
+    var teacherName = req.query.teacherName;
+    var teacherNum=req.query.teacherNum;
+    var studyTime = req.query.studyTime;
+    var lessonCategory = req.query.lessonCategory;
+    var allTime = req.query.allTime;
+        db.insertOne("grade",{
+            "studentName" : studentName,
+            "tableDate":tableDate,
+            "teacherName":teacherName,
+            "teacherNum":teacherNum,
+            "studyTime":studyTime,
+            "lessonCategory":lessonCategory,
+            "allTime":allTime
+        },function(err,result){
+            if(err){
+                res.send("-1");
+                return;
+            }
+            res.send("1"); //更改成功
+        })
+});
+
+//新增处分
+app.get("/addPunish",function(req,res,next){
+    var studentName=req.query.studentName;
+    var studentNumber = req.query.studentNumber;
+    var punishDate = req.query.punishDate;
+    var punishDetail=req.query.punishDetail;
+    var punishResult = req.query.punishResult;
+    db.insertOne("punish",{
+        "studentName" : studentName,
+        "studentNumber":studentNumber,
+        "punishDate":punishDate,
+        "punishDetail":punishDetail,
+        "punishResult":punishResult
+    },function(err,result){
+        if(err){
+            res.send("-1");
+            return;
+        }
+        res.send("1"); //新增成功
+    })
 });
 
 //退出

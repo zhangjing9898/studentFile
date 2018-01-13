@@ -37,6 +37,12 @@
             <li id="lesson-manage-btn">
                 <a href="#"><i class="fa fa-fw fa-cog"></i>注册用户</a>
             </li>
+            <li id="grade-info-btn">
+                <a href="#">成绩记录</a>
+            </li>
+            <li id="punishment-btn">
+                <a href="#">处分记录</a>
+            </li>
         </ul>
     </nav>
     <div id="page-content-wrapper">
@@ -53,6 +59,42 @@
                         <th>序号</th>
                         <th>账号名</th>
                         <th>加密后密码</th>
+                        <th>操作</th>
+                    </tr>
+                </table>
+            </div>
+            <div id="grade-info" style="display: none;">
+                <h3>成绩记录详情</h3>
+                <button id="addGrade" type="submit" class="btn btn-danger scrollto" style="margin-bottom: 12px;margin-top: 5px"  data-toggle="modal"
+                        data-target="#addGrade-info">新增成绩
+                </button>
+                <table class="table table-bordered" id="gradeArea">
+                    <tr>
+                        <!--<th>ID</th>-->
+                        <th>学生名字</th>
+                        <th>学号</th>
+                        <th>考试日期</th>
+                        <th>科目老师</th>
+                        <th>科目</th>
+                        <th>答题时间</th>
+                        <th>分数</th>
+                        <th>操作</th>
+                    </tr>
+                </table>
+            </div>
+            <div id="punishment-info" style="display: none;">
+                <h3>处分记录详情</h3>
+                <button id="addPunish" type="submit" class="btn btn-danger scrollto" style="margin-bottom: 12px;margin-top: 5px"  data-toggle="modal"
+                        data-target="#addPunish-info">新增处分
+                </button>
+                <table class="table table-bordered" id="punishArea">
+                    <tr>
+                        <th>ID</th>
+                        <th>学生名字</th>
+                        <th>学号</th>
+                        <th>受处分日期</th>
+                        <th>违规详情</th>
+                        <th>处分结果</th>
                         <th>操作</th>
                     </tr>
                 </table>
@@ -98,12 +140,154 @@
                             <th>所在班级</th>
                             <th>入学年份</th>
                             <th>政治面貌</th>
-                            <th>家庭情况</th>
+                            <!--<th>家庭情况</th>-->
                             <th>获奖情况</th>
                             <th>操作</th>
                         </tr>
                     </table>
                 </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addGrade-info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title-login" id="myModalLabel">新增</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="get" action="" class="form-horizontal" id="myModalBody">
+                        <form method="get" action="" class="form-horizontal" id="myModalBody">
+                            <div class="form-group has-feedback">
+                                <label for="input" class="col-sm-2 control-label">姓名</label>
+                                <div class="col-sm-10">
+                                    <input id="studentName" type="text" class="form-control" value=""
+                                           placeholder="请输入您的真实姓名">
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label for="input" class="col-sm-2 control-label">学号</label>
+                                <div class="col-sm-10">
+                                    <input id="teacherNum" type="text" class="form-control" value=""
+                                           placeholder="请输入您的学号">
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label for="input" class="col-sm-2 control-label">考试日期</label>
+                                <div class="col-sm-10">
+                                    <input id="tableDate" type="text" class="form-control" value=""
+                                           placeholder="请输入考试日期">
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label for="input" class="col-sm-2 control-label">科目老师</label>
+                                <div class="col-sm-10">
+                                    <input id="teacherName" type="text" class="form-control" value=""
+                                           placeholder="请输入您的科目老师">
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label for="input" class="col-sm-2 control-label">答题时间</label>
+                                <div class="col-sm-10">
+                                    <input id="studyTime" type="text" class="form-control" value=""
+                                           placeholder="请输入您的答题时间">
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label for="inputPassword3" class="col-sm-2 control-label">考试科目</label>
+                                <div class="col-sm-10">
+                                    <input id="lessonCategory" type="text" class="form-control" value=""
+                                           placeholder="请输入您的考试科目">
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label for="inputPassword3" class="col-sm-2 control-label">考试分数</label>
+                                <div class="col-sm-10">
+                                    <input id="allTime" type="text" class="form-control" value=""
+                                           placeholder="请输入您考试分数">
+                                </div>
+                            </div>
+                        </form>
+                    </form>
+                    <button type="submit" id="addGradeBtn" class="btn btn-lg btn-success btn-raised btn-block">提交
+                    </button>
+                    <hr style="margin-top:12px;">
+                    <div class="form-horizontal">
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <p class="form-control-static">Back home?</p>
+                            </div>
+                            <div class="pull-right">
+                                <a href="/" class="btn btn-outline btn-default">return</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addPunish-info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title-login" id="myModalLabel">新增</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="get" action="" class="form-horizontal" id="myModalBody">
+                        <div class="form-group has-feedback">
+                            <label for="input" class="col-sm-2 control-label">姓名</label>
+                            <div class="col-sm-10">
+                                <input id="studentNamePunish" type="text" class="form-control" value=""
+                                       placeholder="请输入您的真实姓名">
+                            </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label for="input" class="col-sm-2 control-label">学号</label>
+                            <div class="col-sm-10">
+                                <input id="studentNumber" type="text" class="form-control" value=""
+                                       placeholder="请输入您的学号">
+                            </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label for="input" class="col-sm-2 control-label">处分日期</label>
+                            <div class="col-sm-10">
+                                <input id="punishDate" type="text" class="form-control" value=""
+                                       placeholder="请输入受处分日期">
+                            </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label for="input" class="col-sm-2 control-label">处分详情</label>
+                            <div class="col-sm-10">
+                                <input id="punishDetail" type="text" class="form-control" value=""
+                                       placeholder="请输入处分详情">
+                            </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label for="input" class="col-sm-2 control-label">处分结果</label>
+                            <div class="col-sm-10">
+                                <input id="punishResult" type="text" class="form-control" value=""
+                                       placeholder="请输入处分结果">
+                            </div>
+                        </div>
+                    </form>
+                    <button type="submit" id="addPunishBtn" class="btn btn-lg btn-success btn-raised btn-block">提交
+                    </button>
+                    <hr style="margin-top:12px;">
+                    <div class="form-horizontal">
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <p class="form-control-static">Back home?</p>
+                            </div>
+                            <div class="pull-right">
+                                <a href="/" class="btn btn-outline btn-default">return</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -116,10 +300,68 @@
                     <h4 class="modal-title-login" id="myModalLabel">修改</h4>
                 </div>
                 <div class="modal-body">
-                    <form method="get" action="" class="form-horizontal" id="myModalBody">
+                    <form method="get" action="" class="form-horizontal" id="archivesBody">
 
                     </form>
                     <button type="submit" id="updataBtn" class="btn btn-lg btn-success btn-raised btn-block">提交
+                    </button>
+                    <hr style="margin-top:12px;">
+                    <div class="form-horizontal">
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <p class="form-control-static">Back home?</p>
+                            </div>
+                            <div class="pull-right">
+                                <a href="/" class="btn btn-outline btn-default">return</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="grade-info-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title-login" id="myModalLabel">修改</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="get" action="" class="form-horizontal" id="gradeBody">
+
+                    </form>
+                    <button type="submit" id="gradeModalBtn" class="btn btn-lg btn-success btn-raised btn-block">提交
+                    </button>
+                    <hr style="margin-top:12px;">
+                    <div class="form-horizontal">
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <p class="form-control-static">Back home?</p>
+                            </div>
+                            <div class="pull-right">
+                                <a href="/" class="btn btn-outline btn-default">return</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="punish-info-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title-login" id="myModalLabel">修改</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="get" action="" class="form-horizontal" id="punishBody">
+
+                    </form>
+                    <button type="submit" id="punishModalBtn" class="btn btn-lg btn-success btn-raised btn-block">提交
                     </button>
                     <hr style="margin-top:12px;">
                     <div class="form-horizontal">
@@ -149,7 +391,6 @@
 <!--前端模板-->
 <script type="text/template" id="lessonTemplate">
     <tr>
-        <!--<td>{{=_id}}</td>-->
         <td>{{=dengluming}}</td>
         <td>{{=reallyName}}</td>
         <td>{{=teacherId}}</td>
@@ -159,10 +400,38 @@
         <td>{{=lesson}}</td>
         <td>{{=enterYear}}</td>
         <td>{{=politicalStatus}}</td>
-        <td>{{=familyInfo}}</td>
+        <!--<td>{{=familyInfo}}</td>-->
         <td>{{=awardInfo}}</td>
         <td><a id="{{=_id}}" onclick="showMoadl(id)" href="#updata-info" class="scrollto" data-toggle="modal"
                data-target="#updata-info">修改</a></td>
+    </tr>
+</script>
+<!--前端模板-->
+<script type="text/template" id="gradeTemplate">
+    <tr>
+        <td style="display: none">{{=_id}}</td>
+        <td>{{=studentName}}</td>
+        <td>{{=teacherNum}}</td>
+        <td>{{=tableDate}}</td>
+        <td>{{=teacherName}}</td>
+        <td>{{=lessonCategory}}</td>
+        <td>{{=studyTime}}</td>
+        <td>{{=allTime}}</td>
+        <td><a id="{{=_id}}" onclick="showMoadlGrade(id)" href="#" class="scrollto" data-toggle="modal"
+               data-target="#grade-info-modal">修改</a> | <a id="{{=_id}}" onclick="deleteGrade(id)">删除</a></td>
+    </tr>
+</script>
+<!--前端模板-->
+<script type="text/template" id="punishTemplate">
+    <tr>
+        <td>{{=_id}}</td>
+        <td>{{=studentName}}</td>
+        <td>{{=studentNumber}}</td>
+        <td>{{=punishDate}}</td>
+        <td>{{=punishDetail}}</td>
+        <td>{{=punishResult}}</td>
+        <td><a id="{{=_id}}" onclick="showModalPunish(id)" href="#" class="scrollto" data-toggle="modal"
+               data-target="#punish-info-modal">修改</a></td>
     </tr>
 </script>
 <!--前端模板-->
@@ -176,8 +445,7 @@
 </script>
 <!--前端模板-->
 <script type="text/template" id="modalInfo">
-    <form method="get" action="" class="form-horizontal" id="myModalBody">
-
+    <form method="get" action="" class="form-horizontal" >
         <div class="form-group has-feedback">
             <label for="input" class="col-sm-2 control-label">账号</label>
             <div class="col-sm-10">
@@ -261,10 +529,231 @@
                        placeholder="请输入您得奖情况">
             </div>
         </div>
-
+    </form>
+</script>
+<!--前端模板-->
+<script type="text/template" id="gradeModalTemplate">
+    <form method="get" action="" class="form-horizontal" >
+        <div class="form-group has-feedback">
+            <label for="input" class="col-sm-2 control-label">ID</label>
+            <div class="col-sm-10">
+                <input id="_id" type="text" class="form-control" disabled value="{{=_id}}"
+                       placeholder="">
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="input" class="col-sm-2 control-label">姓名</label>
+            <div class="col-sm-10">
+                <input id="studentName" type="text" class="form-control" value="{{=studentName}}"
+                       placeholder="请输入您的真实姓名">
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="input" class="col-sm-2 control-label">学号</label>
+            <div class="col-sm-10">
+                <input id="teacherNum" type="text" class="form-control" value="{{=teacherNum}}"
+                       placeholder="请输入您的学号">
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="input" class="col-sm-2 control-label">考试日期</label>
+            <div class="col-sm-10">
+                <input id="tableDate" type="text" class="form-control" value="{{=tableDate}}"
+                       placeholder="请输入考试日期">
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="input" class="col-sm-2 control-label">科目老师</label>
+            <div class="col-sm-10">
+                <input id="teacherName" type="text" class="form-control" value="{{=teacherName}}"
+                       placeholder="请输入您的科目老师">
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="input" class="col-sm-2 control-label">答题时间</label>
+            <div class="col-sm-10">
+                <input id="studyTime" type="text" class="form-control" value="{{=studyTime}}"
+                       placeholder="请输入您的答题时间">
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="inputPassword3" class="col-sm-2 control-label">考试科目</label>
+            <div class="col-sm-10">
+                <input id="lessonCategory" type="text" class="form-control" value="{{=lessonCategory}}"
+                       placeholder="请输入您的考试科目">
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="inputPassword3" class="col-sm-2 control-label">考试分数</label>
+            <div class="col-sm-10">
+                <input id="allTime" type="text" class="form-control" value="{{=allTime}}"
+                       placeholder="请输入您考试分数">
+            </div>
+        </div>
+    </form>
+</script>
+<!--punishModalTemplate-->
+<script type="text/template" id="punishModalTemplate">
+    <form method="get" action="" class="form-horizontal" >
+        <div class="form-group has-feedback">
+            <label for="input" class="col-sm-2 control-label">ID</label>
+            <div class="col-sm-10">
+                <input id="_id" type="text" class="form-control" disabled value="{{=_id}}"
+                       placeholder="">
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="input" class="col-sm-2 control-label">姓名</label>
+            <div class="col-sm-10">
+                <input id="studentName" type="text" class="form-control" value="{{=studentName}}"
+                       placeholder="请输入您的真实姓名">
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="input" class="col-sm-2 control-label">学号</label>
+            <div class="col-sm-10">
+                <input id="studentNumber" type="text" class="form-control" value="{{=studentNumber}}"
+                       placeholder="请输入您的学号">
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="input" class="col-sm-2 control-label">处分日期</label>
+            <div class="col-sm-10">
+                <input id="punishDate" type="text" class="form-control" value="{{=punishDate}}"
+                       placeholder="请输入受处分日期">
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="input" class="col-sm-2 control-label">处分详情</label>
+            <div class="col-sm-10">
+                <input id="punishDetail" type="text" class="form-control" value="{{=punishDetail}}"
+                       placeholder="请输入处分详情">
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="input" class="col-sm-2 control-label">处分结果</label>
+            <div class="col-sm-10">
+                <input id="punishResult" type="text" class="form-control" value="{{=punishResult}}"
+                       placeholder="请输入处分结果">
+            </div>
+        </div>
     </form>
 </script>
 <script type="text/javascript">
+
+    //提交档案修改
+    //用ajax提交表单
+    $("#updataBtn").click(function () {
+//        console.log("点击更新按钮！");
+        $.get("/updata", {
+            "dengluming": $("#dengluming").val(),
+            "teacherId": $("#teacherId").val(),
+            "collegeName": $("#colleageName").val(),
+            "politicalStatus": $("#politicalStatus").val(),
+            "telNum": $("#telNum").val(),
+            "sex": $("#sex").val(),
+            "lesson": $("#lesson").val(),
+            "enterYear": $("#enterYear").val(),
+            "familyInfo": $("#familyInfo").val(),
+            "awardInfo": $("#awardInfo").val(),
+            "reallyName": $("#reallyName").val(),
+            "IDnumber": $("#IDnumber").val()
+        }, function (result) {
+            if (result == "1") {
+                alert("提交修改成功！，将自动跳转到后台管理首页");
+                window.location = "/managePage";
+            } else {
+                alert("提交失败！，将自动跳转到后台管理首页");
+                window.location = "/managePage";
+            }
+        })
+    });
+
+
+    //  提交成绩修改
+    $("#gradeModalBtn").click(function () {
+        $.get("/updataGrade", {
+            "_id": $("#_id").val(),
+            "studentName": $("#studentName").val(),
+            "tableDate": $("#tableDate").val(),
+            "teacherName": $("#teacherName").val(),
+            "teacherNum": $("#teacherNum").val(),
+            "studyTime": $("#studyTime").val(),
+            "lessonCategory": $("#lessonCategory").val(),
+            "allTime": $("#allTime").val()
+        }, function (result) {
+            if (result == "1") {
+                alert("新增成绩成功！，将自动跳转到后台管理首页");
+                window.location = "/managePage";
+            } else {
+                alert("新增成绩失败！，将自动跳转到后台管理首页");
+                window.location = "/managePage";
+            }
+        })
+    });
+
+
+    //提交惩罚修改 punishModalBtn
+    $("#punishModalBtn").click(function () {
+        $.get("/updataPunish", {
+            "_id": $("#_id").val(),
+            "studentName": $("#studentName").val(),
+            "studentNumber": $("#studentNumber").val(),
+            "punishDate": $("#punishDate").val(),
+            "punishDetail": $("#punishDetail").val(),
+            "punishResult": $("#punishResult").val()
+        }, function (result) {
+            if (result == "1") {
+                alert("提交修改成功！，将自动跳转到后台管理首页");
+                window.location = "/managePage";
+            } else {
+                alert("提交失败！，将自动跳转到后台管理首页");
+                window.location = "/managePage";
+            }
+        })
+    });
+
+    //新增成绩 addGradeBtn
+    $("#addGradeBtn").click(function () {
+        $.get("/addGrade", {
+            "studentName": $("#studentName").val(),
+            "tableDate": $("#tableDate").val(),
+            "teacherName": $("#teacherName").val(),
+            "teacherNum": $("#teacherNum").val(),
+            "studyTime": $("#studyTime").val(),
+            "lessonCategory": $("#lessonCategory").val(),
+            "allTime": $("#allTime").val()
+        }, function (result) {
+            if (result == "1") {
+                alert("提交修改成功！，将自动跳转到后台管理首页");
+                window.location = "/managePage";
+            } else {
+                alert("提交失败！，将自动跳转到后台管理首页");
+                window.location = "/managePage";
+            }
+        })
+    })
+
+    //新增处分
+    $("#addPunishBtn").click(function () {
+        console.log($("#studentName").val());
+        $.get("/addPunish", {
+            "studentName": $("#studentNamePunish").val(),
+            "studentNumber": $("#studentNumber").val(),
+            "punishDate": $("#punishDate").val(),
+            "punishDetail": $("#punishDetail").val(),
+            "punishResult": $("#punishResult").val()
+        }, function (result) {
+            if (result == "1") {
+                alert("新增处分成功！，将自动跳转到后台管理首页");
+                window.location = "/managePage";
+            } else {
+                alert("新增处分失败！，将自动跳转到后台管理首页");
+                window.location = "/managePage";
+            }
+        })
+    })
+
     //删除用户
     function deleteMethod(idname) {
 //        console.log("点击修改按钮！"+idname);
@@ -280,16 +769,57 @@
             }
         })
     }
-    var $modalBody = $("#myModalBody");
+
+    //删除成绩
+    function deleteGrade(idname) {
+//        console.log("点击修改按钮！"+idname);
+        $.get("/deleteGrade", {
+            "deleteid": idname
+        }, function (result) {
+            if (result == "1") {
+                alert("删除该条成绩成功！");
+                window.location = "/managePage";
+            } else {
+                alert("删除该条成绩失败！");
+                window.location = "/managePage";
+            }
+        })
+    }
+    var $archivesBody = $("#archivesBody");
     //得到模板函数
     var compiledModal = _.template($("#modalInfo").html());
     //显示修改档案
     function showMoadl(idname) {
-        console.log("显示" + idname);
+//        console.log("显示" + idname);
         $.get("/showModal", {
             "modalId": idname
         }, function (result) {
-            console.log("123" + result);
+//            console.log("123" + result);
+            iterator(0);
+            //迭代器
+            //这里防止ajax异步，必须使用迭代器
+            function iterator(i) {
+                if (i == result.length) {
+                    //在这里书写请求完毕之后做的事情
+                    return;  //不用继续迭代了
+                }
+//                console.log(result[i]);
+                //组装模板
+                var modalString = compiledModal(result[i]);
+                //添加DOM
+                $("#archivesBody").html($(modalString));
+                iterator(i + 1);
+            }
+        })
+    }
+    var $gradeBody = $("#gradeBody");
+    //得到模板函数
+    var compiledGradeModal = _.template($("#gradeModalTemplate").html());
+    //显示修改成绩
+    function showMoadlGrade(idname) {
+        $.get("/showGradeModal", {
+            "gardeModalId": idname
+        }, function (result) {
             iterator(0);
             //迭代器
             //这里防止ajax异步，必须使用迭代器
@@ -300,14 +830,41 @@
                 }
                 console.log(result[i]);
                 //组装模板
-                var modalString = compiledModal(result[i]);
+                var gradeString = compiledGradeModal(result[i]);
                 //添加DOM
-                $("#myModalBody").html($(modalString));
+                $("#gradeBody").html($(gradeString));
                 iterator(i + 1);
             }
         })
     }
-
+    //
+    var $punishBody = $("#punishBody");
+    //得到模板函数
+    var compiledPunishModal = _.template($("#punishModalTemplate").html());
+    //显示处分
+    function showModalPunish(idname) {
+//        console.log("成绩" + idname);
+        $.get("/showPunishModal", {
+            "punishModalId": idname
+        }, function (result) {
+//            console.log(result);
+            iterator(0);
+            //迭代器
+            //这里防止ajax异步，必须使用迭代器
+            function iterator(i) {
+                if (i == result.length) {
+                    //在这里书写请求完毕之后做的事情
+                    return;  //不用继续迭代了
+                }
+                console.log(result[i]);
+                //组装模板
+                var punishString = compiledPunishModal(result[i]);
+                //添加DOM
+                $("#punishBody").html($(punishString));
+                iterator(i + 1);
+            }
+        })
+    }
 
     var $informArea = $("#informArea");
     //得到模板函数
@@ -343,7 +900,6 @@
     var $lessonArea = $("#lessonArea");
     //得到模板函数
     var compiledL = _.template($("#lessonTemplate").html());
-
     $.ajax({
         "url": "/showLesson",
         "type": "get",
@@ -400,6 +956,54 @@
         }
     })
 
+    //成绩详情
+    var $gradeArea = $("#gradeArea");
+    //得到模板函数
+    var compiledGrade = _.template($("#gradeTemplate").html());
+
+    $.ajax({
+        "url": "/showGrade",
+        "type": "get",
+        "success": function (result) {
+            iterator(0);
+            function iterator(i) {
+                if (i == result.length) {
+                    //在这里书写请求完毕之后做的事情
+                    return;  //不用继续迭代了
+                }
+                //组装模板
+                var htmlstring = compiledGrade(result[i]);
+                //添加DOM
+                $("#gradeArea").append($(htmlstring));
+                iterator(i + 1);
+            }
+        }
+    })
+    //处分详情
+    var $punishArea = $("#punishArea");
+    //得到模板函数
+    var compiledPunish = _.template($("#punishTemplate").html());
+
+    $.ajax({
+        "url": "/showPunish",
+        "type": "get",
+        "success": function (result) {
+            iterator(0);
+            function iterator(i) {
+                if (i == result.length) {
+                    //在这里书写请求完毕之后做的事情
+                    return;  //不用继续迭代了
+                }
+                console.log("punish--------------");
+                console.log(result[i]);
+                //组装模板
+                var punishString = compiledPunish(result[i]);
+                //添加DOM
+                $("#punishArea").append($(punishString));
+                iterator(i + 1);
+            }
+        }
+    })
 
     $(document).ready(function () {
         var trigger = $('.hamburger'),
@@ -447,27 +1051,34 @@
             $("#teacher-manager").show();
             $("#teacher-manager").siblings().hide();
         })
-
-        //获取val
-        $("#manageSubmitBtn").click(function () {
-//            console.log("提交！");
-            $.get("/updataLesson", {
-                "dengluming": $("#teacher_name").val(),
-                "lessonTitle": $("#lesson_name").val(),
-                "lessonDetail": $("#lesson_detail").val(),
-                "lessonLevel": $("#lesson_level").val(),
-                "lessonPopulation": $("#student_number").val(),
-                "lessonPath": $("#lesson_url").val()
-            }, function (result) {
-                if (result == "1") {
-                    alert("提交成功！，将自动跳转到首页");
-//                    window.location = "/";
-                } else {
-                    alert("提交失败！，将自动跳转到首页");
-//                    window.location = "/";
-                }
-            })
-        });
+        $("#grade-info-btn").click(function () {
+            $("#grade-info").show();
+            $("#grade-info").siblings().hide();
+        })
+        $("#punishment-btn").click(function () {
+            $("#punishment-info").show();
+            $("#punishment-info").siblings().hide();
+        })
+//        //获取val
+//        $("#manageSubmitBtn").click(function () {
+////            console.log("提交！");
+//            $.get("/updataLesson", {
+//                "dengluming": $("#teacher_name").val(),
+//                "lessonTitle": $("#lesson_name").val(),
+//                "lessonDetail": $("#lesson_detail").val(),
+//                "lessonLevel": $("#lesson_level").val(),
+//                "lessonPopulation": $("#student_number").val(),
+//                "lessonPath": $("#lesson_url").val()
+//            }, function (result) {
+//                if (result == "1") {
+//                    alert("提交成功！，将自动跳转到首页");
+////                    window.location = "/";
+//                } else {
+//                    alert("提交失败！，将自动跳转到首页");
+////                    window.location = "/";
+//                }
+//            })
+//        });
 
         //上传通知
         $("#notionSubmit").click(function () {
