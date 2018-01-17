@@ -98,7 +98,7 @@ app.get("/doregist",function(req,res,next){
 
 app.post("/dologin",function(req,res,next){
     var form = new formidable.IncomingForm();
-
+    
     form.parse(req, function(err, fields, files) {
         var dengluming = fields.dengluming;
         var mima = fields.mima;

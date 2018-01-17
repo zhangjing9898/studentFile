@@ -42,33 +42,39 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="ManagePage.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/ManagePage.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18676">
-              <caret line="812" column="10" lean-forward="false" selection-start-line="812" selection-start-column="10" selection-end-line="812" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="386">
-              <caret line="246" column="20" lean-forward="false" selection-start-line="246" selection-start-column="20" selection-end-line="246" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.6903187">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+          <file leaf-file-name="ManagePage.ejs" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/views/ManagePage.ejs">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="250">
+                  <caret line="679" column="47" lean-forward="true" selection-start-line="679" selection-start-column="47" selection-end-line="679" selection-end-column="47" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="user-info.ejs" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/views/user-info.ejs">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="338">
+                  <caret line="200" column="20" lean-forward="false" selection-start-line="200" selection-start-column="20" selection-end-line="203" selection-end-column="55" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>console.log</find>
-      <find>gradeBody</find>
       <find>showModal</find>
       <find>gradeModalTemplate</find>
       <find>showModalPunish</find>
@@ -97,6 +103,8 @@
       <find>teacher-manager-btn</find>
       <find>myModalBody</find>
       <find>showMoadl</find>
+      <find>username</find>
+      <find>form-group</find>
     </findStrings>
     <replaceStrings>
       <replace>resourceData</replace>
@@ -107,6 +115,7 @@
       <replace>td</replace>
       <replace>学生</replace>
       <replace>用户</replace>
+      <replace>form-group has-feedback</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -163,8 +172,8 @@
         <option value="$PROJECT_DIR$/public/css/manageStyle.css" />
         <option value="$PROJECT_DIR$/views/regist.ejs" />
         <option value="$PROJECT_DIR$/model/db.js" />
-        <option value="$PROJECT_DIR$/views/user-info.ejs" />
         <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/views/user-info.ejs" />
         <option value="$PROJECT_DIR$/views/ManagePage.ejs" />
       </list>
     </option>
@@ -200,7 +209,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -224,6 +232,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="studentFileManageSystem" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="studentFileManageSystem" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="router" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -315,11 +337,12 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../node.js/photoCircle" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
     <property name="JavaScriptPreferStrict" value="false" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
@@ -544,25 +567,31 @@
       <workItem from="1515828060409" duration="2061000" />
       <workItem from="1515833111193" duration="633000" />
       <workItem from="1515846030914" duration="56000" />
+      <workItem from="1516006446919" duration="313000" />
+      <workItem from="1516019738764" duration="522000" />
+      <workItem from="1516082876869" duration="733000" />
+      <workItem from="1516084551930" duration="1042000" />
+      <workItem from="1516099235705" duration="317000" />
+      <workItem from="1516180516852" duration="1832000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="185746000" />
+    <option name="totallyTimeSpent" value="190505000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16822916" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13385417" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31064764" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31174535" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32821077" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -719,13 +748,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/header.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" column="74" lean-forward="false" selection-start-line="10" selection-start-column="74" selection-end-line="10" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/md5.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
@@ -779,13 +801,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="290">
           <caret line="41" column="17" lean-forward="true" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/upReference.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1095">
-          <caret line="54" column="85" lean-forward="false" selection-start-line="54" selection-start-column="85" selection-end-line="54" selection-end-column="85" />
         </state>
       </provider>
     </entry>
@@ -901,25 +916,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="557">
+          <caret line="684" column="9" lean-forward="true" selection-start-line="684" selection-start-column="9" selection-end-line="684" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/header.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/upReference.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-398">
+          <caret line="54" column="85" lean-forward="false" selection-start-line="54" selection-start-column="85" selection-end-line="54" selection-end-column="85" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/views/user-info.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="163" column="24" lean-forward="false" selection-start-line="163" selection-start-column="24" selection-end-line="163" selection-end-column="30" />
+        <state relative-caret-position="338">
+          <caret line="200" column="20" lean-forward="false" selection-start-line="200" selection-start-column="20" selection-end-line="203" selection-end-column="55" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/ManagePage.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18676">
-          <caret line="812" column="10" lean-forward="false" selection-start-line="812" selection-start-column="10" selection-end-line="812" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="246" column="20" lean-forward="false" selection-start-line="246" selection-start-column="20" selection-end-line="246" selection-end-column="20" />
+        <state relative-caret-position="250">
+          <caret line="679" column="47" lean-forward="true" selection-start-line="679" selection-start-column="47" selection-end-line="679" selection-end-column="47" />
           <folding />
         </state>
       </provider>

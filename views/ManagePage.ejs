@@ -529,6 +529,30 @@
                        placeholder="请输入您得奖情况">
             </div>
         </div>
+        <div class="form-group has-feedback">
+            <label for="inputPassword3" class="col-sm-2 control-label">父母姓名</label>
+            <div class="col-sm-10">
+                <input id="parentName" type="text" class="form-control"  value="{{=parentName}}" placeholder="请输入您父母姓名">
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="inputPassword3" class="col-sm-2 control-label">父母联系电话</label>
+            <div class="col-sm-10">
+                <input id="parentPhone" type="text" class="form-control"  value="{{=parentPhone}}" placeholder="请输入您父母联系电话">
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="inputPassword3" class="col-sm-2 control-label">初中学校</label>
+            <div class="col-sm-10">
+                <input id="primarySchool" type="text" class="form-control"  value="{{=primarySchool}}" placeholder="请输入您初中所在学校">
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="inputPassword3" class="col-sm-2 control-label">高中学校</label>
+            <div class="col-sm-10">
+                <input id="highSchool" type="text" class="form-control"  value="{{=highSchool}}" placeholder="请输入您高中所在学校">
+            </div>
+        </div>
     </form>
 </script>
 <!--前端模板-->
@@ -657,7 +681,11 @@
             "familyInfo": $("#familyInfo").val(),
             "awardInfo": $("#awardInfo").val(),
             "reallyName": $("#reallyName").val(),
-            "IDnumber": $("#IDnumber").val()
+            "IDnumber": $("#IDnumber").val(),
+            "parentName":$("#parentName").val(),
+            "parentPhone":$("#parentPhone").val(),
+            "primarySchool":$("#primarySchool").val(),
+            "highSchool":$("#highSchool").val()
         }, function (result) {
             if (result == "1") {
                 alert("提交修改成功！，将自动跳转到后台管理首页");
