@@ -8,44 +8,50 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/" style="color: white">学生档案管理系统</a>
+            <a class="navbar-brand" href="teacherIndex" style="color: white">学生档案管理系统</a>
         </div>
         <div class="navbar-collapse collapse">
             <div class="row">
                 <div class="col-lg-6 header-search">
-                    <!--<div class="input-group">-->
-                        <!--<input type="text" class="form-control" placeholder="Search for...">-->
-                        <!--<span class="input-group-btn">-->
-       									 <!--<button class="btn btn-default" type="button">Go!</button>-->
-      								<!--</span>-->
-                    <!--</div>-->
                 </div>
                 <%
                 if(login){
                 %>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a>欢迎您！学生:<%= username %></a></li>
-                    <li><a href="/userInfo">设置个人资料</a></li>
-                    <li> <a data-toggle="modal" class="scrollto" data-target="#change-password1">更改密码</a></li>
+                    <li><a>欢迎您！<%= username %>老师</a></li>
+                    <li><a data-toggle="modal" class="scrollto" data-target="#change-password">更改密码</a></li>
                     <li><a href="/exit">退出</a></li>
                 </ul>
                 <%
                 }else{
                 %>
                 <ul class="nav navbar-nav">
-                    <li <%if(active=="首页"){%> class="active" <%}%>>
+                    <li
+                            <% if(active == "首页"){ %>
+                            class="active"
+                            <% } %>
+                    >
                         <a href="/">官网详情</a>
                     </li>
-                    <!--<li <%if(active=="管理员登录"){%> class="active" <%}%>>-->
-                        <!--<a href="/managerLogin">管理员登录</a>-->
-                    <!--</li>-->
-                    <li <%if(active=="注册"){%> class="active" <%}%>>
+                    <li
+                            <% if(active == "注册"){ %>
+                            class="active"
+                            <% } %>
+                    >
                         <a href="/regist">注册</a>
                     </li>
-                    <li <%if(active=="登录"){%> class="active" <%}%>>
+                    <li
+                            <% if(active == "登录"){ %>
+                            class="active"
+                            <% } %>
+                    >
                         <a href="/login">登录</a>
                     </li>
-                    <li <%if(active=="404"){%> class="active" <%}%>>
+                    <li
+                            <% if(active == "404"){ %>
+                            class="active"
+                            <% } %>
+                    >
                         <a href="/404">404页面</a>
                     </li>
                 </ul>
@@ -56,7 +62,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="change-password1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="change-password" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -65,23 +71,24 @@
                 <h4 class="modal-title-login" id="myModalLabel">更改密码</h4>
             </div>
             <div class="modal-body">
-                <form method="post" action="" class="form-horizontal" id="punishInfoBody">
+                <form method="post" action="" class="form-horizontal" id="">
                     <div class="form-group has-feedback">
                         <label for="input" class="col-sm-2 control-label">账号</label>
                         <div class="col-sm-10">
-                            <input id="denglumingdefault" type="text" class="form-control" disabled value="<%=username%>"
+                            <input id="dengluming" type="text" class="form-control" disabled value="<%= username %>"
                                    placeholder="">
                         </div>
                     </div>
                     <div class="form-group has-feedback">
                         <label for="input" class="col-sm-2 control-label">密码</label>
                         <div class="col-sm-10">
-                            <input id="mimachange" type="password" class="form-control" value=""
+                            <input id="mima" type="password" class="form-control" value=""
                                    placeholder="请输入更改的密码">
                         </div>
                     </div>
                 </form>
-                <button type="submit" id="changePasswordTeacherBtn" class="btn btn-lg btn-success btn-raised btn-block">提交
+                <button type="submit" id="changePasswordTeacherBtn"
+                        class="btn btn-lg btn-success btn-raised btn-block">提交
                 </button>
                 <hr style="margin-top:12px;">
                 <div class="form-horizontal">
@@ -98,20 +105,20 @@
         </div>
     </div>
 </div>
-
 <script type="text/javascript">
-    //changePasswordTeacher
-    $("#changePasswordTeacherBtn").click(function () {
-        //用ajax提交表单
-        $.post("/changePasswordStudent", {
-            "denglumingdefault": $("#denglumingdefault").val(),
-            "mimachange": $("#mimachange").val()
-        }, function (result) {
-            if (result == "1") {
-                alert("更改成功！");
-            } else {
-                alert("更改失败！");
-            }
-        })
-    })
+//    //changePasswordTeacher
+//    $("#changePasswordTeacherBtn").click(function () {
+//        console.log("!11111111");
+//        //用ajax提交表单
+//        $.post("/changePasswordTeacher", {
+//            "dengluming": $("#dengluming").val(),
+//            "mima": $("#mima").val()
+//        }, function (result) {
+//            if (result == "1") {
+//                alert("更改成功！");
+//            } else {
+//                alert("更改失败！");
+//            }
+//        })
+//    })
 </script>

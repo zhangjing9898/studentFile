@@ -26,22 +26,31 @@
                     <span>管理员： <%= username %></span>
                 </a>
             </li>
+            <li id="changePassword-btn">
+                <a href="#">更改密码</a>
+            </li>
             <li id="notion-message-btn">
                 <a href="#">
-                    <span>系统通知</span>
+                    <span>发布系统通知</span>
                 </a>
             </li>
             <li id="teacher-manager-btn">
-                <a href="#"><i class="fa fa-fw fa-file-o"></i>档案详情</a>
+                <a href="#">档案信息管理</a>
             </li>
             <li id="lesson-manage-btn">
-                <a href="#"><i class="fa fa-fw fa-cog"></i>注册用户</a>
+                <a href="#">注册用户管理</a>
             </li>
             <li id="grade-info-btn">
-                <a href="#">成绩记录</a>
+                <a href="#">成绩信息管理</a>
             </li>
             <li id="punishment-btn">
-                <a href="#">处分记录</a>
+                <a href="#">奖惩信息管理</a>
+            </li>
+            <li id="lesson-info-btn">
+                <a href="#">课程信息管理</a>
+            </li>
+            <li id="teacher-info-btn">
+                <a href="#">教师信息管理</a>
             </li>
         </ul>
     </nav>
@@ -63,28 +72,56 @@
                     </tr>
                 </table>
             </div>
+            <div id="teacher-info-manage" style="display: none;">
+                <h3>注册教师详情</h3>
+                <table class="table table-bordered" id="teacherInfoArea">
+                    <tr>
+                        <th>序号</th>
+                        <th>账号名</th>
+                        <th>加密后密码</th>
+                        <th>操作</th>
+                    </tr>
+                </table>
+            </div>
+            <div id="lesson-info-upload" style="display: none;">
+                <form action="/upLesson" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>上传课程表</label>
+                        <input type="file" class="form-control" id="touxiang" name="touxiang">
+                    </div>
+                    <button type="submit" class="btn btn-primary">上传</button>
+                </form>
+            </div>
             <div id="grade-info" style="display: none;">
                 <h3>成绩记录详情</h3>
-                <button id="addGrade" type="submit" class="btn btn-danger scrollto" style="margin-bottom: 12px;margin-top: 5px"  data-toggle="modal"
+                <button id="addGrade" type="submit" class="btn btn-danger scrollto"
+                        style="margin-bottom: 12px;margin-top: 5px" data-toggle="modal"
                         data-target="#addGrade-info">新增成绩
                 </button>
+
+                <div class="input-group col-md-3" style="margin-top:0px;positon:relative;margin-bottom: 20px">
+                    <input type="text" id="studentId" class="form-control" placeholder="请输入您的学号"/>
+                    <span class="input-group-btn">
+                        <button id="searchGradeBtn" type="button" class="btn btn-primary">查找</button>
+                    </span>
+                </div>
                 <table class="table table-bordered" id="gradeArea">
                     <tr>
-                        <!--<th>ID</th>-->
-                        <th>学生名字</th>
-                        <th>学号</th>
-                        <th>考试日期</th>
-                        <th>科目老师</th>
-                        <th>科目</th>
-                        <th>答题时间</th>
-                        <th>分数</th>
+                        <th>学生姓名</th>
+                        <th>学生学号</th>
+                        <th>课程名称</th>
+                        <th>学年</th>
+                        <th>学期</th>
+                        <th>成绩</th>
+                        <th>绩点</th>
                         <th>操作</th>
                     </tr>
                 </table>
             </div>
             <div id="punishment-info" style="display: none;">
                 <h3>处分记录详情</h3>
-                <button id="addPunish" type="submit" class="btn btn-danger scrollto" style="margin-bottom: 12px;margin-top: 5px"  data-toggle="modal"
+                <button id="addPunish" type="submit" class="btn btn-danger scrollto"
+                        style="margin-bottom: 12px;margin-top: 5px" data-toggle="modal"
                         data-target="#addPunish-info">新增处分
                 </button>
                 <table class="table table-bordered" id="punishArea">
@@ -106,8 +143,31 @@
                     <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
                 </div>
             </div>
+            <div id="change-password-area" style="display: none;">
+                <h3>更改管理员密码</h3>
+                <div style="display: block; height: 20px;"></div>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">账号</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="denglumingM" placeholder="" disabled value="<%=username%>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="mimaM" placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class=" col-sm-offset-2 col-sm-10">
+                            <button type="submit" id="changePasswordMBtn" class="btn btn-primary">更改</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <div id="notion-message" style="display: none;">
-                <form>
+                <form method="post">
                     <div class="form-group">
                         <label for="exampleInputEmail1">系统消息</label>
                         <input type="text" class="form-control" id="notionContent" placeholder="Information">
@@ -175,24 +235,17 @@
                                 </div>
                             </div>
                             <div class="form-group has-feedback">
-                                <label for="input" class="col-sm-2 control-label">考试日期</label>
+                                <label for="input" class="col-sm-2 control-label">学年</label>
                                 <div class="col-sm-10">
-                                    <input id="tableDate" type="text" class="form-control" value=""
-                                           placeholder="请输入考试日期">
+                                    <input id="testYear" type="text" class="form-control" value=""
+                                           placeholder="请输入考试学年">
                                 </div>
                             </div>
                             <div class="form-group has-feedback">
-                                <label for="input" class="col-sm-2 control-label">科目老师</label>
+                                <label for="input" class="col-sm-2 control-label">学期</label>
                                 <div class="col-sm-10">
-                                    <input id="teacherName" type="text" class="form-control" value=""
-                                           placeholder="请输入您的科目老师">
-                                </div>
-                            </div>
-                            <div class="form-group has-feedback">
-                                <label for="input" class="col-sm-2 control-label">答题时间</label>
-                                <div class="col-sm-10">
-                                    <input id="studyTime" type="text" class="form-control" value=""
-                                           placeholder="请输入您的答题时间">
+                                    <input id="testSemester" type="text" class="form-control" value=""
+                                           placeholder="请输入考试学期">
                                 </div>
                             </div>
                             <div class="form-group has-feedback">
@@ -207,6 +260,13 @@
                                 <div class="col-sm-10">
                                     <input id="allTime" type="text" class="form-control" value=""
                                            placeholder="请输入您考试分数">
+                                </div>
+                            </div>
+                            <div class="form-group has-feedback">
+                                <label for="inputPassword3" class="col-sm-2 control-label">绩点</label>
+                                <div class="col-sm-10">
+                                    <input id="gradePoint" type="text" class="form-control" value=""
+                                           placeholder="请输入绩点分数">
                                 </div>
                             </div>
                         </form>
@@ -412,11 +472,11 @@
         <td style="display: none">{{=_id}}</td>
         <td>{{=studentName}}</td>
         <td>{{=teacherNum}}</td>
-        <td>{{=tableDate}}</td>
-        <td>{{=teacherName}}</td>
         <td>{{=lessonCategory}}</td>
-        <td>{{=studyTime}}</td>
+        <td>{{=testYear}}</td>
+        <td>{{=testSemester}}</td>
         <td>{{=allTime}}</td>
+        <td>{{=gradePoint}}</td>
         <td><a id="{{=_id}}" onclick="showMoadlGrade(id)" href="#" class="scrollto" data-toggle="modal"
                data-target="#grade-info-modal">修改</a> | <a id="{{=_id}}" onclick="deleteGrade(id)">删除</a></td>
     </tr>
@@ -443,9 +503,18 @@
         <td id="{{=_id}}" onclick="deleteMethod(id)">删除</td>
     </tr>
 </script>
+<!--注册教师信息template-->
+<script type="text/template" id="teacherInfoTemplate">
+    <tr>
+        <td>{{=_id}}</td>
+        <td>{{=dengluming}}</td>
+        <td>{{=mima}}</td>
+        <td id="{{=_id}}" onclick="deleteMethod(id)">删除</td>
+    </tr>
+</script>
 <!--前端模板-->
 <script type="text/template" id="modalInfo">
-    <form method="get" action="" class="form-horizontal" >
+    <form method="get" action="" class="form-horizontal">
         <div class="form-group has-feedback">
             <label for="input" class="col-sm-2 control-label">账号</label>
             <div class="col-sm-10">
@@ -532,32 +601,35 @@
         <div class="form-group has-feedback">
             <label for="inputPassword3" class="col-sm-2 control-label">父母姓名</label>
             <div class="col-sm-10">
-                <input id="parentName" type="text" class="form-control"  value="{{=parentName}}" placeholder="请输入您父母姓名">
+                <input id="parentName" type="text" class="form-control" value="{{=parentName}}" placeholder="请输入您父母姓名">
             </div>
         </div>
         <div class="form-group has-feedback">
             <label for="inputPassword3" class="col-sm-2 control-label">父母联系电话</label>
             <div class="col-sm-10">
-                <input id="parentPhone" type="text" class="form-control"  value="{{=parentPhone}}" placeholder="请输入您父母联系电话">
+                <input id="parentPhone" type="text" class="form-control" value="{{=parentPhone}}"
+                       placeholder="请输入您父母联系电话">
             </div>
         </div>
         <div class="form-group has-feedback">
             <label for="inputPassword3" class="col-sm-2 control-label">初中学校</label>
             <div class="col-sm-10">
-                <input id="primarySchool" type="text" class="form-control"  value="{{=primarySchool}}" placeholder="请输入您初中所在学校">
+                <input id="primarySchool" type="text" class="form-control" value="{{=primarySchool}}"
+                       placeholder="请输入您初中所在学校">
             </div>
         </div>
         <div class="form-group has-feedback">
             <label for="inputPassword3" class="col-sm-2 control-label">高中学校</label>
             <div class="col-sm-10">
-                <input id="highSchool" type="text" class="form-control"  value="{{=highSchool}}" placeholder="请输入您高中所在学校">
+                <input id="highSchool" type="text" class="form-control" value="{{=highSchool}}"
+                       placeholder="请输入您高中所在学校">
             </div>
         </div>
     </form>
 </script>
 <!--前端模板-->
 <script type="text/template" id="gradeModalTemplate">
-    <form method="get" action="" class="form-horizontal" >
+    <form method="get" action="" class="form-horizontal">
         <div class="form-group has-feedback">
             <label for="input" class="col-sm-2 control-label">ID</label>
             <div class="col-sm-10">
@@ -580,24 +652,17 @@
             </div>
         </div>
         <div class="form-group has-feedback">
-            <label for="input" class="col-sm-2 control-label">考试日期</label>
+            <label for="input" class="col-sm-2 control-label">学年</label>
             <div class="col-sm-10">
-                <input id="tableDate" type="text" class="form-control" value="{{=tableDate}}"
-                       placeholder="请输入考试日期">
+                <input id="testYear" type="text" class="form-control" value="{{=testYear}}"
+                       placeholder="请输入考试学年">
             </div>
         </div>
         <div class="form-group has-feedback">
-            <label for="input" class="col-sm-2 control-label">科目老师</label>
+            <label for="input" class="col-sm-2 control-label">学期</label>
             <div class="col-sm-10">
-                <input id="teacherName" type="text" class="form-control" value="{{=teacherName}}"
-                       placeholder="请输入您的科目老师">
-            </div>
-        </div>
-        <div class="form-group has-feedback">
-            <label for="input" class="col-sm-2 control-label">答题时间</label>
-            <div class="col-sm-10">
-                <input id="studyTime" type="text" class="form-control" value="{{=studyTime}}"
-                       placeholder="请输入您的答题时间">
+                <input id="testSemester" type="text" class="form-control" value="{{=testSemester}}"
+                       placeholder="请输入考试学期">
             </div>
         </div>
         <div class="form-group has-feedback">
@@ -614,11 +679,18 @@
                        placeholder="请输入您考试分数">
             </div>
         </div>
+        <div class="form-group has-feedback">
+            <label for="inputPassword3" class="col-sm-2 control-label">绩点</label>
+            <div class="col-sm-10">
+                <input id="gradePoint" type="text" class="form-control" value="{{=gradePoint}}"
+                       placeholder="请输入绩点分数">
+            </div>
+        </div>
     </form>
 </script>
 <!--punishModalTemplate-->
 <script type="text/template" id="punishModalTemplate">
-    <form method="get" action="" class="form-horizontal" >
+    <form method="get" action="" class="form-horizontal">
         <div class="form-group has-feedback">
             <label for="input" class="col-sm-2 control-label">ID</label>
             <div class="col-sm-10">
@@ -682,10 +754,10 @@
             "awardInfo": $("#awardInfo").val(),
             "reallyName": $("#reallyName").val(),
             "IDnumber": $("#IDnumber").val(),
-            "parentName":$("#parentName").val(),
-            "parentPhone":$("#parentPhone").val(),
-            "primarySchool":$("#primarySchool").val(),
-            "highSchool":$("#highSchool").val()
+            "parentName": $("#parentName").val(),
+            "parentPhone": $("#parentPhone").val(),
+            "primarySchool": $("#primarySchool").val(),
+            "highSchool": $("#highSchool").val()
         }, function (result) {
             if (result == "1") {
                 alert("提交修改成功！，将自动跳转到后台管理首页");
@@ -703,10 +775,10 @@
         $.get("/updataGrade", {
             "_id": $("#_id").val(),
             "studentName": $("#studentName").val(),
-            "tableDate": $("#tableDate").val(),
-            "teacherName": $("#teacherName").val(),
+            "testYear": $("#testYear").val(),
+            "testSemester": $("#testSemester").val(),
             "teacherNum": $("#teacherNum").val(),
-            "studyTime": $("#studyTime").val(),
+            "gradePoin": $("#gradePoint").val(),
             "lessonCategory": $("#lessonCategory").val(),
             "allTime": $("#allTime").val()
         }, function (result) {
@@ -952,14 +1024,10 @@
             }
         }
     })
-
-
     //资料表格
     var $referenceArea = $("#referenceArea");
     //得到模板函数
     var compiledR = _.template($("#referenceTemplate").html());
-
-
     $.ajax({
         "url": "/showRefresh",
         "type": "get",
@@ -983,29 +1051,71 @@
             }
         }
     })
-
-    //成绩详情
-    var $gradeArea = $("#gradeArea");
-    //得到模板函数
-    var compiledGrade = _.template($("#gradeTemplate").html());
-
+    //    注册教师详情
+    var compiledTe = _.template($("#teacherInfoTemplate").html());
     $.ajax({
-        "url": "/showGrade",
+        "url": "/showTeacherList",
         "type": "get",
         "success": function (result) {
             iterator(0);
             function iterator(i) {
                 if (i == result.length) {
+                    return;
+                }
+                let htmlstring = compiledTe(result[i]);
+                //添加DOM
+                $("#teacherInfoArea").append($(htmlstring));
+                iterator(i + 1);
+            }
+        }
+    })
+
+    //    //成绩详情
+    //    var $gradeArea = $("#gradeArea");
+    //    //得到模板函数
+    var compiledGrade = _.template($("#gradeTemplate").html());
+    //
+    //    $.ajax({
+    //        "url": "/showGrade",
+    //        "type": "get",
+    //        "success": function (result) {
+    //            iterator(0);
+    //            function iterator(i) {
+    //                if (i == result.length) {
+    //                    //在这里书写请求完毕之后做的事情
+    //                    return;  //不用继续迭代了
+    //                }
+    //                //组装模板
+    //                var htmlstring = compiledGrade(result[i]);
+    //                //添加DOM
+    //                $("#gradeArea").append($(htmlstring));
+    //                iterator(i + 1);
+    //            }
+    //        }
+    //    })
+    $("#searchGradeBtn").click(function () {
+        $.get("/searchGrade", {
+            "studentId": $("#studentId").val()
+        }, function (result) {
+            if (result == null) {
+                alert("查询成绩失败！");
+            }
+            iterator(0);
+            //迭代器
+            //这里防止ajax异步，必须使用迭代器
+            function iterator(i) {
+                if (i == result.length) {
                     //在这里书写请求完毕之后做的事情
                     return;  //不用继续迭代了
                 }
+                console.log(result[i]);
                 //组装模板
                 var htmlstring = compiledGrade(result[i]);
                 //添加DOM
                 $("#gradeArea").append($(htmlstring));
                 iterator(i + 1);
             }
-        }
+        })
     })
     //处分详情
     var $punishArea = $("#punishArea");
@@ -1065,6 +1175,18 @@
             $("#lesson-manage").show();
             $("#lesson-manage").siblings().hide();
         });
+        $("#teacher-info-btn").click(function () {
+            $("#teacher-info-manage").show();
+            $("#teacher-info-manage").siblings().hide();
+        });
+        $("#changePassword-btn").click(function () {
+            $("#change-password-area").show();
+            $("#change-password-area").siblings().hide();
+        })
+        $("#lesson-info-btn").click(function () {
+            $("#lesson-info-upload").show();
+            $("#lesson-info-upload").siblings().hide();
+        })
         $('.dropdown li').click(function () {
             $('#resource-upload').show();
             $("#resource-upload").siblings().hide();
@@ -1126,6 +1248,20 @@
             })
         });
 
+        //changePasswordM
+        $("#changePasswordMBtn").click(function () {
+            //用ajax提交表单
+            $.post("/changePasswordM", {
+                "denglumingdefault": $("#denglumingM").val(),
+                "mimachange": $("#mimaM").val()
+            }, function (result) {
+                if (result == "1") {
+                    alert("更改成功！");
+                } else {
+                    alert("更改失败！");
+                }
+            })
+        })
     });
 </script>
 

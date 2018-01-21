@@ -1,223 +1,258 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<title>taskArea</title>
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<link rel="stylesheet" href="css/bootstrap.min.css" />
-		<link rel="stylesheet" href="css/table.css" />
-		<script type="text/javascript" src="js/Chart.min.js"></script>
-		<style>
-			canvas {
-				float: left;
-			}
-		</style>
-		<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js"></script>
-		<script src="/js/underscore-noflect.js"></script>
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <title>taskArea</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/table.css"/>
+    <script type="text/javascript" src="js/Chart.min.js"></script>
+    <style>
+        canvas {
+            float: left;
+        }
+    </style>
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script src="/js/underscore-noflect.js"></script>
+</head>
 
-	<body>
-    <% include header.ejs%>
-		<div class="container">
-			<div class="table-all-area">
-				<div class="message-area">
-					<ol class="breadcrumb">
-						<li>
-							<a href="#">当前位置：</a>
-						</li>
-						<li>
-							<a href="/">主页</a>
-						</li>
-						<li class="active">
-							<a href="#">成绩管理</a>
-						</li>
-					</ol>
-				</div>
-				<div class="canvas-area" style="width:1100px;height:470px; margin: 0 auto;">
-					<canvas id="line" height="450" width="600"></canvas>
-					<canvas id="canvas" height="450" width="450"></canvas>
-				</div>
-					<table class="table table-bordered" id="tableArea">
-						<tr>
-							<th>日期</th>
-							<th>学生姓名</th>
-							<th>学生学号</th>
-							<th>测试时长</th>
-							<th>测试科目</th>
-							<th>分数</th>
-							<th>操作</th>
-						</tr>
-					</table>
-			</div>
-			<!-- Modal -->
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="myModalLabel">成绩详情</h4>
-						</div>
-						<div class="modal-body">
-							请上对应教务网查询成绩详情或者咨询相关老师，谢谢支持理解！
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<!--<button type="button" class="btn btn-primary">Save changes</button>-->
-						</div>
-					</div>
-				</div>
-			</div>
-			<hr class="divider task-divider" />
-			<div class="container summary">
-				<footer>
-					<p class="pull-right">
-						<a href="#top">回到顶部</a>
-					</p>
-					<p class="pull-left">&copy; 学生档案管理系统</p>
-				</footer>
-			</div>
-		</div>
-		<!--前端模板-->
-		<script type="text/template" id="lessonTable">
-			<tr>
-				<td>{{=tableDate}}</td>
-				<td>{{=teacherName}}</td>
-				<td>{{=teacherNum}}</td>
-				<td>{{=studyTime}}</td>
-				<td>{{=lessonCategory}}</td>
-				<td>{{=allTime}}</td>
-				<td>
-					<!--<a>-->
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="padding: 4px 10px;font-size: 12px;">
-							查看详情
-						</button>
-					<!--</a>-->
-				</td>
-			</tr>
-		</script>
-		<script>
-			var $tableArea=$("#tableArea");
-            //得到模板函数
-            var compiled=_.template($("#lessonTable").html());
+<body>
+<% include header.ejs %>
+<div class="container">
+    <div class="table-all-area">
+        <div class="message-area">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="#">当前位置：</a>
+                </li>
+                <li>
+                    <a href="/">主页</a>
+                </li>
+                <li class="active">
+                    <a href="#">成绩查询</a>
+                </li>
+            </ol>
+        </div>
+        <div class="input-group col-md-3" style="margin-top:0px;positon:relative;margin-bottom: 20px">
+            <input type="text" id="studentId" class="form-control" placeholder="请输入您的学号" />
+            <span class="input-group-btn">
+               <button id="searchGradeBtn" type="button" class="btn btn-primary">查找</button>
+            </span>
+        </div>
+        <div class="canvas-area" style="width:1100px;height:470px; margin: 0 auto;display: none">
+            <canvas id="line" height="450" width="600"></canvas>
+            <canvas id="canvas" height="450" width="450"></canvas>
+        </div>
+        <table class="table table-bordered" id="tableArea">
+            <tr>
+                <th>学生姓名</th>
+                <th>学生学号</th>
+                <th>课程名称</th>
+                <th>学年</th>
+                <th>学期</th>
+                <th>成绩</th>
+                <th>绩点</th>
+                <!--<th>操作</th>-->
+            </tr>
+        </table>
+    </div>
+    <!-- Modal -->
+    <!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
+        <!--<div class="modal-dialog" role="document">-->
+            <!--<div class="modal-content">-->
+                <!--<div class="modal-header">-->
+                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
+                                <!--aria-hidden="true">&times;</span></button>-->
+                    <!--<h4 class="modal-title" id="myModalLabel">成绩详情</h4>-->
+                <!--</div>-->
+                <!--<div class="modal-body">-->
+                    <!--请上对应教务网查询成绩详情或者咨询相关老师，谢谢支持理解！-->
+                <!--</div>-->
+                <!--<div class="modal-footer">-->
+                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                    <!--&lt;!&ndash;<button type="button" class="btn btn-primary">Save changes</button>&ndash;&gt;-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <hr class="divider task-divider"/>
+    <div class="container summary">
+        <footer>
+            <p class="pull-right">
+                <a href="#top">回到顶部</a>
+            </p>
+            <p class="pull-left">&copy; 学生档案管理系统</p>
+        </footer>
+    </div>
+</div>
+<!--前端模板-->
+<script type="text/template" id="lessonTable">
+    <tr>
+        <td>{{=studentName}}</td>
+        <td>{{=teacherNum}}</td>
+        <td>{{=lessonCategory}}</td>
+        <td>{{=testYear}}</td>
+        <td>{{=testSemester}}</td>
+        <td>{{=allTime}}</td>
+        <td>{{=gradePoint}}</td>
+        <!--<td>-->
+            <!--&lt;!&ndash;<a>&ndash;&gt;-->
+            <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"-->
+                    <!--style="padding: 4px 10px;font-size: 12px;">-->
+                <!--查看详情-->
+            <!--</button>-->
+            <!--&lt;!&ndash;</a>&ndash;&gt;-->
+        <!--</td>-->
+    </tr>
+</script>
+<script>
+    var $tableArea = $("#tableArea");
+    //得到模板函数
+    var compiled = _.template($("#lessonTable").html());
 
-            //ajax服务，获取信息
-            $.ajax({
-                "url":"/js/data/table.json",
-                "type":"get",
-                "success":function (result) {
-                    //result是一个数组
-//                console.log(Array.isArray(result));
-//				console.log(result);
-                    iterator(0);
-                    //迭代器
-                    //这里防止ajax异步，必须使用迭代器
-                    function iterator(i) {
-                        if (i == result.length) {
-                            //在这里书写请求完毕之后做的事情
-                            return;  //不用继续迭代了
-                        }
-                        console.log(result[i]);
-                        //组装模板
-                        var htmlstring = compiled(result[i]);
-                        //添加DOM
-                        $("#tableArea").append($(htmlstring));
-                        iterator(i + 1);
-                    }
+    //ajax服务，获取信息
+//    $.ajax({
+//        "url": "/grade",
+//        "type": "get",
+//        "success": function (result) {
+//            //result是一个数组
+////                console.log(Array.isArray(result));
+////				console.log(result);
+//            iterator(0);
+//            //迭代器
+//            //这里防止ajax异步，必须使用迭代器
+//            function iterator(i) {
+//                if (i == result.length) {
+//                    //在这里书写请求完毕之后做的事情
+//                    return;  //不用继续迭代了
+//                }
+//                console.log(result[i]);
+//                //组装模板
+//                var htmlstring = compiled(result[i]);
+//                //添加DOM
+//                $("#tableArea").append($(htmlstring));
+//                iterator(i + 1);
+//            }
+//        }
+//    })
+    $("#searchGradeBtn").click(function () {
+        console.log("1111");
+        $.get("/searchGrade", {
+            "studentId": $("#studentId").val()
+        }, function (result) {
+            if (result == null) {
+                alert("查询成绩失败！");
+            }
+            iterator(0);
+            //迭代器
+            //这里防止ajax异步，必须使用迭代器
+            function iterator(i) {
+                if (i == result.length) {
+                    //在这里书写请求完毕之后做的事情
+                    return;  //不用继续迭代了
                 }
-            })
+                console.log(result[i]);
+                //组装模板
+                var htmlstring = compiled(result[i]);
+                //添加DOM
+                $("#tableArea").append($(htmlstring));
+                iterator(i + 1);
+            }
+        })
+    })
+    var lineChartData = {
+        labels: ["", "", "", "", "", "", "", "", "", "", "", ""],
+        datasets: [{
+            fillColor: "rgba(220,220,220,0.5)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            data: [65, 59, 50, 81, 56, 55, 40, 20, 21, 44, 21, 3]
+        },
+            {
+                fillColor: "rgba(151,187,205,0.5)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                data: [28, 48, 40, 19, 96, 27, 50, 32, 10, 43, 67, 2]
+            },
+        ]
 
-			var lineChartData = {
-				labels: ["", "", "", "", "", "", "","","","","",""],
-				datasets: [{
-						fillColor: "rgba(220,220,220,0.5)",
-						strokeColor: "rgba(220,220,220,1)",
-						pointColor: "rgba(220,220,220,1)",
-						pointStrokeColor: "#fff",
-						data: [65, 59, 50, 81, 56, 55, 40,20,21,44,21,3]
-					},
-					{
-						fillColor: "rgba(151,187,205,0.5)",
-						strokeColor: "rgba(151,187,205,1)",
-						pointColor: "rgba(151,187,205,1)",
-						pointStrokeColor: "#fff",
-						data: [28, 48, 40, 19, 96, 27, 50,32,10,43,67,2]
-					},
-				]
+    };
+    var chartData = [{
+        value: Math.random(),
+        color: "#D97041"
+    },
+        {
+            value: Math.random(),
+            color: "#C7604C"
+        },
+        {
+            value: Math.random(),
+            color: "#21323D"
+        },
+        {
+            value: Math.random(),
+            color: "#9D9B7F"
+        },
+        {
+            value: Math.random(),
+            color: "#7D4F6D"
+        },
+        {
+            value: Math.random(),
+            color: "#584A5E"
+        }
+    ];
+    var radarChartData = {
+        labels: ["", "", "", "", "", "", ""],
+        datasets: [{
+            fillColor: "rgba(220,220,220,0.5)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            data: [65, 59, 90, 81, 56, 55, 40]
+        },
+            {
+                fillColor: "rgba(151,187,205,0.5)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                data: [28, 48, 40, 19, 96, 27, 100]
+            }
+        ]
 
-			};
-			var chartData = [{
-					value: Math.random(),
-					color: "#D97041"
-				},
-				{
-					value: Math.random(),
-					color: "#C7604C"
-				},
-				{
-					value: Math.random(),
-					color: "#21323D"
-				},
-				{
-					value: Math.random(),
-					color: "#9D9B7F"
-				},
-				{
-					value: Math.random(),
-					color: "#7D4F6D"
-				},
-				{
-					value: Math.random(),
-					color: "#584A5E"
-				}
-			];
-			var radarChartData = {
-				labels: ["", "", "", "", "", "", ""],
-				datasets: [{
-						fillColor: "rgba(220,220,220,0.5)",
-						strokeColor: "rgba(220,220,220,1)",
-						pointColor: "rgba(220,220,220,1)",
-						pointStrokeColor: "#fff",
-						data: [65, 59, 90, 81, 56, 55, 40]
-					},
-					{
-						fillColor: "rgba(151,187,205,0.5)",
-						strokeColor: "rgba(151,187,205,1)",
-						pointColor: "rgba(151,187,205,1)",
-						pointStrokeColor: "#fff",
-						data: [28, 48, 40, 19, 96, 27, 100]
-					}
-				]
+    };
+    var doughnutData = [{
+        value: 30,
+        color: "#F7464A"
+    },
+        {
+            value: 50,
+            color: "#46BFBD"
+        },
+        {
+            value: 100,
+            color: "#FDB45C"
+        },
+        {
+            value: 40,
+            color: "#949FB1"
+        },
+        {
+            value: 120,
+            color: "#4D5360"
+        }
 
-			};
-			var doughnutData = [{
-					value: 30,
-					color: "#F7464A"
-				},
-				{
-					value: 50,
-					color: "#46BFBD"
-				},
-				{
-					value: 100,
-					color: "#FDB45C"
-				},
-				{
-					value: 40,
-					color: "#949FB1"
-				},
-				{
-					value: 120,
-					color: "#4D5360"
-				}
+    ];
 
-			];
-
-			var myDoughnut = new Chart(document.getElementById("canvas").getContext("2d")).Doughnut(doughnutData);
-			new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
-			//			new Chart(document.getElementById("radar").getContext("2d")).Radar(radarChartData);
-		</script>
-	</body>
+    var myDoughnut = new Chart(document.getElementById("canvas").getContext("2d")).Doughnut(doughnutData);
+    new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
+    //			new Chart(document.getElementById("radar").getContext("2d")).Radar(radarChartData);
+</script>
+</body>
 
 </html>

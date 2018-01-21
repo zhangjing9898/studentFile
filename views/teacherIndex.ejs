@@ -13,7 +13,7 @@
     <script src="/js/underscore-noflect.js"></script>
 </head>
 <body>
-<% include header.ejs%>
+<% include headerTeacher.ejs%>
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -26,11 +26,6 @@
             <img src="img/slideShow1.jpg" alt="1">
             <div class="container">
                 <div class="carousel-caption">
-                    <!--<h1>相关通知</h1>-->
-                    <!--<p>Related notice</p>-->
-                    <!--<p>-->
-                        <!--<a class="btn btn-lg btn-primary" href="message" target="_blank" role="button">点我了解</a>-->
-                    <!--</p>-->
                 </div>
             </div>
         </div>
@@ -89,49 +84,54 @@
     </div>
     <hr class="divider" />
     <div class="row">
-        <div class="col-md-3 task-area">
-            <img src="img/lesson.png" class="img-circle" alt="teacher-head-img" />
-            <h2>相关通知</h2>
-            <div class="">
-                <p>学生：<%= username%></p>
-                <p>相关通知记录</p>
+        <!--<div class="col-md-4 task-area">-->
+            <!--<img src="img/lesson.png" class="img-circle" alt="teacher-head-img" />-->
+            <!--<h2>相关通知</h2>-->
+            <!--<div class="">-->
+                <!--<p>教师：<%= username%></p>-->
+                <!--<p>相关通知记录</p>-->
+            <!--</div>-->
+            <!--<p class="task-enter-btn">-->
+                <!--<a class="btn btn-danger" href="message" role="button">点击进入</a>-->
+            <!--</p>-->
+        <!--</div>-->
+        <!--<div class="col-md-3 task-area">-->
+            <!--<img src="img/table.png" class="img-circle" alt="chrome" />-->
+            <!--<h2>成绩管理</h2>-->
+            <!--<div class="">-->
+                <!--<p>教师：<%= username %></p>-->
+                <!--<p>相关成绩管理</p>-->
+            <!--</div>-->
+            <!--<p class="task-enter-btn">-->
+                <!--<a class="btn btn-danger" href="table" role="button">点击进入</a>-->
+            <!--</p>-->
+        <!--</div>-->
+        <div class="col-md-6 task-area other">
+            <img src="img/resource.png" class="img-circle col-md-8" style="padding: 0" alt="chrome" />
+            <div class="right col-md-4">
+                <h2 style="margin-top: 6px">奖惩管理</h2>
+                <div class="">
+                    <p>教师：<%=username%></p>
+                    <p>相关奖惩管理</p>
+                </div>
+                <p class="task-enter-btn">
+                    <a class="btn btn-danger" href="searchStudentInfo" role="button">点击进入</a>
+                </p>
             </div>
-            <p class="task-enter-btn">
-                <a class="btn btn-danger" href="message" role="button">点击进入</a>
-            </p>
         </div>
-        <div class="col-md-3 task-area">
-            <img src="img/table.png" class="img-circle" alt="chrome" />
-            <h2>成绩查询</h2>
-            <div class="">
-                <p>学生：<%= username %></p>
-                <p>相关成绩查询</p>
+        <div class="col-md-6 task-area other">
+            <img src="img/class.png" alt="chrome" class="img-circle col-md-8" style="padding: 0"/>
+            <div class="right col-md-4">
+                <h2 style="margin-top: 6px">课程上传</h2>
+                <div class="">
+                    <p>教师：<%=username%></p>
+                    <p>相关课程上传</p>
+                </div>
+                <p class="task-enter-btn">
+                    <a class="btn btn-danger" href="lessonUp" role="button">点击进入</a>
+                </p>
             </div>
-            <p class="task-enter-btn">
-                <a class="btn btn-danger" href="table" role="button">点击进入</a>
-            </p>
-        </div>
-        <div class="col-md-3 task-area">
-            <img src="img/resource.png" class="img-circle" alt="chrome" />
-            <h2>档案信息管理</h2>
-            <div class="">
-                <p>学生：<%=username%></p>
-                <p>个人档案信息管理</p>
-            </div>
-            <p class="task-enter-btn">
-                <a class="btn btn-danger" href="userInfo" role="button">点击进入</a>
-            </p>
-        </div>
-        <div class="col-md-3 task-area">
-            <img src="img/class.png" alt="chrome" class="img-circle" />
-            <h2>课程查询</h2>
-            <div class="">
-                <p>学生：<%=username%></p>
-                <p>相关课程查询</p>
-            </div>
-            <p class="task-enter-btn">
-                <a class="btn btn-danger" href="taskArea" role="button">点击进入</a>
-            </p>
+
         </div>
     </div>
     <hr class="divider" />

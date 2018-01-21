@@ -20,6 +20,7 @@
 #footer-container .copyright {
     padding-bottom: 1em;
     text-align: center;
+    line-height: 50px;!important;
 }
 #footer-container-area{
     margin: 0 auto;

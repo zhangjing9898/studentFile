@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>档案管理</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/user-info.css"/>
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/underscore-noflect.js"></script>
+</head>
+
+<body class="user-info">
+<% include headerTeacher.ejs %>
+<div class="container">
+    <div class="message-area">
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">当前位置：</a>
+            </li>
+            <li>
+                <a href="teacherIndex">主页</a>
+            </li>
+            <li className="active">
+                <a href="#">奖惩管理</a>
+            </li>
+        </ol>
+    </div>
+    <div class="message-detail-area">
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="active">
+                <a href="#tab1" data-toggle="tab">奖惩管理
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="input-group col-md-3" style="margin-top:0px;positon:relative;margin-bottom: 20px">
+                <input type="text" id="studentId" class="form-control" placeholder="请输入的学号"/>
+                <span class="input-group-btn">
+                <button id="searchInfoBtn" type="button" class="btn btn-primary">查找</button>
+            </span>
+            </div>
+            <button id="addPunish" type="submit" class="btn btn-danger scrollto"
+                    style="margin-bottom: 12px;margin-top: 5px" data-toggle="modal"
+                    data-target="#addPunish-info">新增处分
+            </button>
+            <div class="tab-pane row-fluid active" id="tab1">
+                <div class="list-group">
+                    <form class="form-horizontal" id="userinfotable">
+                        <!--<div class="form-group col-sm-6">-->
+                            <!--<label for="input" class="col-sm-2 control-label">账户名</label>-->
+                            <!--<div class="col-sm-10">-->
+                                <!--<input id="dengluming" type="text" class="form-control" disabled placeholder="" value="<%= username %>">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <hr class="divider task-divider"/>
+    <div class="summary">
+        <footer>
+            <p class="pull-right">
+                <a href="#top">回到顶部</a>
+            </p>
+            <p class="pull-left">&copy; 学生档案管理系统</p>
+        </footer>
+    </div>
+    <div class="modal fade" id="addPunish-info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title-login" id="myModalLabel">新增</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="get" action="" class="form-horizontal" id="myModalBody">
+                        <div class="form-group has-feedback">
+                            <label for="input" class="col-sm-2 control-label">姓名</label>
+                            <div class="col-sm-10">
+                                <input id="studentNamePunish" type="text" class="form-control" value=""
+                                       placeholder="请输入真实姓名">
+                            </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label for="input" class="col-sm-2 control-label">学号</label>
+                            <div class="col-sm-10">
+                                <input id="studentNumber" type="text" class="form-control" value=""
+                                       placeholder="请输入学号">
+                            </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label for="input" class="col-sm-2 control-label">处分日期</label>
+                            <div class="col-sm-10">
+                                <input id="punishDate" type="text" class="form-control" value=""
+                                       placeholder="请输入受处分日期">
+                            </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label for="input" class="col-sm-2 control-label">处分详情</label>
+                            <div class="col-sm-10">
+                                <input id="punishDetail" type="text" class="form-control" value=""
+                                       placeholder="请输入处分详情">
+                            </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <label for="input" class="col-sm-2 control-label">处分结果</label>
+                            <div class="col-sm-10">
+                                <input id="punishResult" type="text" class="form-control" value=""
+                                       placeholder="请输入处分结果">
+                            </div>
+                        </div>
+                    </form>
+                    <button type="submit" id="addPunishBtn" class="btn btn-lg btn-success btn-raised btn-block">提交
+                    </button>
+                    <hr style="margin-top:12px;">
+                    <div class="form-horizontal">
+                        <div class="clearfix">
+                            <div class="pull-left">
+                                <p class="form-control-static">Back home?</p>
+                            </div>
+                            <div class="pull-right">
+                                <a href="/" class="btn btn-outline btn-default">return</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/template" id="infoTemplate">
+    <div class="form-group col-sm-6">
+        <label for="input" class="col-sm-2 control-label">ID</label>
+        <div class="col-sm-10">
+            <input id="" type="text" class="form-control" value="{{=_id}}" placeholder="" disabled>
+        </div>
+    </div>
+    <div class="form-group col-sm-6">
+        <label for="input" class="col-sm-2 control-label">姓名</label>
+        <div class="col-sm-10">
+            <input id="reallyName" type="text" class="form-control" value="{{=reallyName}}" placeholder="请输入您的真实姓名">
+        </div>
+    </div>
+    <div class="form-group col-sm-6">
+        <label for="input" class="col-sm-2 control-label">性别</label>
+        <div class="col-sm-10">
+            <select class="form-control" id="sex">
+                <option value="男">男</option>
+                <option value="女">女</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group col-sm-6">
+        <label for="input" class="col-sm-2 control-label">学号</label>
+        <div class="col-sm-10">
+            <input id="teacherId" type="text" class="form-control" value="{{=teacherId}}" placeholder="请输入您的学号">
+        </div>
+    </div>
+    <div class="form-group col-sm-6">
+        <label for="input" class="col-sm-2 control-label">身份证号</label>
+        <div class="col-sm-10">
+            <input id="IDnumber" type="text" class="form-control" value="{{=IDnumber}}" placeholder="请输入您的身份证号">
+        </div>
+    </div>
+    <div class="form-group col-sm-6">
+        <label for="input" class="col-sm-2 control-label">学校名称</label>
+        <div class="col-sm-10">
+            <input id="colleageName" type="text" class="form-control" value="{{=collegeName}}" placeholder="请输入您所在学校名称">
+        </div>
+    </div>
+    <div class="form-group col-sm-6">
+        <label for="inputPassword3" class="col-sm-2 control-label">政治面貌</label>
+        <div class="col-sm-10">
+            <select class="form-control" id="politicalStatus">
+                <option value="团员">团员</option>
+                <option value="党员">党员</option>
+                <option value="群众">群众</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group col-sm-6">
+        <label for="input" class="col-sm-2 control-label">联系电话</label>
+        <div class="col-sm-10">
+            <input id="telNum" type="text" class="form-control" value="{{=telNum}}" placeholder="请输入您的联系电话">
+        </div>
+    </div>
+    <div class="form-group col-sm-6">
+        <label for="inputPassword3" class="col-sm-2 control-label">所在院系</label>
+        <div class="col-sm-10">
+            <!--<input id="lesson" type="text" class="form-control"  value="{{=lesson}}" placeholder="请输入您所授课程">-->
+            <!--</div>-->
+            <select class="form-control" id="department" value="{{=department}}">
+                <option value="信息技术与工程学院">信息技术与工程学院</option>
+                <option value="外国语学院">外国语学院</option>
+                <option value="电子商务管理学院">电子商务管理学院</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group col-sm-6">
+        <label for="inputPassword3" class="col-sm-2 control-label">所在班级</label>
+        <div class="col-sm-10">
+            <input id="lesson" type="text" class="form-control" value="{{=lesson}}" placeholder="请输入您所授课程">
+        </div>
+    </div>
+    <div class="form-group col-sm-6">
+        <label for="inputPassword3" class="col-sm-2 control-label">入学年份</label>
+        <div class="col-sm-10">
+            <input id="enterYear" type="text" class="form-control" value="{{=enterYear}}" placeholder="请输入您入学年份">
+        </div>
+    </div>
+    <div class="form-group col-sm-6">
+        <label for="inputPassword3" class="col-sm-2 control-label">家庭信息</label>
+        <div class="col-sm-10">
+            <input id="familyInfo" type="text" class="form-control" value="{{=familyInfo}}" placeholder="请输入您家庭信息">
+        </div>
+    </div>
+    <div class="form-group col-sm-6">
+        <label for="inputPassword3" class="col-sm-2 control-label">父母姓名</label>
+        <div class="col-sm-10">
+            <input id="parentName" type="text" class="form-control" value="{{=parentName}}" placeholder="请输入您父母姓名">
+        </div>
+    </div>
+    <div class="form-group col-sm-6">
+        <label for="inputPassword3" class="col-sm-2 control-label">父母电话</label>
+        <div class="col-sm-10">
+            <input id="parentPhone" type="text" class="form-control" value="{{=parentPhone}}" placeholder="请输入您父母联系电话">
+        </div>
+    </div>
+    <div class="form-group col-sm-6">
+        <label for="inputPassword3" class="col-sm-2 control-label">初中学校</label>
+        <div class="col-sm-10">
+            <input id="primarySchool" type="text" class="form-control" value="{{=primarySchool}}"
+                   placeholder="请输入您初中所在学校">
+        </div>
+    </div>
+    <div class="form-group col-sm-6">
+        <label for="inputPassword3" class="col-sm-2 control-label">高中学校</label>
+        <div class="col-sm-10">
+            <input id="highSchool" type="text" class="form-control" value="{{=highSchool}}" placeholder="请输入您高中所在学校">
+        </div>
+    </div>
+    <div class="form-group col-sm-6">
+        <label for="inputPassword3" class="col-sm-2 control-label">得奖情况</label>
+        <div class="col-sm-10">
+            <input id="awardInfo" type="text" class="form-control" value="{{=awardInfo}}"
+                   placeholder="请输入您得奖情况">
+        </div>
+    </div>
+    <div class="form-group col-sm-6">
+        <label for="inputPassword3" class="col-sm-2 control-label">处分情况</label>
+        <div class="col-sm-10">
+            <input id="punish" type="text" class="form-control" value="{{=punish}}"
+                   placeholder="请输入您得奖情况">
+        </div>
+    </div>
+    <div class="confirmBtn">
+        <button onclick="teacherClick();" class="btn btn-primary modify-btn" type="submit">修改资料</button>
+    </div>
+</script>
+<script type="text/javascript">
+
+    var compiledGrade = _.template($("#infoTemplate").html());
+    $("#searchInfoBtn").click(function () {
+        $.get("/searchUserinfo", {
+            "studentId": $("#studentId").val()
+        }, function (result) {
+            if (result == '') {
+                alert("没有该学生档案！");
+            }
+            iterator(0);
+            //迭代器
+            //这里防止ajax异步，必须使用迭代器
+            function iterator(i) {
+                if (i == result.length) {
+                    //在这里书写请求完毕之后做的事情
+                    return;  //不用继续迭代了
+                }
+                console.log(result[i]);
+                //组装模板
+                let htmlstring = compiledGrade(result[i]);
+                //添加DOM
+                $("#userinfotable").html($(htmlstring));
+                let plos = result[0].politicalStatus;
+                let depa = result[0].department;
+                let sexInfo = result[0].sex;
+                $("#sex option[value='" + sexInfo + "']").attr("selected", true);
+                $("#politicalStatus option[value='" + plos + "']").attr("selected", true);
+                $("#department option[value='" + depa + "']").attr("selected", true);
+                iterator(i + 1);
+            }
+        })
+    })
+        //用ajax提交表单
+        var teacherClick=function () {
+            var politicalstatus = $("#politicalStatus option:selected").text();
+            var department = $("#department option:selected").text();
+            $.get("/updataTeacher", {
+                "dengluming": $("#dengluming").val(),
+                "teacherId": $("#teacherId").val(),
+                "collegeName": $("#colleageName").val(),
+                "politicalStatus": politicalstatus,
+                "telNum": $("#telNum").val(),
+                "sex": $("#sex").val(),
+                "department": department,
+                "lesson": $("#lesson").val(),
+                "enterYear": $("#enterYear").val(),
+                "familyInfo": $("#familyInfo").val(),
+                "reallyName": $("#reallyName").val(),
+                "IDnumber": $("#IDnumber").val(),
+                "parentName": $("#parentName").val(),
+                "parentPhone": $("#parentPhone").val(),
+                "primarySchool": $("#primarySchool").val(),
+                "highSchool": $("#highSchool").val(),
+                "awardInfo":$("#awardInfo").val(),
+                "punish":$("#punish").val()
+            }, function (result) {
+                if (result == "1") {
+                    alert("修改成功！，将自动跳转到首页");
+                    window.location = "/";
+                } else {
+                    alert("修改失败！，将自动跳转到首页");
+                    window.location = "/";
+                }
+            })
+        };
+
+
+    //新增处分
+    $("#addPunishBtn").click(function () {
+        $.get("/addPunish", {
+            "studentName": $("#studentNamePunish").val(),
+            "studentNumber": $("#studentNumber").val(),
+            "punishDate": $("#punishDate").val(),
+            "punishDetail": $("#punishDetail").val(),
+            "punishResult": $("#punishResult").val()
+        }, function (result) {
+            if (result == "1") {
+                alert("新增处分成功！");
+            } else {
+                alert("新增处分失败！");
+            }
+        })
+    })
+</script>
+</body>
+
+</html>
