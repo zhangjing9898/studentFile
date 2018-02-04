@@ -35,22 +35,25 @@
                 </a>
             </li>
             <li id="teacher-manager-btn">
-                <a href="#">档案信息管理</a>
+                <a href="#">学生信息管理</a>
             </li>
             <li id="lesson-manage-btn">
-                <a href="#">注册用户管理</a>
+                <a href="#">用户管理</a>
             </li>
             <li id="grade-info-btn">
                 <a href="#">成绩信息管理</a>
             </li>
             <li id="punishment-btn">
-                <a href="#">奖惩信息管理</a>
+                <a href="#">处分信息管理</a>
             </li>
             <li id="lesson-info-btn">
-                <a href="#">课程信息管理</a>
+                <a href="#">文件管理</a>
             </li>
             <li id="teacher-info-btn">
                 <a href="#">教师信息管理</a>
+            </li>
+            <li>
+                <a href="/exit">退出</a>
             </li>
         </ul>
     </nav>
@@ -63,24 +66,48 @@
         <div class="container">
             <div id="lesson-manage" style="display: none;">
                 <h3>注册用户详情</h3>
+                <div class="input-group col-md-3" style="margin-top:0px;positon:relative;margin-bottom: 20px">
+                <input type="text" id="studentNameId" class="form-control" placeholder="请输入您的学号"/>
+                <span class="input-group-btn">
+                        <button id="searchNameBtn" type="button" class="btn btn-primary">查找</button>
+                    </span>
+            </div>
                 <table class="table table-bordered" id="referenceArea">
-                    <tr>
-                        <th>序号</th>
-                        <th>账号名</th>
-                        <th>加密后密码</th>
-                        <th>操作</th>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>账号名</th>
+                            <th>加密后密码</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+
+                    </tbody>
+                    <div id="studentNameDiv"></div>
                 </table>
             </div>
             <div id="teacher-info-manage" style="display: none;">
                 <h3>注册教师详情</h3>
+                <div class="input-group col-md-3" style="margin-top:0px;positon:relative;margin-bottom: 20px">
+                    <input type="text" id="teacherId" class="form-control" placeholder="请输入您的教师编号"/>
+                    <span class="input-group-btn">
+                        <button id="searchTeacherBtn" type="button" class="btn btn-primary">查找</button>
+                    </span>
+                </div>
                 <table class="table table-bordered" id="teacherInfoArea">
                     <tr>
-                        <th>序号</th>
+                        <!--<th>序号</th>-->
                         <th>账号名</th>
-                        <th>加密后密码</th>
-                        <th>操作</th>
+                        <th>教师姓名</th>
+                        <th>教师编号</th>
+                        <th>年龄</th>
+                        <th>性别</th>
+                        <th>所教专业</th>
+                        <th>所属院系</th>
+                        <th>联系电话</th>
+                        <!--<th>操作</th>-->
                     </tr>
+                    <div id="teacherDiv"></div>
                 </table>
             </div>
             <div id="lesson-info-upload" style="display: none;">
@@ -105,10 +132,12 @@
                         <button id="searchGradeBtn" type="button" class="btn btn-primary">查找</button>
                     </span>
                 </div>
+                <table class="table table-bordered" id="studentInfoTableArea">
+                </table>
                 <table class="table table-bordered" id="gradeArea">
                     <tr>
-                        <th>学生姓名</th>
-                        <th>学生学号</th>
+                        <!--<th>学生姓名</th>-->
+                        <!--<th>学生学号</th>-->
                         <th>课程名称</th>
                         <th>学年</th>
                         <th>学期</th>
@@ -120,13 +149,18 @@
             </div>
             <div id="punishment-info" style="display: none;">
                 <h3>处分记录详情</h3>
+                <div class="input-group col-md-3" style="margin-top:0px;positon:relative;margin-bottom: 20px">
+                    <input type="text" id="studentPunishId" class="form-control" placeholder="请输入您的学号"/>
+                    <span class="input-group-btn">
+                        <button id="searchPunishBtn" type="button" class="btn btn-primary">查找</button>
+                    </span>
+                </div>
                 <button id="addPunish" type="submit" class="btn btn-danger scrollto"
                         style="margin-bottom: 12px;margin-top: 5px" data-toggle="modal"
                         data-target="#addPunish-info">新增处分
                 </button>
                 <table class="table table-bordered" id="punishArea">
                     <tr>
-                        <th>ID</th>
                         <th>学生名字</th>
                         <th>学号</th>
                         <th>受处分日期</th>
@@ -140,7 +174,7 @@
                 <div class="jumbotron">
                     <h1>欢迎进入后台管理页面！</h1>
                     <p>welcome to manager page</p>
-                    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+                    <p><a class="btn btn-primary btn-lg" href="/exit" role="button">Back home</a></p>
                 </div>
             </div>
             <div id="change-password-area" style="display: none;">
@@ -148,20 +182,35 @@
                 <div style="display: block; height: 20px;"></div>
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">账号</label>
+                        <label style="color: #eeeeee;" for="inputEmail3" class="col-sm-2 control-label">账号</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="denglumingM" placeholder="" disabled value="<%=username%>">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
+                        <label style="color: #eeeeee;" class="col-sm-2 control-label">旧密码</label>
                         <div class="col-sm-10">
-                            <input type="password" class="form-control" id="mimaM" placeholder="Password">
+                            <input  type="password" class="form-control" value=""
+                                    placeholder="请输入旧密码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label style="color: #eeeeee;" class="col-sm-2 control-label">新密码</label>
+                        <div class="col-sm-10">
+                            <input  type="password" class="form-control" value=""
+                                    placeholder="请输入新密码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label style="color: #eeeeee;" class="col-sm-2 control-label">再次确认</label>
+                        <div class="col-sm-10">
+                            <input id="mimaM" type="password" class="form-control" value=""
+                                   placeholder="请再次确认新密码">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class=" col-sm-offset-2 col-sm-10">
-                            <button type="submit" id="changePasswordMBtn" class="btn btn-primary">更改</button>
+                            <button type="submit" id="changePasswordMBtn" class="btn btn-primary col-sm-12">更改</button>
                         </div>
                     </div>
                 </form>
@@ -180,7 +229,7 @@
                 <h3>系统消息记录</h3>
                 <table class="table table-bordered" id="informArea">
                     <tr>
-                        <th>ID</th>
+                        <!--<th>ID</th>-->
                         <th>登录名</th>
                         <th>消息内容</th>
                     </tr>
@@ -189,21 +238,33 @@
             <div id="teacher-manager" style="display: none;">
                 <form>
                     <h3>档案详情</h3>
+                    <div class="input-group col-md-3" style="margin-top:0px;positon:relative;margin-bottom: 20px">
+                        <input type="text" id="archiveStudentId" class="form-control" placeholder="请输入您的学号"/>
+                        <span class="input-group-btn">
+                        <button id="searchArchivesBtn" type="button" class="btn btn-primary">查找</button>
+                    </span>
+                    </div>
                     <table class="table table-bordered" id="lessonArea">
-                        <tr>
-                            <th>账号</th>
-                            <th>名字</th>
-                            <th>学号</th>
-                            <th>学校名称</th>
-                            <th>联系电话</th>
-                            <th>性别</th>
-                            <th>所在班级</th>
-                            <th>入学年份</th>
-                            <th>政治面貌</th>
-                            <!--<th>家庭情况</th>-->
-                            <th>获奖情况</th>
-                            <th>操作</th>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>账号</th>
+                                <th>名字</th>
+                                <th>学号</th>
+                                <th>学校名称</th>
+                                <th>联系电话</th>
+                                <th>性别</th>
+                                <th>所在班级</th>
+                                <th>入学年份</th>
+                                <th>政治面貌</th>
+                                <!--<th>家庭情况</th>-->
+                                <th>获奖情况</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                        <div id="archivesNotice"></div>
                     </table>
                 </form>
             </div>
@@ -443,7 +504,7 @@
 <!--前端模板-->
 <script type="text/template" id="informTemplate">
     <tr>
-        <td>{{=_id}}</td>
+        <!--<td >{{=_id}}</td>-->
         <td>{{=dengluming}}</td>
         <td>{{=content}}</td>
     </tr>
@@ -470,8 +531,8 @@
 <script type="text/template" id="gradeTemplate">
     <tr>
         <td style="display: none">{{=_id}}</td>
-        <td>{{=studentName}}</td>
-        <td>{{=teacherNum}}</td>
+        <!--<td>{{=studentName}}</td>-->
+        <!--<td>{{=teacherNum}}</td>-->
         <td>{{=lessonCategory}}</td>
         <td>{{=testYear}}</td>
         <td>{{=testSemester}}</td>
@@ -484,7 +545,7 @@
 <!--前端模板-->
 <script type="text/template" id="punishTemplate">
     <tr>
-        <td>{{=_id}}</td>
+        <!--<td>{{=_id}}</td>-->
         <td>{{=studentName}}</td>
         <td>{{=studentNumber}}</td>
         <td>{{=punishDate}}</td>
@@ -497,7 +558,7 @@
 <!--前端模板-->
 <script type="text/template" id="referenceTemplate">
     <tr>
-        <td>{{=_id}}</td>
+        <!--<td>{{=_id}}</td>-->
         <td>{{=dengluming}}</td>
         <td>{{=mima}}</td>
         <td id="{{=_id}}" onclick="deleteMethod(id)">删除</td>
@@ -506,10 +567,15 @@
 <!--注册教师信息template-->
 <script type="text/template" id="teacherInfoTemplate">
     <tr>
-        <td>{{=_id}}</td>
         <td>{{=dengluming}}</td>
-        <td>{{=mima}}</td>
-        <td id="{{=_id}}" onclick="deleteMethod(id)">删除</td>
+        <td>{{=teacherName}}</td>
+        <td>{{=teacherNum}}</td>
+        <td>{{=teacherAge}}</td>
+        <td>{{=sex}}</td>
+        <td>{{=major}}</td>
+        <td>{{=department}}</td>
+        <td>{{=telNum}}</td>
+        <!--<td id="{{=_id}}" onclick="deleteMethod(id)">删除</td>-->
     </tr>
 </script>
 <!--前端模板-->
@@ -1069,30 +1135,7 @@
             }
         }
     })
-
-    //    //成绩详情
-    //    var $gradeArea = $("#gradeArea");
-    //    //得到模板函数
     var compiledGrade = _.template($("#gradeTemplate").html());
-    //
-    //    $.ajax({
-    //        "url": "/showGrade",
-    //        "type": "get",
-    //        "success": function (result) {
-    //            iterator(0);
-    //            function iterator(i) {
-    //                if (i == result.length) {
-    //                    //在这里书写请求完毕之后做的事情
-    //                    return;  //不用继续迭代了
-    //                }
-    //                //组装模板
-    //                var htmlstring = compiledGrade(result[i]);
-    //                //添加DOM
-    //                $("#gradeArea").append($(htmlstring));
-    //                iterator(i + 1);
-    //            }
-    //        }
-    //    })
     $("#searchGradeBtn").click(function () {
         $.get("/searchGrade", {
             "studentId": $("#studentId").val()
@@ -1100,25 +1143,160 @@
             if (result == null) {
                 alert("查询成绩失败！");
             }
+            let studentN=result[0].studentName;
+            let studentId=result[0].teacherNum;
+            $("#studentInfoTableArea").html(`<tr>
+                <th >学生姓名</th>
+                <th>学生学号</th>
+            </tr>
+            <tr>
+                <td>${studentN}</td>
+                <td>${studentId}</td>
+            </tr>`)
             iterator(0);
-            //迭代器
-            //这里防止ajax异步，必须使用迭代器
             function iterator(i) {
                 if (i == result.length) {
-                    //在这里书写请求完毕之后做的事情
-                    return;  //不用继续迭代了
+                    return;
                 }
                 console.log(result[i]);
-                //组装模板
                 var htmlstring = compiledGrade(result[i]);
-                //添加DOM
                 $("#gradeArea").append($(htmlstring));
                 iterator(i + 1);
             }
         })
     })
+    //查询档案
+    var compiledArchives = _.template($("#lessonTemplate").html());
+    $("#searchArchivesBtn").click(function () {
+        $("#lessonArea").html("");
+        $.get("/searchArchives", {
+            "studentId": $("#archiveStudentId").val()
+        }, function (result) {
+            if (result == "") {
+                $("#archivesNotice").html("没有该用户档案");
+            }
+            iterator(0);
+            function iterator(i) {
+                if (i == result.length) {
+                    //在这里书写请求完毕之后做的事情
+                    return;  //不用继续迭代了
+                }
+                $("#lessonArea").html(`<tr>
+                                <th>账号</th>
+                                <th>名字</th>
+                                <th>学号</th>
+                                <th>学校名称</th>
+                                <th>联系电话</th>
+                                <th>性别</th>
+                                <th>所在班级</th>
+                                <th>入学年份</th>
+                                <th>政治面貌</th>
+                                <th>获奖情况</th>
+                                <th>操作</th>
+                            </tr>`)
+                //组装模板
+                var htmlstring = compiledArchives(result[i]);
+                //添加DOM
+                $("#lessonArea").append($(htmlstring));
+                iterator(i + 1);
+            }
+        })
+    })
+
+    //查询用户
+    var compiledRe = _.template($("#referenceTemplate").html());
+    $("#searchNameBtn").click(function () {
+        $("#referenceAreaTbody").html("");
+        $.get("/searchName", {
+            "studentId": $("#studentNameId").val()
+        }, function (result) {
+            if (result == "") {
+                $("#studentNameDiv").html("没有该用户注册信息")
+            }
+            iterator(0);
+            function iterator(i) {
+                if (i == result.length) {
+                    return;
+                }
+                $("#referenceArea").html(`<thead>
+                        <tr>
+                            <th>账号名</th>
+                            <th>加密后密码</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>`)
+                var htmlstring = compiledRe(result[i]);
+                $("#referenceArea").append($(htmlstring));
+                iterator(i + 1);
+            }
+        })
+    })
+
+    //查询教师
+    var compiledTeI = _.template($("#teacherInfoTemplate").html());
+    $("#searchTeacherBtn").click(function () {
+        $("#teacherInfoArea").html("");
+        $.get("/searchTeacher", {
+            "studentId": $("#teacherId").val()
+        }, function (result) {
+            if (result == "") {
+                $("#teacherDiv").html("没有该教师注册信息")
+            }
+            iterator(0);
+            function iterator(i) {
+                if (i == result.length) {
+                    return;
+                }
+                $("#teacherInfoArea").html(`<thead>
+                         <tr>
+                        <th>账号名</th>
+                        <th>教师姓名</th>
+                        <th>教师编号</th>
+                        <th>年龄</th>
+                        <th>性别</th>
+                        <th>所教专业</th>
+                        <th>所属院系</th>
+                        <th>联系电话</th>
+                    </tr>
+                    </thead>`)
+                var htmlstring = compiledTeI(result[i]);
+                $("#teacherInfoArea").append($(htmlstring));
+                iterator(i + 1);
+            }
+        })
+    })
+
+    var compiledPu = _.template($("#punishTemplate").html());
+    $("#searchPunishBtn").click(function () {
+        $("#punishArea").html("");
+        $.get("/searchPunish", {
+            "studentId": $("#studentPunishId").val()
+        }, function (result) {
+            if (result == "") {
+                $("#studentNameDiv").html("没有该用户处分信息")
+            }
+            iterator(0);
+            function iterator(i) {
+                if (i == result.length) {
+                    return;
+                }
+                $("#punishArea").html(`
+    <thead><tr>
+                        <th>学生名字</th>
+                        <th>学号</th>
+                        <th>受处分日期</th>
+                        <th>违规详情</th>
+                        <th>处分结果</th>
+                        <th>操作</th>
+                    </tr></thead>`)
+                var htmlstring = compiledPu(result[i]);
+                $("#punishArea").append($(htmlstring));
+                iterator(i + 1);
+            }
+        })
+    })
+
     //处分详情
-    var $punishArea = $("#punishArea");
     //得到模板函数
     var compiledPunish = _.template($("#punishTemplate").html());
 

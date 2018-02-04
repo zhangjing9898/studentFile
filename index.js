@@ -313,7 +313,17 @@ app.get("/userInfo", function (req, res, next) {
         "username": req.session.login == "1" ? req.session.username : ""
     });
 });
-
+app.get("/teacherInfo", function (req, res, next) {
+    //必须保证登陆
+    if (req.session.login != "1") {
+        res.end("非法闯入，这个页面要求登陆！");
+        return;
+    }
+    res.render("user-info-teacher", {
+        "login": req.session.login == "1" ? true : false,
+        "username": req.session.login == "1" ? req.session.username : ""
+    });
+});
 //更改资料
 app.get("/updata", function (req, res, next) {
     var dengluming = req.query.dengluming;
@@ -373,7 +383,65 @@ app.get("/updata", function (req, res, next) {
         })
     });
 });
+app.get("/updataTeacher", function (req, res, next) {
+    var dengluming = req.query.dengluming;
+    var department = req.query.department;
+    var teacherName=req.query.teacherName;
+    var teacherNum=req.query.teacherNum;
+    var telNum = req.query.telNum;
+    var sex = req.query.sex;
+    var major = req.query.major;
+    var teacherAge=req.query.teacherAge;
+    var national=req.query.national;
+    var nativePlace=req.query.nativePlace;
+    var address=req.query.address;
+    var IDnumber = req.query.IDnumber;
+    db.find("teacherPost", {"dengluming": dengluming}, function (err, result) {
+        if (result.length != 0) {
+            //用户填写过一次，更改它的值
+            db.updateMany("teacherPost", {"dengluming": dengluming}, {
+                $set: {
+                    "teacherName": teacherName,
+                    "teacherNum": teacherNum,
+                    "major": major,
+                    "telNum": telNum,
+                    "teacherAge": teacherAge,
+                    "sex": sex,
+                    "national": national,
+                    "nativePlace": nativePlace,
+                    "address": address,
+                    "IDnumber": IDnumber,
+                    "department": department
+                }
+            }, function (err, results) {
+                res.send("1");//修改成功
 
+            });
+            return;
+        }
+        ;
+        db.insertOne("teacherPost", {
+            "teacherName": teacherName,
+            "teacherNum": teacherNum,
+            "major": major,
+            "telNum": telNum,
+            "teacherAge": teacherAge,
+            "sex": sex,
+            "national": national,
+            "nativePlace": nativePlace,
+            "address": address,
+            "IDnumber": IDnumber,
+            "department": department,
+            "dengluming":dengluming
+        }, function (err, result) {
+            if (err) {
+                res.send("-1");
+                return;
+            }
+            res.send("1"); //更改成功
+        })
+    });
+});
 //更改资料
 app.get("/updataTeacher", function (req, res, next) {
     var dengluming = req.query.dengluming;
@@ -454,6 +522,18 @@ app.get("/showuserinfo", function (req, res, next) {
     })
 });
 
+app.get("/showTeacherInfo", function (req, res, next) {
+    var dengluming = req.query.dengluming;
+    db.find("teacherPost", {"dengluming": dengluming}, function (err, result) {
+        // console.log(result);
+        if (err || result.length == 0) {
+            res.json("");
+            return;
+        }
+        res.json(result);
+    })
+});
+
 //查询个人档案资料
 app.get("/searchUserinfo", function (req, res, next) {
     var studentid = req.query.studentId;
@@ -493,6 +573,51 @@ app.get("/searchGrade", function (req, res, next) {
     })
 });
 
+//显示档案
+app.get("/searchArchives", function (req, res, next) {
+    var studentId = req.query.studentId;
+    db.find("post", {"teacherId": studentId}, function (err, result) {
+        console.log(result);
+        if (err || result.length == 0) {
+            res.json("");
+            return;
+        }
+        res.json(result);
+    })
+});
+app.get("/searchName", function (req, res, next) {
+    var studentId = req.query.studentId;
+    db.find("users", {"dengluming": studentId}, function (err, result) {
+        console.log(result);
+        if (err || result.length == 0) {
+            res.json("");
+            return;
+        }
+        res.json(result);
+    })
+});
+app.get("/searchTeacher", function (req, res, next) {
+    var studentId = req.query.studentId;
+    db.find("teacherPost", {"teacherNum": studentId}, function (err, result) {
+        console.log(result);
+        if (err || result.length == 0) {
+            res.json("");
+            return;
+        }
+        res.json(result);
+    })
+});
+app.get("/searchPunish", function (req, res, next) {
+    var studentId = req.query.studentId;
+    db.find("punish", {"studentNumber": studentId}, function (err, result) {
+        console.log(result);
+        if (err || result.length == 0) {
+            res.json("");
+            return;
+        }
+        res.json(result);
+    })
+});
 //显示修改资料
 app.get("/showModal", function (req, res, next) {
     var modalId = req.query.modalId;
@@ -578,7 +703,7 @@ app.get("/addNotion", function (req, res, next) {
 
 //显示消息
 app.get("/showInform", function (req, res, next) {
-    db.find("information", {"dengluming": "admin"}, function (err, result) {
+    db.find("information", {"dengluming": "admin"},{"sort":{"_id":-1}}, function (err, result) {
         // console.log(result);
         if (err || result.length == 0) {
             res.json("");
@@ -742,7 +867,7 @@ app.get("/updataRef", function (req, res, next) {
 
 //显示注册过的教师
 app.get("/showTeacherList", function (req, res, next) {
-    db.find("teachers", {}, function (err, result) {
+    db.find("teacherPost", {}, function (err, result) {
         if (err || result.length == 0) {
             res.json("");
             return;
@@ -750,8 +875,6 @@ app.get("/showTeacherList", function (req, res, next) {
         res.json(result);
     })
 });
-
-
 //课表详情 showLessonTable
 app.get("/showLessonTable", function (req, res, next) {
     db.find("reference", {}, function (err, result) {

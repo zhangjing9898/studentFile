@@ -46,10 +46,10 @@
             <canvas id="line" height="450" width="600"></canvas>
             <canvas id="canvas" height="450" width="450"></canvas>
         </div>
+        <table class="table table-bordered" id="studentInfoTableArea">
+        </table>
         <table class="table table-bordered" id="tableArea">
-            <tr>
-                <th>学生姓名</th>
-                <th>学生学号</th>
+            <tr class="active">
                 <th>课程名称</th>
                 <th>学年</th>
                 <th>学期</th>
@@ -90,9 +90,13 @@
 </div>
 <!--前端模板-->
 <script type="text/template" id="lessonTable">
-    <tr>
-        <td>{{=studentName}}</td>
-        <td>{{=teacherNum}}</td>
+    {{if(allTime>80){}}
+    <tr class="success">
+     {{ }else if(allTime>60){  }}
+        <tr class="warning">
+        {{ }else{ }}
+            <tr class="danger">
+            {{ } }}
         <td>{{=lessonCategory}}</td>
         <td>{{=testYear}}</td>
         <td>{{=testSemester}}</td>
@@ -139,22 +143,31 @@
 //        }
 //    })
     $("#searchGradeBtn").click(function () {
-        console.log("1111");
         $.get("/searchGrade", {
             "studentId": $("#studentId").val()
         }, function (result) {
             if (result == null) {
                 alert("查询成绩失败！");
             }
+            let studentN=result[0].studentName;
+            let studentId=result[0].teacherNum;
+            $("#studentInfoTableArea").html(`<tr class="active">
+                <th >学生姓名</th>
+                <th>学生学号</th>
+            </tr>
+            <tr>
+                <td>${studentN}</td>
+                <td>${studentId}</td>
+            </tr>`)
             iterator(0);
             //迭代器
             //这里防止ajax异步，必须使用迭代器
             function iterator(i) {
+
                 if (i == result.length) {
                     //在这里书写请求完毕之后做的事情
                     return;  //不用继续迭代了
                 }
-                console.log(result[i]);
                 //组装模板
                 var htmlstring = compiled(result[i]);
                 //添加DOM
