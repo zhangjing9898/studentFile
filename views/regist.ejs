@@ -48,6 +48,15 @@
 										<label class="sr-only"  for="form-password">密码</label>
 										<input type="password" id="mima" name="form-password" placeholder="请输入您的密码..." class="form-password form-control" id="form-password">
 									</div>
+									<div class="form-group">
+										<input type="text" id="department" name="form-password" placeholder="请输入您所在院系" class="form-password form-control" id="form-password">
+									</div>
+									<div class="form-group">
+										<input type="text" id="teacherId" name="form-password" placeholder="请输入您的学号" class="form-password form-control" id="form-password">
+									</div>
+									<div class="form-group">
+										<input type="text" id="lesson" name="form-password" placeholder="请输入您所在班级" class="form-password form-control" id="form-password">
+									</div>
 									<button id="zhuce"  type="button" class="btn">注册</button>
 									<div class="alert alert-danger" role="alert" id="cuowukuang" style="display: none">
 										用户名被占用，请更换
@@ -75,9 +84,11 @@
             //用ajax提交表单
             $("#zhuce").click(function(){
                 $.get("/doregist",{
-
                     "dengluming" : $("#dengluming").val(),
-                    "mima" : $("#mima").val()
+                    "mima" : $("#mima").val(),
+					"department":$("#department").val(),
+					"teacherId":$("#teacherId").val(),
+					"lesson":$("#lesson").val()
                 },function(result){
                     if(result == "1"){
                         alert("注册成功！将自动跳转到首页");

@@ -79,59 +79,38 @@
 <!--主要内容-->
 <div class="container summary">
     <div class="task-area-title">
-        <img class="info-img" src="img/info.png" />
-        新消息发布啦~
+        <!--<img class="info-img" src="img/info.png" />-->
+        <!--新消息发布啦~-->
     </div>
     <hr class="divider" />
     <div class="row">
-        <!--<div class="col-md-4 task-area">-->
-            <!--<img src="img/lesson.png" class="img-circle" alt="teacher-head-img" />-->
-            <!--<h2>相关通知</h2>-->
-            <!--<div class="">-->
-                <!--<p>教师：<%= username%></p>-->
-                <!--<p>相关通知记录</p>-->
-            <!--</div>-->
-            <!--<p class="task-enter-btn">-->
-                <!--<a class="btn btn-danger" href="message" role="button">点击进入</a>-->
-            <!--</p>-->
-        <!--</div>-->
-        <!--<div class="col-md-3 task-area">-->
-            <!--<img src="img/table.png" class="img-circle" alt="chrome" />-->
-            <!--<h2>成绩管理</h2>-->
-            <!--<div class="">-->
-                <!--<p>教师：<%= username %></p>-->
-                <!--<p>相关成绩管理</p>-->
-            <!--</div>-->
-            <!--<p class="task-enter-btn">-->
-                <!--<a class="btn btn-danger" href="table" role="button">点击进入</a>-->
-            <!--</p>-->
-        <!--</div>-->
-        <div class="col-md-6 task-area other">
-            <img src="img/resource.png" class="img-circle col-md-8" style="padding: 0" alt="chrome" />
-            <div class="right col-md-4">
-                <h2 style="margin-top: 6px">奖惩管理</h2>
-                <div class="">
-                    <p>教师：<%=username%></p>
-                    <p>相关奖惩管理</p>
-                </div>
-                <p class="task-enter-btn">
-                    <a class="btn btn-danger" href="searchStudentInfo" role="button">点击进入</a>
-                </p>
-            </div>
+        <div class="col-md-3 task-area">
+            <img src="img/lesson.png" class="img-circle" alt="teacher-head-img" />
+            <h2>相关通知</h2>
+            <p class="task-enter-btn">
+                <a class="btn btn-danger" href="messageTeacher" role="button">点击进入</a>
+            </p>
         </div>
-        <div class="col-md-6 task-area other">
-            <img src="img/class.png" alt="chrome" class="img-circle col-md-8" style="padding: 0"/>
-            <div class="right col-md-4">
-                <h2 style="margin-top: 6px">文件下载</h2>
-                <div class="">
-                    <p>教师：<%=username%></p>
-                    <p>相关课程上传</p>
-                </div>
-                <p class="task-enter-btn">
-                    <a class="btn btn-danger" href="lessonUp" role="button">点击进入</a>
-                </p>
-            </div>
-
+        <div class="col-md-3 task-area">
+            <img src="img/table.png" class="img-circle" alt="chrome" />
+            <h2>成绩管理</h2>
+            <p class="task-enter-btn">
+                <a class="btn btn-danger" href="tableTeacher" role="button">点击进入</a>
+            </p>
+        </div>
+        <div class="col-md-3 task-area">
+            <img src="img/resource.png" class="img-circle" alt="chrome" />
+            <h2>奖惩管理</h2>
+            <p class="task-enter-btn">
+                <a class="btn btn-danger" href="searchStudentInfo" role="button">点击进入</a>
+            </p>
+        </div>
+        <div class="col-md-3 task-area">
+            <img src="img/class.png" class="img-circle" alt="chrome" />
+            <h2>文件上传</h2>
+            <p class="task-enter-btn">
+                <a class="btn btn-danger" href="taskAreaTeacher" role="button">点击进入</a>
+            </p>
         </div>
     </div>
     <hr class="divider" />
@@ -152,85 +131,6 @@
     </div>
 </script>
 <script type="text/javascript">
-    var $lessonArea=$("#lessonArea");
-    var $lessonArea2=$("#lessonArea2");
-    var $lessonArea3=$("#lessonArea3");
-    //得到模板函数
-    var compiled=_.template($("#lessonTemplate").html());
-
-    //ajax服务，获取信息
-    $.ajax({
-        "url":"/js/data/lessonArea1.json",
-        "type":"get",
-        "success":function (result) {
-            //result是一个数组
-//                console.log(Array.isArray(result));
-//				console.log(result);
-            iterator(0);
-            //迭代器
-            //这里防止ajax异步，必须使用迭代器
-            function iterator(i) {
-                if (i == result.length) {
-                    //在这里书写请求完毕之后做的事情
-                    return;  //不用继续迭代了
-                }
-                console.log(result[i]);
-                //组装模板
-                var htmlstring = compiled(result[i]);
-                //添加DOM
-                $("#lessonArea").append($(htmlstring));
-                iterator(i + 1);
-            }
-        }
-    })
-    $.ajax({
-        "url":"/js/data/lessonArea2.json",
-        "type":"get",
-        "success":function (result) {
-            //result是一个数组
-//                console.log(Array.isArray(result));
-//				console.log(result);
-            iterator(0);
-            //迭代器
-            //这里防止ajax异步，必须使用迭代器
-            function iterator(i) {
-                if (i == result.length) {
-                    //在这里书写请求完毕之后做的事情
-                    return;  //不用继续迭代了
-                }
-                console.log(result[i]);
-                //组装模板
-                var htmlstring = compiled(result[i]);
-                //添加DOM
-                $("#lessonArea2").append($(htmlstring));
-                iterator(i + 1);
-            }
-        }
-    })
-    $.ajax({
-        "url":"/js/data/lessonArea3.json",
-        "type":"get",
-        "success":function (result) {
-            //result是一个数组
-//                console.log(Array.isArray(result));
-//				console.log(result);
-            iterator(0);
-            //迭代器
-            //这里防止ajax异步，必须使用迭代器
-            function iterator(i) {
-                if (i == result.length) {
-                    //在这里书写请求完毕之后做的事情
-                    return;  //不用继续迭代了
-                }
-//                console.log(result[i]);
-                //组装模板
-                var htmlstring = compiled(result[i]);
-                //添加DOM
-                $("#lessonArea3").append($(htmlstring));
-                iterator(i + 1);
-            }
-        }
-    })
 </script>
 </body>
 </html>

@@ -20,7 +20,7 @@
 </head>
 
 <body>
-<% include header.ejs %>
+<% include headerTeacher.ejs %>
 <div class="container">
     <div class="table-all-area">
         <div class="message-area">
@@ -29,16 +29,18 @@
                     <a href="#">当前位置：</a>
                 </li>
                 <li>
-                    <a href="/">主页</a>
+                    <a href="/teacherIndex">主页</a>
                 </li>
                 <li class="active">
-                    <a href="#">成绩查询</a>
+                    <a href="#">成绩管理</a>
                 </li>
             </ol>
         </div>
-        <div class="canvas-area" style="width:1100px;height:470px; margin: 0 auto;display: none">
-            <canvas id="line" height="450" width="600"></canvas>
-            <canvas id="canvas" height="450" width="450"></canvas>
+        <div class="input-group col-md-3" style="margin-top:0px;positon:relative;margin-bottom: 20px">
+            <input type="text" id="studentId" class="form-control" placeholder="请输入您的学号"/>
+            <span class="input-group-btn">
+                        <button id="searchGradeBtnT" type="button" class="btn btn-primary">查找</button>
+                    </span>
         </div>
         <table class="table table-bordered" id="studentInfoTableArea">
         </table>
@@ -111,25 +113,34 @@
     //得到模板函数
     var compiled = _.template($("#lessonTable").html());
         //ajax服务，获取信息
-    $.get("/searchGrade2", function (result) {
-            if(result==""){
-                $("#tableArea").html("成绩未发布~")
+    $("#searchGradeBtnT").click(function () {
+        $.get("/searchGrade", {
+            "studentId": $("#studentId").val()
+        }, function (result) {
+            if (result == null) {
+                alert("查询成绩失败！");
             }
-            //result是一个数组
+            let studentN=result[0].studentName;
+            let studentId=result[0].teacherNum;
+            $("#studentInfoTableArea").html(`<tr>
+                <th >学生姓名</th>
+                <th>学生学号</th>
+            </tr>
+            <tr>
+                <td>${studentN}</td>
+                <td>${studentId}</td>
+            </tr>`)
             iterator(0);
-            //迭代器
-            //这里防止ajax异步，必须使用迭代器
             function iterator(i) {
                 if (i == result.length) {
-                    //在这里书写请求完毕之后做的事情
-                    return;  //不用继续迭代了
+                    return;
                 }
-                //组装模板
+                console.log(result[i]);
                 var htmlstring = compiled(result[i]);
-                //添加DOM
                 $("#tableArea").append($(htmlstring));
                 iterator(i + 1);
             }
+        })
     })
 
     var lineChartData = {
@@ -217,9 +228,9 @@
         }
 
     ];
-
-    var myDoughnut = new Chart(document.getElementById("canvas").getContext("2d")).Doughnut(doughnutData);
-    new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
+//
+//    var myDoughnut = new Chart(document.getElementById("canvas").getContext("2d")).Doughnut(doughnutData);
+//    new Chart(document.getElementById("line").getContext("2d")).Line(lineChartData);
     //			new Chart(document.getElementById("radar").getContext("2d")).Radar(radarChartData);
 </script>
 </body>

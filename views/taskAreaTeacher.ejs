@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>taskArea</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/taskArea.css"/>
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script src="/js/underscore-noflect.js"></script>
+</head>
+
+<body>
+<% include headerTeacher.ejs %>
+<div class="container">
+    <div class="task-area">
+        <div class="message-area">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="#">当前位置：</a>
+                </li>
+                <li>
+                    <a href="/teacherIndex">主页</a>
+                </li>
+                <li class="active">
+                    <a href="#">文件上传</a>
+                </li>
+            </ol>
+        </div>
+        <hr class="divider task-divider"/>
+        <div class="history-task-record">
+            <p class="title">文件上传:</p>
+            <div id="lesson-info-upload">
+                <form action="/upLessonTeacher" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>上传课程表</label>
+                        <input type="file" class="form-control" id="touxiang" name="touxiang">
+                    </div>
+                    <button type="submit" class="btn btn-primary">上传</button>
+                </form>
+            </div>
+        </div>
+        <hr class="divider task-divider"/>
+        <div class="container summary">
+            <footer>
+                <p class="pull-right">
+                    <a href="#top">回到顶部</a>
+                </p>
+                <p class="pull-left">&copy; 学生档案管理系统</p>
+            </footer>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<script type="text/javascript">
+
+        </script>
+        </body>
+</html>

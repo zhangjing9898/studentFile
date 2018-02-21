@@ -24,7 +24,7 @@
                 if(login){
                 %>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a>欢迎您！学生:<%= username %></a></li>
+                    <li ><a >欢迎您！学生:<span ><%= username %></span></a></li>
                     <li><a href="/userInfo">设置个人资料</a></li>
                     <li> <a data-toggle="modal" class="scrollto" data-target="#change-password1">更改密码</a></li>
                     <li><a href="/exit">退出</a></li>
@@ -46,7 +46,7 @@
                         <a href="/login">登录</a>
                     </li>
                     <li <%if(active=="404"){%> class="active" <%}%>>
-                        <a href="/404">404页面</a>
+                        <!--<a href="/404">404页面</a>-->
                     </li>
                 </ul>
                 <%

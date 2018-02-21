@@ -62,9 +62,11 @@ app.get("/login", function (req, res, next) {
 app.get("/doregist", function (req, res, next) {
     var dengluming = req.query.dengluming;
     var mima = req.query.mima;
+    var department=req.query.department;
+    var teacherId=req.query.teacherId;
+    var lesson=req.query.lesson;
     //加密
     mima = md5(md5(mima).substr(4, 7) + md5(mima));
-
     db.find("users", {"dengluming": dengluming}, function (err, result) {
         if (err) {
             res.send("-3"); //服务器错误
@@ -87,9 +89,35 @@ app.get("/doregist", function (req, res, next) {
             }
             req.session.login = "1";
             req.session.username = dengluming;
-
-            res.send("1"); //注册成功，写入session
+            db.insertOne("post",{
+                "dengluming": dengluming,
+                "teacherId":teacherId,
+                "collegeName":null,
+                "politicalStatus":"团员",
+                "telNum":null,
+                "sex":null,
+                "lesson":lesson,
+                "enterYear":null,
+                "familyInfo":null,
+                "awardInfo":null,
+                "reallyName":null,
+                "IDnumber":null,
+                "parentName":null,
+                "parentPhone":null,
+                "primarySchool":null,
+                "highSchool":null,
+                "department":department,
+                "punish":null
+            }, function (err, result) {
+                if (err) {
+                    res.send("-1");
+                    return;
+                }
+                res.send("1"); //注册成功，写入session
+            })
+            // res.send("1"); //注册成功，写入session
         })
+
     });
 });
 
@@ -245,6 +273,18 @@ app.get("/lessonUp", function (req, res, next) {
     })
 });
 
+app.get("/messageTeacher", function (req, res, next) {
+    //必须保证登陆
+    if (req.session.login != "1") {
+        res.end("非法闯入，这个页面要求登陆！");
+        return;
+    }
+    res.render("messageTeacher", {
+        "login": req.session.login == "1" ? true : false,
+        "username": req.session.login == "1" ? req.session.username : ""
+    });
+})
+
 //教师档案修整页面
 app.get("/searchStudentInfo", function (req, res, next) {
     res.render("searchStudentInfo", {
@@ -290,6 +330,18 @@ app.get("/table", function (req, res, next) {
     });
 })
 
+app.get("/tableTeacher", function (req, res, next) {
+    //必须保证登陆
+    if (req.session.login != "1") {
+        res.end("非法闯入，这个页面要求登陆！");
+        return;
+    }
+    res.render("tableTeacher", {
+        "login": req.session.login == "1" ? true : false,
+        "username": req.session.login == "1" ? req.session.username : ""
+    });
+})
+
 app.get("/taskArea", function (req, res, next) {
     //必须保证登陆
     if (req.session.login != "1") {
@@ -297,6 +349,17 @@ app.get("/taskArea", function (req, res, next) {
         return;
     }
     res.render("taskArea", {
+        "login": req.session.login == "1" ? true : false,
+        "username": req.session.login == "1" ? req.session.username : ""
+    });
+})
+app.get("/taskAreaTeacher", function (req, res, next) {
+    //必须保证登陆
+    if (req.session.login != "1") {
+        res.end("非法闯入，这个页面要求登陆！");
+        return;
+    }
+    res.render("taskAreaTeacher", {
         "login": req.session.login == "1" ? true : false,
         "username": req.session.login == "1" ? req.session.username : ""
     });
@@ -396,6 +459,7 @@ app.get("/updataTeacher", function (req, res, next) {
     var nativePlace=req.query.nativePlace;
     var address=req.query.address;
     var IDnumber = req.query.IDnumber;
+    var teacherTitle=req.query.teacherTitle;
     db.find("teacherPost", {"dengluming": dengluming}, function (err, result) {
         if (result.length != 0) {
             //用户填写过一次，更改它的值
@@ -411,7 +475,8 @@ app.get("/updataTeacher", function (req, res, next) {
                     "nativePlace": nativePlace,
                     "address": address,
                     "IDnumber": IDnumber,
-                    "department": department
+                    "department": department,
+                    "teacherTitle":teacherTitle
                 }
             }, function (err, results) {
                 res.send("1");//修改成功
@@ -432,7 +497,8 @@ app.get("/updataTeacher", function (req, res, next) {
             "address": address,
             "IDnumber": IDnumber,
             "department": department,
-            "dengluming":dengluming
+            "dengluming":dengluming,
+            "teacherTitle":teacherTitle
         }, function (err, result) {
             if (err) {
                 res.send("-1");
@@ -573,6 +639,17 @@ app.get("/searchGrade", function (req, res, next) {
     })
 });
 
+app.get("/searchGrade2", function (req, res, next) {
+    var studentId = req.session.username
+    db.find("grade", {"studentName": studentId}, function (err, result) {
+        console.log("12121"+result);
+        if (err || result.length == 0) {
+            res.json("");
+            return;
+        }
+        res.json(result);
+    })
+});
 //显示档案
 app.get("/searchArchives", function (req, res, next) {
     var studentId = req.query.studentId;
@@ -689,9 +766,11 @@ app.get("/addReference", function (req, res, next) {
 //增加消息
 app.get("/addNotion", function (req, res, next) {
     var notionContent = req.query.notionContent;
+    var putTime=sd.format(new Date(), 'YYYY-MM-DD HH:mm');
     db.insertOne("information", {
         "dengluming": "admin",
-        "content": notionContent
+        "content": notionContent,
+        "putTime":putTime
     }, function (err, result) {
         if (err) {
             res.send("-1");
@@ -776,6 +855,7 @@ app.post("/upLesson", function (req, res, next) {
         });
     });
 });
+
 //上传课程表
 app.post("/upLessonTeacher", function (req, res, next) {
     //必须保证登陆
@@ -823,7 +903,7 @@ app.post("/upLessonTeacher", function (req, res, next) {
                     res.send("-1");
                     return;
                 }
-                res.send("上传成功！<a href='/lessonUp'>回到课程上传页面</a>");
+                res.send("上传成功！<a href='/taskAreaTeacher'>回到课程上传页面</a>");
             })
         });
     });
