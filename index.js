@@ -419,8 +419,13 @@ app.get("/updata", function (req, res, next) {
                     "department": department
                 }
             }, function (err, results) {
-                res.send("1");//修改成功
-
+                db.updateMany("grade",{"studentName":dengluming},{
+                    $set:{
+                        "teacherNum":teacherId
+                    }
+                },function (err,results) {
+                    res.send("1");//修改成功
+                })
             });
             return;
         }
