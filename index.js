@@ -401,6 +401,10 @@ app.get("/updata", function (req, res, next) {
     var familyInfo = req.query.familyInfo;
     var reallyName = req.query.reallyName;
     var IDnumber = req.query.IDnumber;
+    var parentName=req.query.parentName;
+    var parentPhone=req.query.parentPhone;
+    var primarySchool=req.query.primarySchool;
+    var highSchool=req.query.highSchool;
     db.find("post", {"dengluming": dengluming}, function (err, result) {
         if (result.length != 0) {
             //用户填写过一次，更改它的值
@@ -416,7 +420,11 @@ app.get("/updata", function (req, res, next) {
                     "familyInfo": familyInfo,
                     "reallyName": reallyName,
                     "IDnumber": IDnumber,
-                    "department": department
+                    "department": department,
+                    "parentName":parentName,
+                    "parentPhone":parentPhone,
+                    "primaryPhone":parentPhone,
+                    "highSchool":highSchool
                 }
             }, function (err, results) {
                 db.updateMany("grade",{"studentName":dengluming},{
@@ -450,6 +458,71 @@ app.get("/updata", function (req, res, next) {
             res.send("1"); //更改成功
         })
     });
+});
+//教师更改奖惩
+app.get("/updataByTeacher", function (req, res, next) {
+    var dengluming = req.query.dengluming;
+    var department = req.query.department;
+    var teacherId = req.query.teacherId;
+    var collegeName = req.query.collegeName;
+    var politicalStatus = req.query.politicalStatus;
+    var telNum = req.query.telNum;
+    var sex = req.query.sex;
+    var lesson = req.query.lesson;
+    var enterYear = req.query.enterYear;
+    var familyInfo = req.query.familyInfo;
+    var reallyName = req.query.reallyName;
+    var IDnumber = req.query.IDnumber;
+    var parentName=req.query.parentName;
+    var parentPhone=req.query.parentPhone;
+    var primarySchool=req.query.primarySchool;
+    var highSchool=req.query.highSchool;
+    var awardInfo=req.query.awardInfo;
+    var punish=req.query.punish;
+    console.log(dengluming);
+    console.log(punish);
+            db.updateMany("post", {"dengluming": dengluming}, {
+                $set: {
+                    "teacherId": teacherId,
+                    "collegeName": collegeName,
+                    "politicalStatus": politicalStatus,
+                    "enterYear": enterYear,
+                    "telNum": telNum,
+                    "sex": sex,
+                    "lesson": lesson,
+                    "familyInfo": familyInfo,
+                    "reallyName": reallyName,
+                    "IDnumber": IDnumber,
+                    "department": department,
+                    "parentName":parentName,
+                    "parentPhone":parentPhone,
+                    "primaryPhone":parentPhone,
+                    "highSchool":highSchool,
+                    "awardInfo":awardInfo,
+                    "punish":punish
+                }
+            }, function (err, results) {
+                db.updateMany("grade",{"studentName":dengluming},{
+                    $set:{
+                        "teacherNum":teacherId
+                    }
+                },function (err,results) {
+                    if(err){
+                        res.send("error");
+                    }
+                    db.updateMany("punish",{"studentName":dengluming},{
+                        $set:{
+                            "studentNumber":teacherId,
+                            "punishDetail":punish
+                        }
+                    },function (err,resultes) {
+                        if(err){
+                            res.send("error");
+                        }
+                        res.send("1");//修改成功
+                    })
+                })
+            });
 });
 app.get("/updataTeacher", function (req, res, next) {
     var dengluming = req.query.dengluming;
@@ -609,7 +682,6 @@ app.get("/showTeacherInfo", function (req, res, next) {
 app.get("/searchUserinfo", function (req, res, next) {
     var studentid = req.query.studentId;
     db.find("post", {"teacherId": studentid}, function (err, result) {
-        // console.log(result);
         if (err || result.length == 0) {
             res.json("");
             return;
@@ -1195,32 +1267,28 @@ app.get("/updataGrade", function (req, res, next) {
 
 //提交处分修改
 app.get("/updataPunish", function (req, res, next) {
-    var _id = req.query._id;
     var studentName = req.query.studentName;
-    var studentNumber = req.query.studentNumber;
     var punishDate = req.query.punishDate;
     var punishDetail = req.query.punishDetail;
     var punishResult = req.query.punishResult;
-    db.find("punish", {"_id": ObjectId(_id)}, function (err, result) {
-        if (result.length != 0) {
-            //用户填写过一次，更改它的值
-            db.updateMany("punish", {"_id": ObjectId(_id)}, {
+    // console.log(studentName+","+punishDate+","+punishDetail+","+punishResult);
+
+    //用户填写过一次，更改它的值
+            db.updateMany("punish", {"studentName": studentName}, {
                 $set: {
-                    "studentName": studentName,
-                    "studentNumber": studentNumber,
                     "punishDate": punishDate,
                     "punishDetail": punishDetail,
                     "punishResult": punishResult
                 }
             }, function (err, results) {
-                res.send("1");//修改成功
-
+                db.updateMany("post",{"dengluming":studentName},{
+                    $set:{
+                        "punish":punishDetail
+                    }
+                },function (err,results) {
+                    res.send("1");//修改成功
+                })
             });
-            return;
-        }
-        ;
-        res.send("-1"); //错误！
-    });
 });
 
 //删除成绩

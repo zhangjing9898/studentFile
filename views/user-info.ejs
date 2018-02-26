@@ -207,7 +207,6 @@
         <div class="col-sm-10">
             <input disabled id="awardInfo" type="text" class="form-control" value="{{=awardInfo}}" placeholder="">
         </div>
-        <!--<a id="{{=teacherId}}" onclick="showModalAward(id)" data-toggle="modal" class="btn btn-danger scrollto col-sm-2" data-target="#punish-info">详情</a>-->
     </div>
     <div class="form-group col-sm-6">
         <label for="inputPassword3" class="col-sm-2 control-label">处分情况</label>
@@ -297,15 +296,14 @@
     $("#updataBtn").click(function () {
         var politicalstatus = $("#politicalStatus option:selected").text();
         var department = $("#department option:selected").text();
-//			    alert(politicalstatus);
-//			    alert(department);
+        var sex=$("#sex option:selected").text();
         $.get("/updata", {
             "dengluming": $("#dengluming").val(),
             "teacherId": $("#teacherId").val(),
             "collegeName": $("#colleageName").val(),
             "politicalStatus": politicalstatus,
             "telNum": $("#telNum").val(),
-            "sex": $("#sex").val(),
+            "sex": sex,
             "department": department,
             "lesson": $("#lesson").val(),
             "enterYear": $("#enterYear").val(),
@@ -332,7 +330,6 @@
     var compiledPunishInfo = _.template($("#punishInfoTemplate").html());
     //显示处分
     function showModalPunish(idname) {
-//                alert("111");
         $.get("/showPunishInfoModal", {
             "punishModalId": idname
         }, function (result) {

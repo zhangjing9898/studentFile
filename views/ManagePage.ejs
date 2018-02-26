@@ -168,6 +168,7 @@
                         <th>处分结果</th>
                         <th>操作</th>
                     </tr>
+                    <div id="studentNameDiv1"></div>
                 </table>
             </div>
             <div id="indexArea">
@@ -743,14 +744,14 @@
         <div class="form-group has-feedback">
             <label for="input" class="col-sm-2 control-label">姓名</label>
             <div class="col-sm-10">
-                <input id="studentName" type="text" class="form-control" value="{{=studentName}}"
+                <input disabled id="studentName" type="text" class="form-control" value="{{=studentName}}"
                        placeholder="请输入您的真实姓名">
             </div>
         </div>
         <div class="form-group has-feedback">
             <label for="input" class="col-sm-2 control-label">学号</label>
             <div class="col-sm-10">
-                <input id="teacherNum" type="text" class="form-control" value="{{=teacherNum}}"
+                <input disabled id="teacherNum" type="text" class="form-control" value="{{=teacherNum}}"
                        placeholder="请输入您的学号">
             </div>
         </div>
@@ -804,35 +805,35 @@
         <div class="form-group has-feedback">
             <label for="input" class="col-sm-2 control-label">姓名</label>
             <div class="col-sm-10">
-                <input id="studentName" type="text" class="form-control" value="{{=studentName}}"
+                <input disabled id="studentNameP" type="text" class="form-control" value="{{=studentName}}"
                        placeholder="请输入您的真实姓名">
             </div>
         </div>
         <div class="form-group has-feedback">
             <label for="input" class="col-sm-2 control-label">学号</label>
             <div class="col-sm-10">
-                <input id="studentNumber" type="text" class="form-control" value="{{=studentNumber}}"
+                <input disabled id="studentNumber" type="text" class="form-control" value="{{=studentNumber}}"
                        placeholder="请输入您的学号">
             </div>
         </div>
         <div class="form-group has-feedback">
             <label for="input" class="col-sm-2 control-label">处分日期</label>
             <div class="col-sm-10">
-                <input id="punishDate" type="text" class="form-control" value="{{=punishDate}}"
+                <input id="punishDateP" type="text" class="form-control" value="{{=punishDate}}"
                        placeholder="请输入受处分日期">
             </div>
         </div>
         <div class="form-group has-feedback">
             <label for="input" class="col-sm-2 control-label">处分详情</label>
             <div class="col-sm-10">
-                <input id="punishDetail" type="text" class="form-control" value="{{=punishDetail}}"
+                <input id="punishDetail1" type="text" class="form-control" value="{{=punishDetail}}"
                        placeholder="请输入处分详情">
             </div>
         </div>
         <div class="form-group has-feedback">
             <label for="input" class="col-sm-2 control-label">处分结果</label>
             <div class="col-sm-10">
-                <input id="punishResult" type="text" class="form-control" value="{{=punishResult}}"
+                <input id="punishResult1" type="text" class="form-control" value="{{=punishResult}}"
                        placeholder="请输入处分结果">
             </div>
         </div>
@@ -1069,12 +1070,10 @@
     //提交惩罚修改 punishModalBtn
     $("#punishModalBtn").click(function () {
         $.get("/updataPunish", {
-            "_id": $("#_id").val(),
-            "studentName": $("#studentName").val(),
-            "studentNumber": $("#studentNumber").val(),
-            "punishDate": $("#punishDate").val(),
-            "punishDetail": $("#punishDetail").val(),
-            "punishResult": $("#punishResult").val()
+            "studentName": $("#studentNameP").val(),
+            "punishDate": $("#punishDateP").val(),
+            "punishDetail": $("#punishDetail1").val(),
+            "punishResult": $("#punishResult1").val()
         }, function (result) {
             if (result == "1") {
                 alert("提交修改成功！，将自动跳转到后台管理首页");
@@ -1115,7 +1114,7 @@
             "studentNumber": $("#studentNumber").val(),
             "punishDate": $("#punishDate").val(),
             "punishDetail": $("#punishDetail").val(),
-            "punishResult": $("#punishResult").val()
+            "punishResult1": $("#punishResult1").val()
         }, function (result) {
             if (result == "1") {
                 alert("新增处分成功！，将自动跳转到后台管理首页");
@@ -1374,8 +1373,8 @@
         $.get("/searchGrade", {
             "studentId": $("#studentId").val()
         }, function (result) {
-            if (result == null) {
-                alert("查询成绩失败！");
+            if (result == "") {
+                alert("没有该学生成绩");
             }
             let studentN=result[0].studentName;
             let studentId=result[0].teacherNum;
@@ -1491,6 +1490,7 @@
                         <th>所教专业</th>
                         <th>所属院系</th>
                         <th>联系电话</th>
+                             <th>操作</th>
                     </tr>
                     </thead>`)
                 var htmlstring = compiledTeI(result[i]);
@@ -1507,7 +1507,7 @@
             "studentId": $("#studentPunishId").val()
         }, function (result) {
             if (result == "") {
-                $("#studentNameDiv").html("没有该用户处分信息")
+                $("#studentNameDiv1").html("没有该用户处分信息")
             }
             iterator(0);
             function iterator(i) {

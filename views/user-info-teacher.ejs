@@ -177,7 +177,6 @@
     //用ajax提交表单
     $("#updataBtn1").click(function () {
         var major = $("#major option:selected").text();
-        console.log(major);
         var department = $("#department option:selected").text();
         $.get("/updataTeacher", {
             "dengluming": $("#dengluming").val(),

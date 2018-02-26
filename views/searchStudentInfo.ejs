@@ -48,16 +48,7 @@
                     data-target="#addPunish-info">新增处分
             </button>
             <div class="tab-pane row-fluid active" id="tab1">
-                <div class="list-group">
-                    <form class="form-horizontal" id="userinfotable">
-                        <!--<div class="form-group col-sm-6">-->
-                            <!--<label for="input" class="col-sm-2 control-label">账户名</label>-->
-                            <!--<div class="col-sm-10">-->
-                                <!--<input id="dengluming" type="text" class="form-control" disabled placeholder="" value="<%= username %>">-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    </form>
-
+                <div class="list-group" id="userinfotable">
                 </div>
 
             </div>
@@ -138,133 +129,137 @@
     </div>
 </div>
 <script type="text/template" id="infoTemplate">
-    <div class="form-group col-sm-6">
-        <label for="input" class="col-sm-2 control-label">ID</label>
-        <div class="col-sm-10">
-            <input id="" type="text" class="form-control" value="{{=_id}}" placeholder="" disabled>
+    <form class="form-horizontal">
+        <div class="form-group col-sm-6">
+            <label for="input" class="col-sm-2 control-label">ID</label>
+            <div class="col-sm-10">
+                <input id="" type="text" class="form-control" value="{{=_id}}" placeholder="" disabled>
+            </div>
         </div>
-    </div>
-    <div class="form-group col-sm-6">
-        <label for="input" class="col-sm-2 control-label">姓名</label>
-        <div class="col-sm-10">
-            <input id="reallyName" type="text" class="form-control" value="{{=reallyName}}" placeholder="请输入您的真实姓名">
+        <div class="form-group col-sm-6">
+            <label for="input" class="col-sm-2 control-label">姓名</label>
+            <div class="col-sm-10">
+                <input disabled id="reallyName" type="text" class="form-control" value="{{=reallyName}}"
+                       placeholder="请输入您的真实姓名">
+            </div>
         </div>
-    </div>
-    <div class="form-group col-sm-6">
-        <label for="input" class="col-sm-2 control-label">性别</label>
-        <div class="col-sm-10">
-            <select class="form-control" id="sex">
-                <option value="男">男</option>
-                <option value="女">女</option>
-            </select>
+        <div class="form-group col-sm-6">
+            <label for="input" class="col-sm-2 control-label">性别</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="sex">
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                </select>
+            </div>
         </div>
-    </div>
-    <div class="form-group col-sm-6">
-        <label for="input" class="col-sm-2 control-label">学号</label>
-        <div class="col-sm-10">
-            <input id="teacherId" type="text" class="form-control" value="{{=teacherId}}" placeholder="请输入您的学号">
+        <div class="form-group col-sm-6">
+            <label for="input" class="col-sm-2 control-label">学号</label>
+            <div class="col-sm-10">
+                <input id="teacherId" type="text" class="form-control" value="{{=teacherId}}" placeholder="请输入您的学号">
+            </div>
         </div>
-    </div>
-    <div class="form-group col-sm-6">
-        <label for="input" class="col-sm-2 control-label">身份证号</label>
-        <div class="col-sm-10">
-            <input id="IDnumber" type="text" class="form-control" value="{{=IDnumber}}" placeholder="请输入您的身份证号">
+        <div class="form-group col-sm-6">
+            <label for="input" class="col-sm-2 control-label">身份证号</label>
+            <div class="col-sm-10">
+                <input id="IDnumber" type="text" class="form-control" value="{{=IDnumber}}" placeholder="请输入您的身份证号">
+            </div>
         </div>
-    </div>
-    <div class="form-group col-sm-6">
-        <label for="input" class="col-sm-2 control-label">学校名称</label>
-        <div class="col-sm-10">
-            <input id="colleageName" type="text" class="form-control" value="{{=collegeName}}" placeholder="请输入您所在学校名称">
+        <div class="form-group col-sm-6">
+            <label for="input" class="col-sm-2 control-label">学校名称</label>
+            <div class="col-sm-10">
+                <input id="colleageName" type="text" class="form-control" value="{{=collegeName}}"
+                       placeholder="请输入您所在学校名称">
+            </div>
         </div>
-    </div>
-    <div class="form-group col-sm-6">
-        <label for="inputPassword3" class="col-sm-2 control-label">政治面貌</label>
-        <div class="col-sm-10">
-            <select class="form-control" id="politicalStatus">
-                <option value="团员">团员</option>
-                <option value="党员">党员</option>
-                <option value="群众">群众</option>
-            </select>
+        <div class="form-group col-sm-6">
+            <label for="inputPassword3" class="col-sm-2 control-label">政治面貌</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="politicalStatus">
+                    <option value="团员">团员</option>
+                    <option value="党员">党员</option>
+                    <option value="群众">群众</option>
+                </select>
+            </div>
         </div>
-    </div>
-    <div class="form-group col-sm-6">
-        <label for="input" class="col-sm-2 control-label">联系电话</label>
-        <div class="col-sm-10">
-            <input id="telNum" type="text" class="form-control" value="{{=telNum}}" placeholder="请输入您的联系电话">
+        <div class="form-group col-sm-6">
+            <label for="input" class="col-sm-2 control-label">联系电话</label>
+            <div class="col-sm-10">
+                <input id="telNum" type="text" class="form-control" value="{{=telNum}}" placeholder="请输入您的联系电话">
+            </div>
         </div>
-    </div>
-    <div class="form-group col-sm-6">
-        <label for="inputPassword3" class="col-sm-2 control-label">所在院系</label>
-        <div class="col-sm-10">
-            <!--<input id="lesson" type="text" class="form-control"  value="{{=lesson}}" placeholder="请输入您所授课程">-->
-            <!--</div>-->
-            <select class="form-control" id="department" value="{{=department}}">
-                <option value="信息技术与工程学院">信息技术与工程学院</option>
-                <option value="外国语学院">外国语学院</option>
-                <option value="电子商务管理学院">电子商务管理学院</option>
-            </select>
+        <div class="form-group col-sm-6">
+            <label for="inputPassword3" class="col-sm-2 control-label">所在院系</label>
+            <div class="col-sm-10">
+                <!--<input id="lesson" type="text" class="form-control"  value="{{=lesson}}" placeholder="请输入您所授课程">-->
+                <!--</div>-->
+                <select class="form-control" id="department" value="{{=department}}">
+                    <option value="信息技术与工程学院">信息技术与工程学院</option>
+                    <option value="外国语学院">外国语学院</option>
+                    <option value="电子商务管理学院">电子商务管理学院</option>
+                </select>
+            </div>
         </div>
-    </div>
-    <div class="form-group col-sm-6">
-        <label for="inputPassword3" class="col-sm-2 control-label">所在班级</label>
-        <div class="col-sm-10">
-            <input id="lesson" type="text" class="form-control" value="{{=lesson}}" placeholder="请输入您所授课程">
+        <div class="form-group col-sm-6">
+            <label for="inputPassword3" class="col-sm-2 control-label">所在班级</label>
+            <div class="col-sm-10">
+                <input id="lesson" type="text" class="form-control" value="{{=lesson}}" placeholder="请输入您所授课程">
+            </div>
         </div>
-    </div>
-    <div class="form-group col-sm-6">
-        <label for="inputPassword3" class="col-sm-2 control-label">入学年份</label>
-        <div class="col-sm-10">
-            <input id="enterYear" type="text" class="form-control" value="{{=enterYear}}" placeholder="请输入您入学年份">
+        <div class="form-group col-sm-6">
+            <label for="inputPassword3" class="col-sm-2 control-label">入学年份</label>
+            <div class="col-sm-10">
+                <input id="enterYear" type="text" class="form-control" value="{{=enterYear}}" placeholder="请输入您入学年份">
+            </div>
         </div>
-    </div>
-    <div class="form-group col-sm-6">
-        <label for="inputPassword3" class="col-sm-2 control-label">家庭信息</label>
-        <div class="col-sm-10">
-            <input id="familyInfo" type="text" class="form-control" value="{{=familyInfo}}" placeholder="请输入您家庭信息">
+        <div class="form-group col-sm-6">
+            <label for="inputPassword3" class="col-sm-2 control-label">家庭信息</label>
+            <div class="col-sm-10">
+                <input id="familyInfo" type="text" class="form-control" value="{{=familyInfo}}" placeholder="请输入您家庭信息">
+            </div>
         </div>
-    </div>
-    <div class="form-group col-sm-6">
-        <label for="inputPassword3" class="col-sm-2 control-label">父母姓名</label>
-        <div class="col-sm-10">
-            <input id="parentName" type="text" class="form-control" value="{{=parentName}}" placeholder="请输入您父母姓名">
+        <div class="form-group col-sm-6">
+            <label for="inputPassword3" class="col-sm-2 control-label">父母姓名</label>
+            <div class="col-sm-10">
+                <input id="parentName" type="text" class="form-control" value="{{=parentName}}" placeholder="请输入您父母姓名">
+            </div>
         </div>
-    </div>
-    <div class="form-group col-sm-6">
-        <label for="inputPassword3" class="col-sm-2 control-label">父母电话</label>
-        <div class="col-sm-10">
-            <input id="parentPhone" type="text" class="form-control" value="{{=parentPhone}}" placeholder="请输入您父母联系电话">
+        <div class="form-group col-sm-6">
+            <label for="inputPassword3" class="col-sm-2 control-label">父母电话</label>
+            <div class="col-sm-10">
+                <input id="parentPhone" type="text" class="form-control" value="{{=parentPhone}}"
+                       placeholder="请输入您父母联系电话">
+            </div>
         </div>
-    </div>
-    <div class="form-group col-sm-6">
-        <label for="inputPassword3" class="col-sm-2 control-label">初中学校</label>
-        <div class="col-sm-10">
-            <input id="primarySchool" type="text" class="form-control" value="{{=primarySchool}}"
-                   placeholder="请输入您初中所在学校">
+        <div class="form-group col-sm-6">
+            <label for="inputPassword3" class="col-sm-2 control-label">初中学校</label>
+            <div class="col-sm-10">
+                <input id="primarySchool" type="text" class="form-control" value="{{=primarySchool}}"
+                       placeholder="请输入您初中所在学校">
+            </div>
         </div>
-    </div>
-    <div class="form-group col-sm-6">
-        <label for="inputPassword3" class="col-sm-2 control-label">高中学校</label>
-        <div class="col-sm-10">
-            <input id="highSchool" type="text" class="form-control" value="{{=highSchool}}" placeholder="请输入您高中所在学校">
+        <div class="form-group col-sm-6">
+            <label for="inputPassword3" class="col-sm-2 control-label">高中学校</label>
+            <div class="col-sm-10">
+                <input id="highSchool" type="text" class="form-control" value="{{=highSchool}}"
+                       placeholder="请输入您高中所在学校">
+            </div>
         </div>
-    </div>
-    <div class="form-group col-sm-6">
-        <label for="inputPassword3" class="col-sm-2 control-label">得奖情况</label>
-        <div class="col-sm-10">
-            <input id="awardInfo" type="text" class="form-control" value="{{=awardInfo}}"
-                   placeholder="请输入您得奖情况">
+        <div class="form-group col-sm-6">
+            <label for="inputPassword3" class="col-sm-2 control-label">得奖情况</label>
+            <div class="col-sm-10">
+                <input id="awardInfo" type="text" class="form-control" value="{{=awardInfo}}"
+                       placeholder="请输入您得奖情况">
+            </div>
         </div>
-    </div>
-    <div class="form-group col-sm-6">
-        <label for="inputPassword3" class="col-sm-2 control-label">处分情况</label>
-        <div class="col-sm-10">
-            <input id="punish" type="text" class="form-control" value="{{=punish}}"
-                   placeholder="请输入您得奖情况">
+        <div class="form-group col-sm-6">
+            <label for="inputPassword3" class="col-sm-2 control-label">处分情况</label>
+            <div class="col-sm-10">
+                <input id="punish" type="text" class="form-control" value="{{=punish}}"
+                       placeholder="请输入您得奖情况">
+            </div>
         </div>
-    </div>
-    <div class="confirmBtn">
-        <button onclick="teacherClick();" class="btn btn-primary modify-btn" type="submit">修改资料</button>
-    </div>
+    </form>
+    <button type="submit" class="btn btn-primary modify-btn" onclick="change123();">修改资料</button>
 </script>
 <script type="text/javascript">
 
@@ -273,8 +268,10 @@
         $.get("/searchUserinfo", {
             "studentId": $("#studentId").val()
         }, function (result) {
+            console.log(result);
             if (result == '') {
                 alert("没有该学生档案！");
+                return;
             }
             iterator(0);
             //迭代器
@@ -299,39 +296,40 @@
             }
         })
     })
-        //用ajax提交表单
-        var teacherClick=function () {
-            var politicalstatus = $("#politicalStatus option:selected").text();
-            var department = $("#department option:selected").text();
-            $.get("/updataTeacher", {
-                "dengluming": $("#dengluming").val(),
-                "teacherId": $("#teacherId").val(),
-                "collegeName": $("#colleageName").val(),
-                "politicalStatus": politicalstatus,
-                "telNum": $("#telNum").val(),
-                "sex": $("#sex").val(),
-                "department": department,
-                "lesson": $("#lesson").val(),
-                "enterYear": $("#enterYear").val(),
-                "familyInfo": $("#familyInfo").val(),
-                "reallyName": $("#reallyName").val(),
-                "IDnumber": $("#IDnumber").val(),
-                "parentName": $("#parentName").val(),
-                "parentPhone": $("#parentPhone").val(),
-                "primarySchool": $("#primarySchool").val(),
-                "highSchool": $("#highSchool").val(),
-                "awardInfo":$("#awardInfo").val(),
-                "punish":$("#punish").val()
-            }, function (result) {
-                if (result == "1") {
-                    alert("修改成功！，将自动跳转到首页");
-                    window.location = "/";
-                } else {
-                    alert("修改失败！，将自动跳转到首页");
-                    window.location = "/";
-                }
-            })
-        };
+    //用ajax提交表单 更改处分信息
+    var change123=function () {
+        var politicalstatus = $("#politicalStatus option:selected").text();
+        var department = $("#department option:selected").text();
+        var sex = $("#sex option:selected").text();
+        $.get("/updataByTeacher", {
+            "dengluming": $("#reallyName").val(),
+            "teacherId": $("#teacherId").val(),
+            "collegeName": $("#colleageName").val(),
+            "politicalStatus": politicalstatus,
+            "telNum": $("#telNum").val(),
+            "sex": sex,
+            "department": department,
+            "lesson": $("#lesson").val(),
+            "enterYear": $("#enterYear").val(),
+            "familyInfo": $("#familyInfo").val(),
+            "reallyName": $("#reallyName").val(),
+            "IDnumber": $("#IDnumber").val(),
+            "parentName": $("#parentName").val(),
+            "parentPhone": $("#parentPhone").val(),
+            "primarySchool": $("#primarySchool").val(),
+            "highSchool": $("#highSchool").val(),
+            "awardInfo": $("#awardInfo").val(),
+            "punish": $("#punish").val()
+        }, function (result) {
+            if (result == "1") {
+                alert("修改成功！，将自动跳转到首页");
+                window.location = "/teacherIndex";
+            } else {
+                alert("修改失败！，将自动跳转到首页");
+                window.location = "/teacherIndex";
+            }
+        })
+    };
 
 
     //新增处分

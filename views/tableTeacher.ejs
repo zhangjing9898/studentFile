@@ -114,11 +114,14 @@
     var compiled = _.template($("#lessonTable").html());
         //ajax服务，获取信息
     $("#searchGradeBtnT").click(function () {
+        $("#studentInfoTableArea").html("");
+        $("#tableArea").html("");
         $.get("/searchGrade", {
             "studentId": $("#studentId").val()
         }, function (result) {
-            if (result == null) {
-                alert("查询成绩失败！");
+            if (result == "") {
+                alert("没有该同学的成绩，请重新输入学号查询！");
+                return;
             }
             let studentN=result[0].studentName;
             let studentId=result[0].teacherNum;
@@ -130,6 +133,13 @@
                 <td>${studentN}</td>
                 <td>${studentId}</td>
             </tr>`)
+            $("#tableArea").html(`<tr class="active">
+                <th>课程名称</th>
+                <th>学年</th>
+                <th>学期</th>
+                <th>成绩</th>
+                <th>绩点</th>
+            </tr>`)
             iterator(0);
             function iterator(i) {
                 if (i == result.length) {
@@ -137,6 +147,7 @@
                 }
                 console.log(result[i]);
                 var htmlstring = compiled(result[i]);
+
                 $("#tableArea").append($(htmlstring));
                 iterator(i + 1);
             }
