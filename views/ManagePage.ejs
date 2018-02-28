@@ -67,7 +67,7 @@
             <div id="lesson-manage" style="display: none;">
                 <h3>注册用户详情</h3>
                 <div class="input-group col-md-3" style="margin-top:0px;positon:relative;margin-bottom: 20px">
-                <input type="text" id="studentNameId" class="form-control" placeholder="请输入您的学号"/>
+                <input type="text" id="studentNameId" class="form-control" placeholder="请输入您的账号名"/>
                 <span class="input-group-btn">
                         <button id="searchNameBtn" type="button" class="btn btn-primary">查找</button>
                     </span>
@@ -291,49 +291,49 @@
                             <div class="form-group has-feedback">
                                 <label for="input" class="col-sm-2 control-label">姓名</label>
                                 <div class="col-sm-10">
-                                    <input id="studentName" type="text" class="form-control" value=""
+                                    <input id="studentNameA" type="text" class="form-control" value=""
                                            placeholder="请输入您的真实姓名">
                                 </div>
                             </div>
                             <div class="form-group has-feedback">
                                 <label for="input" class="col-sm-2 control-label">学号</label>
                                 <div class="col-sm-10">
-                                    <input id="teacherNum" type="text" class="form-control" value=""
+                                    <input id="teacherNumA" type="text" class="form-control" value=""
                                            placeholder="请输入您的学号">
                                 </div>
                             </div>
                             <div class="form-group has-feedback">
                                 <label for="input" class="col-sm-2 control-label">学年</label>
                                 <div class="col-sm-10">
-                                    <input id="testYear" type="text" class="form-control" value=""
+                                    <input id="testYearA" type="text" class="form-control" value=""
                                            placeholder="请输入考试学年">
                                 </div>
                             </div>
                             <div class="form-group has-feedback">
                                 <label for="input" class="col-sm-2 control-label">学期</label>
                                 <div class="col-sm-10">
-                                    <input id="testSemester" type="text" class="form-control" value=""
+                                    <input id="testSemesterA" type="text" class="form-control" value=""
                                            placeholder="请输入考试学期">
                                 </div>
                             </div>
                             <div class="form-group has-feedback">
                                 <label for="inputPassword3" class="col-sm-2 control-label">考试科目</label>
                                 <div class="col-sm-10">
-                                    <input id="lessonCategory" type="text" class="form-control" value=""
+                                    <input id="lessonCategoryA" type="text" class="form-control" value=""
                                            placeholder="请输入您的考试科目">
                                 </div>
                             </div>
                             <div class="form-group has-feedback">
                                 <label for="inputPassword3" class="col-sm-2 control-label">考试分数</label>
                                 <div class="col-sm-10">
-                                    <input id="allTime" type="text" class="form-control" value=""
+                                    <input id="allTimeA" type="text" class="form-control" value=""
                                            placeholder="请输入您考试分数">
                                 </div>
                             </div>
                             <div class="form-group has-feedback">
                                 <label for="inputPassword3" class="col-sm-2 control-label">绩点</label>
                                 <div class="col-sm-10">
-                                    <input id="gradePoint" type="text" class="form-control" value=""
+                                    <input id="gradePointA" type="text" class="form-control" value=""
                                            placeholder="请输入绩点分数">
                                 </div>
                             </div>
@@ -598,7 +598,7 @@
         <!--<td>{{=_id}}</td>-->
         <td>{{=dengluming}}</td>
         <td>{{=mima}}</td>
-        <td id="{{=_id}}" onclick="deleteMethod(id)">删除</td>
+        <td id="{{=dengluming}}" onclick="deleteMethod(id)">删除</td>
     </tr>
 </script>
 <!--注册教师信息template-->
@@ -737,7 +737,7 @@
         <div class="form-group has-feedback">
             <label for="input" class="col-sm-2 control-label">ID</label>
             <div class="col-sm-10">
-                <input id="_id" type="text" class="form-control" disabled value="{{=_id}}"
+                <input id="_idG" type="text" class="form-control" disabled value="{{=_id}}"
                        placeholder="">
             </div>
         </div>
@@ -758,7 +758,7 @@
         <div class="form-group has-feedback">
             <label for="input" class="col-sm-2 control-label">学年</label>
             <div class="col-sm-10">
-                <input id="testYear" type="text" class="form-control" value="{{=testYear}}"
+                <input id="testYearG" type="text" class="form-control" value="{{=testYear}}"
                        placeholder="请输入考试学年">
             </div>
         </div>
@@ -786,7 +786,7 @@
         <div class="form-group has-feedback">
             <label for="inputPassword3" class="col-sm-2 control-label">绩点</label>
             <div class="col-sm-10">
-                <input id="gradePoint" type="text" class="form-control" value="{{=gradePoint}}"
+                <input id="gradePointG" type="text" class="form-control" value="{{=gradePoint}}"
                        placeholder="请输入绩点分数">
             </div>
         </div>
@@ -1047,20 +1047,18 @@
     //  提交成绩修改
     $("#gradeModalBtn").click(function () {
         $.get("/updataGrade", {
-            "_id": $("#_id").val(),
-            "studentName": $("#studentName").val(),
-            "testYear": $("#testYear").val(),
+            "_id": $("#_idG").val(),
+            "testYear": $("#testYearG").val(),
             "testSemester": $("#testSemester").val(),
-            "teacherNum": $("#teacherNum").val(),
-            "gradePoin": $("#gradePoint").val(),
+            "gradePoint": $("#gradePointG").val(),
             "lessonCategory": $("#lessonCategory").val(),
             "allTime": $("#allTime").val()
         }, function (result) {
             if (result == "1") {
-                alert("新增成绩成功！，将自动跳转到后台管理首页");
+                alert("更改成绩成功！，将自动跳转到后台管理首页");
                 window.location = "/managePage";
             } else {
-                alert("新增成绩失败！，将自动跳转到后台管理首页");
+                alert("更改成绩失败！，将自动跳转到后台管理首页");
                 window.location = "/managePage";
             }
         })
@@ -1088,19 +1086,19 @@
     //新增成绩 addGradeBtn
     $("#addGradeBtn").click(function () {
         $.get("/addGrade", {
-            "studentName": $("#studentName").val(),
-            "tableDate": $("#tableDate").val(),
-            "teacherName": $("#teacherName").val(),
-            "teacherNum": $("#teacherNum").val(),
-            "studyTime": $("#studyTime").val(),
-            "lessonCategory": $("#lessonCategory").val(),
-            "allTime": $("#allTime").val()
+            "studentName":$("#studentNameA").val(),
+            "teacherNum":$("#teacherNumA").val(),
+            "testYear": $("#testYearA").val(),
+            "testSemester": $("#testSemesterA").val(),
+            "gradePoint": $("#gradePointA").val(),
+            "lessonCategory": $("#lessonCategoryA").val(),
+            "allTime": $("#allTimeA").val()
         }, function (result) {
             if (result == "1") {
-                alert("提交修改成功！，将自动跳转到后台管理首页");
+                alert("新增成绩成功！，将自动跳转到后台管理首页");
                 window.location = "/managePage";
             } else {
-                alert("提交失败！，将自动跳转到后台管理首页");
+                alert("新增成绩失败！，将自动跳转到后台管理首页");
                 window.location = "/managePage";
             }
         })
@@ -1140,14 +1138,6 @@
             }
         })
     }
-
-    //修改教师
-//    function updataTeacherInfo(idname){
-//
-//
-//
-//    }
-
     //删除成绩
     function deleteGrade(idname) {
 //        console.log("点击修改按钮！"+idname);

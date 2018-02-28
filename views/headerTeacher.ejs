@@ -113,7 +113,7 @@
                             <p class="form-control-static">Back home?</p>
                         </div>
                         <div class="pull-right">
-                            <a href="/" class="btn btn-outline btn-default">return</a>
+                            <a href="/teacherIndex" class="btn btn-outline btn-default">return</a>
                         </div>
                     </div>
                 </div>
@@ -123,18 +123,18 @@
 </div>
 <script type="text/javascript">
 //    //changePasswordTeacher
-//    $("#changePasswordTeacherBtn").click(function () {
-//        console.log("!11111111");
-//        //用ajax提交表单
-//        $.post("/changePasswordTeacher", {
-//            "dengluming": $("#dengluming").val(),
-//            "mima": $("#mima").val()
-//        }, function (result) {
-//            if (result == "1") {
-//                alert("更改成功！");
-//            } else {
-//                alert("更改失败！");
-//            }
-//        })
-//    })
+    $("#changePasswordTeacherBtn").click(function () {
+        console.log("!11111111");
+        //用ajax提交表单
+        $.post("/changePasswordTeacher", {
+            "dengluming": $("#dengluming").val(),
+            "mima": $("#mima").val()
+        }, function (result) {
+            if (result == "1") {
+                alert("更改成功！");
+            } else {
+                alert("更改失败！");
+            }
+        })
+    })
 </script>

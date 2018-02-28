@@ -62,9 +62,9 @@ app.get("/login", function (req, res, next) {
 app.get("/doregist", function (req, res, next) {
     var dengluming = req.query.dengluming;
     var mima = req.query.mima;
-    var department=req.query.department;
-    var teacherId=req.query.teacherId;
-    var lesson=req.query.lesson;
+    var department = req.query.department;
+    var teacherId = req.query.teacherId;
+    var lesson = req.query.lesson;
     //加密
     mima = md5(md5(mima).substr(4, 7) + md5(mima));
     db.find("users", {"dengluming": dengluming}, function (err, result) {
@@ -89,25 +89,25 @@ app.get("/doregist", function (req, res, next) {
             }
             req.session.login = "1";
             req.session.username = dengluming;
-            db.insertOne("post",{
+            db.insertOne("post", {
                 "dengluming": dengluming,
-                "teacherId":teacherId,
-                "collegeName":null,
-                "politicalStatus":"团员",
-                "telNum":null,
-                "sex":null,
-                "lesson":lesson,
-                "enterYear":null,
-                "familyInfo":null,
-                "awardInfo":null,
-                "reallyName":null,
-                "IDnumber":null,
-                "parentName":null,
-                "parentPhone":null,
-                "primarySchool":null,
-                "highSchool":null,
-                "department":department,
-                "punish":null
+                "teacherId": teacherId,
+                "collegeName": null,
+                "politicalStatus": "团员",
+                "telNum": null,
+                "sex": null,
+                "lesson": lesson,
+                "enterYear": null,
+                "familyInfo": null,
+                "awardInfo": null,
+                "reallyName": null,
+                "IDnumber": null,
+                "parentName": null,
+                "parentPhone": null,
+                "primarySchool": null,
+                "highSchool": null,
+                "department": department,
+                "punish": null
             }, function (err, result) {
                 if (err) {
                     res.send("-1");
@@ -131,7 +131,7 @@ app.post("/changePasswordTeacher", function (req, res, next) {
         mima = md5(md5(mima).substr(4, 7) + md5(mima));
         db.updateMany("teachers", {"dengluming": dengluming}, {
             $set: {
-               "mima":mima
+                "mima": mima
             }
         }, function (err, results) {
             res.send("1");//修改成功
@@ -149,7 +149,7 @@ app.post("/changePasswordStudent", function (req, res, next) {
         mima = md5(md5(mima).substr(4, 7) + md5(mima));
         db.updateMany("users", {"dengluming": dengluming}, {
             $set: {
-                "mima":mima
+                "mima": mima
             }
         }, function (err, results) {
             res.send("1");//修改成功
@@ -167,7 +167,7 @@ app.post("/changePasswordM", function (req, res, next) {
         mima = md5(md5(mima).substr(4, 7) + md5(mima));
         db.updateMany("manager", {"dengluming": dengluming}, {
             $set: {
-                "mima":mima
+                "mima": mima
             }
         }, function (err, results) {
             res.send("1");//修改成功
@@ -401,10 +401,10 @@ app.get("/updata", function (req, res, next) {
     var familyInfo = req.query.familyInfo;
     var reallyName = req.query.reallyName;
     var IDnumber = req.query.IDnumber;
-    var parentName=req.query.parentName;
-    var parentPhone=req.query.parentPhone;
-    var primarySchool=req.query.primarySchool;
-    var highSchool=req.query.highSchool;
+    var parentName = req.query.parentName;
+    var parentPhone = req.query.parentPhone;
+    var primarySchool = req.query.primarySchool;
+    var highSchool = req.query.highSchool;
     db.find("post", {"dengluming": dengluming}, function (err, result) {
         if (result.length != 0) {
             //用户填写过一次，更改它的值
@@ -421,18 +421,24 @@ app.get("/updata", function (req, res, next) {
                     "reallyName": reallyName,
                     "IDnumber": IDnumber,
                     "department": department,
-                    "parentName":parentName,
-                    "parentPhone":parentPhone,
-                    "primaryPhone":parentPhone,
-                    "highSchool":highSchool
+                    "parentName": parentName,
+                    "parentPhone": parentPhone,
+                    "primaryPhone": parentPhone,
+                    "highSchool": highSchool
                 }
             }, function (err, results) {
-                db.updateMany("grade",{"studentName":dengluming},{
-                    $set:{
-                        "teacherNum":teacherId
+                db.updateMany("grade", {"studentName": dengluming}, {
+                    $set: {
+                        "teacherNum": teacherId
                     }
-                },function (err,results) {
-                    res.send("1");//修改成功
+                }, function (err, results) {
+                    db.updateMany("punish", {"studentName": dengluming}, {
+                        $set: {
+                            "studentNumber": teacherId
+                        }
+                    }, function (err, result) {
+                        res.send("1");//修改成功
+                    })
                 })
             });
             return;
@@ -473,71 +479,71 @@ app.get("/updataByTeacher", function (req, res, next) {
     var familyInfo = req.query.familyInfo;
     var reallyName = req.query.reallyName;
     var IDnumber = req.query.IDnumber;
-    var parentName=req.query.parentName;
-    var parentPhone=req.query.parentPhone;
-    var primarySchool=req.query.primarySchool;
-    var highSchool=req.query.highSchool;
-    var awardInfo=req.query.awardInfo;
-    var punish=req.query.punish;
+    var parentName = req.query.parentName;
+    var parentPhone = req.query.parentPhone;
+    var primarySchool = req.query.primarySchool;
+    var highSchool = req.query.highSchool;
+    var awardInfo = req.query.awardInfo;
+    var punish = req.query.punish;
     console.log(dengluming);
     console.log(punish);
-            db.updateMany("post", {"dengluming": dengluming}, {
+    db.updateMany("post", {"dengluming": dengluming}, {
+        $set: {
+            "teacherId": teacherId,
+            "collegeName": collegeName,
+            "politicalStatus": politicalStatus,
+            "enterYear": enterYear,
+            "telNum": telNum,
+            "sex": sex,
+            "lesson": lesson,
+            "familyInfo": familyInfo,
+            "reallyName": reallyName,
+            "IDnumber": IDnumber,
+            "department": department,
+            "parentName": parentName,
+            "parentPhone": parentPhone,
+            "primaryPhone": parentPhone,
+            "highSchool": highSchool,
+            "awardInfo": awardInfo,
+            "punish": punish
+        }
+    }, function (err, results) {
+        db.updateMany("grade", {"studentName": dengluming}, {
+            $set: {
+                "teacherNum": teacherId
+            }
+        }, function (err, results) {
+            if (err) {
+                res.send("error");
+            }
+            db.updateMany("punish", {"studentName": dengluming}, {
                 $set: {
-                    "teacherId": teacherId,
-                    "collegeName": collegeName,
-                    "politicalStatus": politicalStatus,
-                    "enterYear": enterYear,
-                    "telNum": telNum,
-                    "sex": sex,
-                    "lesson": lesson,
-                    "familyInfo": familyInfo,
-                    "reallyName": reallyName,
-                    "IDnumber": IDnumber,
-                    "department": department,
-                    "parentName":parentName,
-                    "parentPhone":parentPhone,
-                    "primaryPhone":parentPhone,
-                    "highSchool":highSchool,
-                    "awardInfo":awardInfo,
-                    "punish":punish
+                    "studentNumber": teacherId,
+                    "punishDetail": punish
                 }
-            }, function (err, results) {
-                db.updateMany("grade",{"studentName":dengluming},{
-                    $set:{
-                        "teacherNum":teacherId
-                    }
-                },function (err,results) {
-                    if(err){
-                        res.send("error");
-                    }
-                    db.updateMany("punish",{"studentName":dengluming},{
-                        $set:{
-                            "studentNumber":teacherId,
-                            "punishDetail":punish
-                        }
-                    },function (err,resultes) {
-                        if(err){
-                            res.send("error");
-                        }
-                        res.send("1");//修改成功
-                    })
-                })
-            });
+            }, function (err, resultes) {
+                if (err) {
+                    res.send("error");
+                }
+                res.send("1");//修改成功
+            })
+        })
+    });
 });
 app.get("/updataTeacher", function (req, res, next) {
     var dengluming = req.query.dengluming;
     var department = req.query.department;
-    var teacherName=req.query.teacherName;
-    var teacherNum=req.query.teacherNum;
+    var teacherName = req.query.teacherName;
+    var teacherNum = req.query.teacherNum;
     var telNum = req.query.telNum;
     var sex = req.query.sex;
     var major = req.query.major;
-    var teacherAge=req.query.teacherAge;
-    var national=req.query.national;
-    var nativePlace=req.query.nativePlace;
-    var address=req.query.address;
+    var teacherAge = req.query.teacherAge;
+    var national = req.query.national;
+    var nativePlace = req.query.nativePlace;
+    var address = req.query.address;
     var IDnumber = req.query.IDnumber;
-    var teacherTitle=req.query.teacherTitle;
+    var teacherTitle = req.query.teacherTitle;
     db.find("teacherPost", {"dengluming": dengluming}, function (err, result) {
         if (result.length != 0) {
             //用户填写过一次，更改它的值
@@ -554,7 +560,7 @@ app.get("/updataTeacher", function (req, res, next) {
                     "address": address,
                     "IDnumber": IDnumber,
                     "department": department,
-                    "teacherTitle":teacherTitle
+                    "teacherTitle": teacherTitle
                 }
             }, function (err, results) {
                 res.send("1");//修改成功
@@ -575,8 +581,8 @@ app.get("/updataTeacher", function (req, res, next) {
             "address": address,
             "IDnumber": IDnumber,
             "department": department,
-            "dengluming":dengluming,
-            "teacherTitle":teacherTitle
+            "dengluming": dengluming,
+            "teacherTitle": teacherTitle
         }, function (err, result) {
             if (err) {
                 res.send("-1");
@@ -719,7 +725,7 @@ app.get("/searchGrade", function (req, res, next) {
 app.get("/searchGrade2", function (req, res, next) {
     var studentId = req.session.username
     db.find("grade", {"studentName": studentId}, function (err, result) {
-        console.log("12121"+result);
+        console.log("12121" + result);
         if (err || result.length == 0) {
             res.json("");
             return;
@@ -753,7 +759,7 @@ app.get("/searchName", function (req, res, next) {
 app.get("/searchTeacher", function (req, res, next) {
     var studentId = req.query.studentId;
     db.find("teacherPost", {"teacherNum": studentId}, function (err, result) {
-        console.log(result);
+        // console.log(result);
         if (err || result.length == 0) {
             res.json("");
             return;
@@ -764,7 +770,7 @@ app.get("/searchTeacher", function (req, res, next) {
 app.get("/searchPunish", function (req, res, next) {
     var studentId = req.query.studentId;
     db.find("punish", {"studentNumber": studentId}, function (err, result) {
-        console.log(result);
+        // console.log(result);
         if (err || result.length == 0) {
             res.json("");
             return;
@@ -843,11 +849,11 @@ app.get("/addReference", function (req, res, next) {
 //增加消息
 app.get("/addNotion", function (req, res, next) {
     var notionContent = req.query.notionContent;
-    var putTime=sd.format(new Date(), 'YYYY-MM-DD HH:mm');
+    var putTime = sd.format(new Date(), 'YYYY-MM-DD HH:mm');
     db.insertOne("information", {
         "dengluming": "admin",
         "content": notionContent,
-        "putTime":putTime
+        "putTime": putTime
     }, function (err, result) {
         if (err) {
             res.send("-1");
@@ -859,7 +865,7 @@ app.get("/addNotion", function (req, res, next) {
 
 //显示消息
 app.get("/showInform", function (req, res, next) {
-    db.find("information", {"dengluming": "admin"},{"sort":{"_id":-1}}, function (err, result) {
+    db.find("information", {"dengluming": "admin"}, {"sort": {"_id": -1}}, function (err, result) {
         // console.log(result);
         if (err || result.length == 0) {
             res.json("");
@@ -889,10 +895,10 @@ app.post("/upLesson", function (req, res, next) {
     }
     var username = req.session.username;
     var form = new formidable.IncomingForm();
-    console.log(form);
+    // console.log(form);
     form.uploadDir = path.normalize(__dirname + "/public/download");
     form.parse(req, function (err, fields, files) {
-        console.log(files);
+        // console.log(files);
         var ttt = sd.format(new Date(), 'YYYY-MM-DD');
         var ran = parseInt(Math.random() * 89999 + 10000);
         var oldpath = files.touxiang.path;
@@ -942,10 +948,10 @@ app.post("/upLessonTeacher", function (req, res, next) {
     }
     var username = req.session.username;
     var form = new formidable.IncomingForm();
-    console.log(form);
+    // console.log(form);
     form.uploadDir = path.normalize(__dirname + "/public/download");
     form.parse(req, function (err, fields, files) {
-        console.log(files);
+        // console.log(files);
         var ttt = sd.format(new Date(), 'YYYY-MM-DD');
         var ran = parseInt(Math.random() * 89999 + 10000);
         var oldpath = files.touxiang.path;
@@ -1164,12 +1170,16 @@ app.get("/deleteUser", function (req, res) {
     //接收其他参数
     var deleteid = req.query.deleteid;
     //插入数据到DB中
-    db.deleteMany("users", {"_id": ObjectId(deleteid)}, function (err, result) {
+    db.deleteMany("users", {"dengluming": deleteid}, function (err, result) {
         if (err) {
             res.send("-1");
             return;
         }
-        res.send("1"); //删除成功
+        db.deleteMany("post",{"dengluming": deleteid},function(err,result){
+          db.deleteMany("punish",{"studentName":deleteid},function (err,reslut) {
+           res.send("1");
+          })
+        })
     })
 });
 
@@ -1234,34 +1244,22 @@ app.get("/showPunishInfoModal", function (req, res, next) {
 //提交成绩修改
 app.get("/updataGrade", function (req, res, next) {
     var _id = req.query._id;
-    var studentName = req.query.studentName;
-    var tableDate = req.query.tableDate;
-    var teacherName = req.query.teacherName;
-    var teacherNum = req.query.teacherNum;
-    var studyTime = req.query.studyTime;
+    var testYear = req.query.testYear;
+    var testSemester = req.query.testSemester;
+    var gradePoint = req.query.gradePoint;
     var lessonCategory = req.query.lessonCategory;
     var allTime = req.query.allTime;
-    db.find("grade", {"_id": ObjectId(_id)}, function (err, result) {
-        if (result.length != 0) {
-            //用户填写过一次，更改它的值
-            db.updateMany("grade", {"_id": ObjectId(_id)}, {
-                $set: {
-                    "studentName": studentName,
-                    "tableDate": tableDate,
-                    "teacherName": teacherName,
-                    "teacherNum": teacherNum,
-                    "studyTime": studyTime,
-                    "lessonCategory": lessonCategory,
-                    "allTime": allTime
-                }
-            }, function (err, results) {
-                res.send("1");//修改成功
-
-            });
-            return;
+    // console.log(gradePoint+","+lessonCategory+","+allTime +","+testYear+","+testSemester);
+    db.updateMany("grade", {"_id": ObjectId(_id)}, {
+        $set: {
+            "testYear": testYear,
+            "testSemester": testSemester,
+            "gradePoint": gradePoint,
+            "lessonCategory": lessonCategory,
+            "allTime": allTime
         }
-        ;
-        res.send("-1"); //错误！
+    }, function (err, results) {
+        res.send("1");//修改成功
     });
 });
 
@@ -1274,21 +1272,21 @@ app.get("/updataPunish", function (req, res, next) {
     // console.log(studentName+","+punishDate+","+punishDetail+","+punishResult);
 
     //用户填写过一次，更改它的值
-            db.updateMany("punish", {"studentName": studentName}, {
-                $set: {
-                    "punishDate": punishDate,
-                    "punishDetail": punishDetail,
-                    "punishResult": punishResult
-                }
-            }, function (err, results) {
-                db.updateMany("post",{"dengluming":studentName},{
-                    $set:{
-                        "punish":punishDetail
-                    }
-                },function (err,results) {
-                    res.send("1");//修改成功
-                })
-            });
+    db.updateMany("punish", {"studentName": studentName}, {
+        $set: {
+            "punishDate": punishDate,
+            "punishDetail": punishDetail,
+            "punishResult": punishResult
+        }
+    }, function (err, results) {
+        db.updateMany("post", {"dengluming": studentName}, {
+            $set: {
+                "punish": punishDetail
+            }
+        }, function (err, results) {
+            res.send("1");//修改成功
+        })
+    });
 });
 
 //删除成绩
@@ -1308,18 +1306,19 @@ app.get("/deleteGrade", function (req, res) {
 //新增成绩
 app.get("/addGrade", function (req, res, next) {
     var studentName = req.query.studentName;
-    var tableDate = req.query.tableDate;
-    var teacherName = req.query.teacherName;
     var teacherNum = req.query.teacherNum;
-    var studyTime = req.query.studyTime;
+    var testYear = req.query.testYear;
+    var testSemester = req.query.testSemester;
+    var gradePoint = req.query.gradePoint;
     var lessonCategory = req.query.lessonCategory;
     var allTime = req.query.allTime;
+    console.log(req.query);
     db.insertOne("grade", {
         "studentName": studentName,
-        "tableDate": tableDate,
-        "teacherName": teacherName,
         "teacherNum": teacherNum,
-        "studyTime": studyTime,
+        "testYear": testYear,
+        "testSemester": testSemester,
+        "gradePoint": gradePoint,
         "lessonCategory": lessonCategory,
         "allTime": allTime
     }, function (err, result) {
